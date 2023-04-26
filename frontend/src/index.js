@@ -6,10 +6,10 @@ import  { ChakraProvider  ,ColorModeScript,theme } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ChakraProvider theme = {theme}>
-    <ColorModeScript>
+  // <ChakraProvider theme = {theme}>
+    // <ColorModeScript>
       <App />
-    </ColorModeScript>
-  </ChakraProvider>
+    // {/* </ColorModeScript> */}
+  // </ChakraProvider>
 );
 
