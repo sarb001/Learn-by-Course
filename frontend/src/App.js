@@ -37,7 +37,7 @@ function App() {
                     <Route  path = "/courses"     element = {<Courses />}>  </Route>
                     <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>
 
-                    <Route exact path = "/login"  element = {<Login  /> }>  </Route>
+                    <Route  path = "/login"  element = {<Login  /> }>  </Route>
                     <Route exact path = "/changepassword"  element = {<ChangePassword /> }>  </Route>
                     <Route exact path = "/updateprofile"  element = {<UpdateProfile /> }>  </Route>
                     <Route exact path = "/profile"  element = {<Profile /> }>  </Route>
@@ -46,7 +46,7 @@ function App() {
                     <Route exact path = "/contact"  element = {<Contact /> }>  </Route>
                     <Route exact path = "/request"  element = {<Request /> }>  </Route>
                     <Route exact path = "/about"  element = {<About /> }>  </Route>
-                    <Route exact path = "/register"  element = {<Register /> }>  </Route>
+                    <Route  path = "/register"  element = {<Register /> }>  </Route>
 
 
                     <Route exact path = "/forgetpassword"  element = {<ForgetPassword  /> }>  </Route>
