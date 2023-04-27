@@ -87,7 +87,16 @@ export const login = async(req,res) => {
 
         }catch(error)
         {
-            console.log('Error While Registering is- ',error);
+            console.log('Error While Login is- ',error);
         }
 
+}
+
+export const logout = async(req,res) => {
+    res.status(200).cookie("token",null , {
+        expires : new Date(Date.now()),
+        httpOnly : true,
+    }).json({
+        message : " Logged Out Perfectly "
+    })
 }
