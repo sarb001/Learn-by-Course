@@ -32,8 +32,6 @@ export const register = async(req,res,next) => {
 
             console.log('token is - ',token);
 
-            // res.cookie()
-
          const options = {
             expires : new Date(Date.now()),
             httpOnly : true,
@@ -53,5 +51,32 @@ export const register = async(req,res,next) => {
 }
 
 export const login = async(req,res) => {
+
+    const { email,password }  = req.body;
+
+        try{
+
+            if(!email || !password){
+                return res.json({message : " Please Fill All the Fields  "})
+            }
+
+            let user = await User.findOne({email}).select("+password");
+
+            if(!user) return res.json({message: " User not Present "})
+
+            const ismatch = await bcrypt.compare(password,user.password);
+
+            if(!ismatch){
+                 return res.json({message : ' InCorrect Email or Password '});
+            }else{
+                return res.status(200).json({
+                    message : ` Now ${user.name} Logged In Bro `
+                })
+            }
+
+        }catch(error)
+        {
+            console.log('Error While Registering is- ',error);
+        }
 
 }
