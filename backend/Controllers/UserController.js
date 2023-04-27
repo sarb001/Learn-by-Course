@@ -30,14 +30,13 @@ export const register = async(req,res,next) => {
                     expiresIn : '1d',
             })
 
-            console.log('token is - ',token);
+            console.log(' Signup token is - ',token);
 
-         const options = {
-            expires : new Date(Date.now()),
-            httpOnly : true,
-            secure : true,
-         }
-
+            const options = {
+                expires : new Date(Date.now()),
+                httpOnly : true,
+                // secure : true,
+            }
 
            return  res.status(201).cookie("token" , token , options).json({
                 message : " User Created Now",
@@ -63,14 +62,26 @@ export const login = async(req,res) => {
             let user = await User.findOne({email}).select("+password");
 
             if(!user) return res.json({message: " User not Present "})
-
             const ismatch = await bcrypt.compare(password,user.password);
 
             if(!ismatch){
                  return res.json({message : ' InCorrect Email or Password '});
             }else{
-                return res.status(200).json({
-                    message : ` Now ${user.name} Logged In Bro `
+
+                var token = jwt.sign({_id : user._id},'ekekkkeke' , {
+                    expiresIn : '1d',
+                   })
+
+                console.log(' Login token is - ',token);
+                 const options = {
+                    expires : new Date(Date.now()),
+                    httpOnly : true,
+                    // secure : true,
+                }
+    
+               return  res.status(200).cookie("token" , token , options).json({
+                    message : ` Now ${user.name} Logged In Bro  `,
+                    token,
                 })
             }
 
