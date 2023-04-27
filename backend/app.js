@@ -12,10 +12,9 @@ dotenv.config({
 connectdb();
 const PORT = process.env.PORT 
 
+app.use(express.json())
 
 app.use('/api/v1',user);
-
-
 
 
 app.listen(PORT,() => {
