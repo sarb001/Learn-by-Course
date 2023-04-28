@@ -27,19 +27,20 @@ export const register = async(req,res,next) => {
             console.log('created user is --',createuser);
 
             var token = jwt.sign({_id : createuser._id},'ekekkkeke' , {
-                    expiresIn : '1d',
+                    expiresIn : '15d',
             })
 
             console.log(' Signup token is - ',token);
 
             const options = {
-                expires : new Date(Date.now()),
+                expires : new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
                 httpOnly : true,
-                // secure : true,
+                sameSite : "none", 
             }
 
            return  res.status(201).cookie("token" , token , options).json({
                 message : " User Created Now",
+                user,
                 token,
             })
 
@@ -74,13 +75,14 @@ export const login = async(req,res) => {
 
                 console.log(' Login token is - ',token);
                  const options = {
-                    expires : new Date(Date.now()),
+                    expires : new Date(Date.now() +  15 * 24 * 60 * 60 * 1000),
                     httpOnly : true,
-                    // secure : true,
+                    sameSite : "none", 
                 }
     
                return  res.status(200).cookie("token" , token , options).json({
                     message : ` Now ${user.name} Logged In Bro  `,
+                    user,
                     token,
                 })
             }
@@ -102,10 +104,9 @@ export const logout = async(req,res) => {
 }
 
 export const getuserprofile = async(req,res) => {
-
     try{
         const getuser = await User.findById(req.user._id);
-        
+
         res.status(200).json({
             message : " User Found",
             getuser
