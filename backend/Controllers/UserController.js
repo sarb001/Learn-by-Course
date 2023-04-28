@@ -100,3 +100,19 @@ export const logout = async(req,res) => {
         message : " Logged Out Perfectly "
     })
 }
+
+export const getuserprofile = async(req,res) => {
+
+    try{
+        const getuser = await User.findById(req.user._id);
+        
+        res.status(200).json({
+            message : " User Found",
+            getuser
+        })
+    }catch(error)
+    {
+        console.log('error is --',error);
+    }
+
+}
