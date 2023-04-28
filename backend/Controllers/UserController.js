@@ -15,17 +15,16 @@ export const register = async(req,res,next) => {
             if(user){
                 return res.json({message : ' user Already Existed '})
             }
-            
-            let hashpass = await bcrypt.hash(password,10)
            
             const createuser = await User.create({
                 name,
                 email,
-                password : hashpass
+                password 
             })
-            console.log(' Hash Pass is  --',hashpass);
+
             console.log('created user is --',createuser);
 
+            //creating Token 
             var token = jwt.sign({_id : createuser._id},'ekekkkeke' , {
                     expiresIn : '15d',
             })
@@ -40,7 +39,7 @@ export const register = async(req,res,next) => {
 
            return  res.status(201).cookie("token" , token , options).json({
                 message : " User Created Now",
-                user,
+                createuser,
                 token,
             })
 
@@ -55,7 +54,6 @@ export const login = async(req,res) => {
     const { email,password }  = req.body;
 
         try{
-
             if(!email || !password){
                 return res.json({message : " Please Fill All the Fields  "})
             }
@@ -63,14 +61,15 @@ export const login = async(req,res) => {
             let user = await User.findOne({email}).select("+password");
 
             if(!user) return res.json({message: " User not Present "})
-            const ismatch = await bcrypt.compare(password,user.password);
+
+            const ismatch = await user.comparePassword(password);
 
             if(!ismatch){
                  return res.json({message : ' InCorrect Email or Password '});
             }else{
 
                 var token = jwt.sign({_id : user._id},'ekekkkeke' , {
-                    expiresIn : '1d',
+                    expiresIn : '15d',
                    })
 
                 console.log(' Login token is - ',token);
@@ -116,4 +115,27 @@ export const getuserprofile = async(req,res) => {
         console.log('error is --',error);
     }
 
+}
+
+export const changepassword = async(req,res) => {
+    const {oldpassword,newpassword} = req.body;
+
+    if(!oldpassword || !newpassword){
+        return res.json({message: " Please Fill All the Fields "})
+    }
+
+    const  userpass  = await User.findById(req.user._id).select("+password");
+    const ismatch = await userpass.comparePassword(oldpassword);
+    
+
+    if(!ismatch){
+        return res.json({message : " Old Password is not Correct "})
+    }
+
+    userpass.password = newpassword;
+    await userpass.save();
+
+    res.status(200).json({
+        message : " Password Updated "
+    })
 }
