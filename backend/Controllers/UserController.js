@@ -167,13 +167,12 @@ export const forgetpassword  = async(req,res) => {
 
 }
 
-
 export const  deleteuserprofile = async(req,res) => {
     try{
         const deluser = await User.findById(req.user._id);
 
         await deluser.deleteOne();
-        
+
         res.status(200).cookie("token",null ,{
             expires : new Date(Date.now())
         }).json({

@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import user from './Routes/UserRoutes.js';
+import course from './Routes/CourseRoutes.js';
+
 import { connectdb } from './Config/Database.js';
 
 import cookieparser from  'cookie-parser';
@@ -18,6 +20,7 @@ app.use(cookieparser());
 app.use(express.json())
 
 app.use('/api/v1',user);
+app.use('/api/v1',course);
 
 
 app.listen(PORT,() => {
