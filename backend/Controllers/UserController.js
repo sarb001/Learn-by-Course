@@ -49,7 +49,7 @@ export const register = async(req,res,next) => {
 
 }
 
-export const login = async(req,res) => {
+export const login  = async(req,res) => {
 
     const { email,password }  = req.body;
 
@@ -102,7 +102,7 @@ export const logout = async(req,res) => {
     })
 }
 
-export const getuserprofile = async(req,res) => {
+export const getuserprofile  = async(req,res) => {
     try{
         const getuser = await User.findById(req.user._id);
 
@@ -117,7 +117,7 @@ export const getuserprofile = async(req,res) => {
 
 }
 
-export const changepassword = async(req,res) => {
+export const changepassword  = async(req,res) => {
     const {oldpassword,newpassword} = req.body;
 
     if(!oldpassword || !newpassword){
@@ -140,7 +140,7 @@ export const changepassword = async(req,res) => {
     })
 }
 
-export const updateprofile = async(req,res) => {
+export const updateprofile   = async(req,res) => {
     const { name ,email } = req.body;
 
     try{
@@ -161,4 +161,26 @@ export const updateprofile = async(req,res) => {
     console.log('Error While uDPATE pROFILE',error);
     }
 
+}
+
+export const forgetpassword  = async(req,res) => {
+
+}
+
+
+export const  deleteuserprofile = async(req,res) => {
+    try{
+        const deluser = await User.findById(req.user._id);
+
+        await deluser.deleteOne();
+        
+        res.status(200).cookie("token",null ,{
+            expires : new Date(Date.now())
+        }).json({
+            message : " User Deleted Successfully "
+        })
+
+    }catch(error){
+        console.log('Error While Deleting User',error);
+    }
 }
