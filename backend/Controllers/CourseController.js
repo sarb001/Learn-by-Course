@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 import { Course } from "../Models/Course.js";
 
-export const createcourse = async(req,res) => {
+
+export const  createcourse = async(req,res) => {
     const { title,description,category ,createdBy } = req.body;
 
     try{
@@ -25,6 +26,22 @@ export const createcourse = async(req,res) => {
         console.log('Error while Creating Course  -- ',error);
     }
 }
+
+export const  deletecourse = async(req,res) => {
+    const {id} = req.params;
+
+    const delcourse = await Course.findById(id);
+
+    if(!delcourse){
+        return res.json({message : " Course Not Found "})
+    }
+
+    await delcourse.deleteOne();
+    res.status(200).json({
+        message : " Course Deleted "
+    })
+}
+
 
 export const getallcourses = async(req,res) => {
 
