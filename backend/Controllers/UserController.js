@@ -139,3 +139,26 @@ export const changepassword = async(req,res) => {
         message : " Password Updated "
     })
 }
+
+export const updateprofile = async(req,res) => {
+    const { name ,email } = req.body;
+
+    try{
+        if(!email || !name){
+            return res.json({message: " Please Fill All the Fields "})
+        }
+        const user = await User.findById(req.user._id);
+
+        if(name)  { user.name  =  name}
+        if(email) { user.email = email}
+
+        await user.save();
+        return res.status(200).json({
+            message : " Profile Data Updated "
+        })
+
+    }catch(error){
+    console.log('Error While uDPATE pROFILE',error);
+    }
+
+}
