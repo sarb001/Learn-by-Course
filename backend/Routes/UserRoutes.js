@@ -1,7 +1,11 @@
 import express from 'express';
-import { addedtoplaylist, changepassword, deleteuserprofile, forgetpassword, getuserprofile, login, logout, register, removefromplaylist, updateprofile } 
+import { DeleteUser, addedtoplaylist, changepassword,
+     deletemyprofile,forgetpassword, getallusers,
+      getmyprofile,
+      login, logout, register, removefromplaylist,
+     updateUserRole, updateprofile } 
 from '../Controllers/UserController.js';
-import { isAuthenticated } from '../Middlewares/auth.js';
+import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
 const router = express.Router();
 
 
@@ -9,8 +13,8 @@ router.route('/register').post(register)
 router.route('/login').post(login)
 router.route('/logout').get(logout)
 
-router.route('/getuserprofile').get( isAuthenticated ,getuserprofile)
-router.route('/deleteuserprofile').delete( isAuthenticated ,deleteuserprofile)
+router.route('/getmyprofile').get( isAuthenticated ,getmyprofile)
+router.route('/deletemyprofile').delete( isAuthenticated ,deletemyprofile)
 
 
 router.route('/changepassword').put( isAuthenticated ,changepassword)
@@ -27,6 +31,16 @@ router.route('/updateprofile').put( isAuthenticated ,updateprofile)
 router.route('/addedtoplaylist').post(isAuthenticated,addedtoplaylist)
 
 router.route('/removefromplaylist').delete(isAuthenticated,removefromplaylist)
+
+
+// Specific for admin
+
+router.route('/admin/users').get(isAuthenticated,authorizeAdmin,getallusers)
+
+
+router.route('/admin/user/:id')
+.put(isAuthenticated,authorizeAdmin,updateUserRole)
+.delete(isAuthenticated,authorizeAdmin,DeleteUser)
 
 
 export default router;

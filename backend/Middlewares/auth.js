@@ -15,3 +15,10 @@ export const isAuthenticated = async(req,res,next) => {
     req.user = await User.findById(decoded._id);
     next();
 }
+
+export const authorizeAdmin = async(req,res,next) => {
+    if(req.user.role !== "admin"){
+        return res.json({message : ` ${req.user.role} is not allowed to Access this Resource `})
+    };
+    next();
+}
