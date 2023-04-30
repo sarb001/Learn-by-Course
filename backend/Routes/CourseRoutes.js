@@ -7,11 +7,10 @@ router.route('/allcourses').get(getallcourses)
 
 router.route('/createcourse').post(createcourse)
 
-router.route('/course/:id')
-.get(getcourselectures)
+router.route('/course/:id').get(getcourselectures)
 .post(addlecture)
 .delete(deletecourse)
 
-router.route('/lecture').post(addlecture).delete(deletelecture)
+router.route('/lecture').delete(deletelecture)
 
 export default router;

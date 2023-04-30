@@ -54,32 +54,54 @@ export const getallcourses = async(req,res) => {
     }
 }
 
-export const addlecture = async(req,res) => {
+export const addlecture    = async(req,res) => {
     const { id } = req.params;
     const {title,description} = req.body;
 
     const getspecificCourse = await Course.findById(id);
 
-    if(!getspecificCourse){
-        return res.json({message : " Course Not  Found  Can't Add Lectures Now "})
-    }
+    if(!getspecificCourse)return res.json({message : " Course Not  Found  Can't Add Lectures Now "})
 
-    getspecificCourse.lectures.push({
-        title,
-        description
-    })
+    getspecificCourse.lectures.push({title,description})
 
     getspecificCourse.numofvideos = getspecificCourse.lectures.length;
 
     await getspecificCourse.save();
-    res.status(200).json({
-        message: " Lecture Added Now "
-    })
+    res.status(200).json({message: " Lecture Added Now "})
 
 }
 
 export const deletelecture = async(req,res) => {
 
+    const { courseid , lectureid  } = req.query;
+
+    try{
+                const findcourse = await Course.findById(courseid);
+                if(!findcourse){
+                    return res.json({message : " Course Not Found "});
+                }
+                
+                const findspecificlecture = findcourse.lectures.find((item) => {
+                    if(item._id.toString() === lectureid.toString())
+                    return item;
+                })  
+                
+                console.log('find lecture -- ',findspecificlecture);                 // got the  lecture 
+                
+                     findcourse.lectures = findcourse.lectures.filter((item) => {          // here Removed it Permanently 
+                    if(item._id.toString() !== lectureid.toString()){
+                        return item;
+                    }
+                })
+                
+                // console.log('Delete lecture -- ',delspecificlecture);
+
+                await findcourse.save();
+                res.status(200).json({ message : " Lecture Deleted " })
+                
+            }catch(error){
+                console.log('Error is -',error);
+            }
 }
 
 
