@@ -86,16 +86,13 @@ export const deletelecture = async(req,res) => {
                     return item;
                 })  
                 
-                console.log('find lecture -- ',findspecificlecture);                 // got the  lecture 
+                console.log('find lecture -- ',findspecificlecture);                        // got the  lecture 
                 
-                     findcourse.lectures = findcourse.lectures.filter((item) => {          // here Removed it Permanently 
+                findcourse.lectures = findcourse.lectures.filter((item) => {          // here Removed it Permanently 
                     if(item._id.toString() !== lectureid.toString()){
                         return item;
                     }
                 })
-                
-                // console.log('Delete lecture -- ',delspecificlecture);
-
                 await findcourse.save();
                 res.status(200).json({ message : " Lecture Deleted " })
                 
@@ -104,7 +101,16 @@ export const deletelecture = async(req,res) => {
             }
 }
 
-
 export const getcourselectures = async(req,res) => {
+        const { id }  = req.params;
+        const findcourse = await Course.findById(id);
 
+        if(!findcourse){ return res.json({message : " Course Not Found "})  }
+
+        findcourse.views +=1;
+
+        await findcourse.save();
+        res.status(200).json({
+            lectures : findcourse.lectures
+        })
 }
