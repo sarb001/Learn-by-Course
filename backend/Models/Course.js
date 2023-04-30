@@ -31,28 +31,28 @@ const schema =  new mongoose.Schema({
         default : Date.now,
     },
 
-    // lectures : [
-    //     {
-    //         title : {
-    //             type:String,
-    //             required : true,
-    //         },
-    //         description : {
-    //             type:String,
-    //             required : true,
-    //         },
-    //         video : {
-    //             public_id : {
-    //                 type:String,
-    //                 required: true,
-    //             },
-    //             url : {
-    //                 type:String,
-    //                 required : true,
-    //             },
-    //         },
-    //     }
-    // ],
+    lectures : [
+        {
+            title : {
+                type:String,
+                required : true,
+            },
+            description : {
+                type:String,
+                required : true,
+            },
+            // video : {
+            //     public_id : {
+            //         type:String,
+            //         required: true,
+            //     },
+            //     url : {
+            //         type:String,
+            //         required : true,
+            //     },
+            // },
+        }
+    ],
 
     // poster : {
     //     public_id  : {

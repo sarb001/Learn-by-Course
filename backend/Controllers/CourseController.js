@@ -42,7 +42,6 @@ export const  deletecourse = async(req,res) => {
     })
 }
 
-
 export const getallcourses = async(req,res) => {
 
     try{
@@ -53,4 +52,37 @@ export const getallcourses = async(req,res) => {
     }catch(error){
         console.log('');
     }
+}
+
+export const addlecture = async(req,res) => {
+    const { id } = req.params;
+    const {title,description} = req.body;
+
+    const getspecificCourse = await Course.findById(id);
+
+    if(!getspecificCourse){
+        return res.json({message : " Course Not  Found  Can't Add Lectures Now "})
+    }
+
+    getspecificCourse.lectures.push({
+        title,
+        description
+    })
+
+    getspecificCourse.numofvideos = getspecificCourse.lectures.length;
+
+    await getspecificCourse.save();
+    res.status(200).json({
+        message: " Lecture Added Now "
+    })
+
+}
+
+export const deletelecture = async(req,res) => {
+
+}
+
+
+export const getcourselectures = async(req,res) => {
+
 }
