@@ -1,5 +1,6 @@
 import express from 'express';
-import { changepassword, deleteuserprofile, forgetpassword, getuserprofile, login, logout, register, updateprofile } from '../Controllers/UserController.js';
+import { addedtoplaylist, changepassword, deleteuserprofile, forgetpassword, getuserprofile, login, logout, register, removefromplaylist, updateprofile } 
+from '../Controllers/UserController.js';
 import { isAuthenticated } from '../Middlewares/auth.js';
 const router = express.Router();
 
@@ -18,8 +19,14 @@ router.route('/changepassword').put( isAuthenticated ,changepassword)
 router.route('/forgetpassword').put( isAuthenticated ,forgetpassword)
 
 
-
 router.route('/updateprofile').put( isAuthenticated ,updateprofile)
+
+
+// added to Playlist
+
+router.route('/addedtoplaylist').post(isAuthenticated,addedtoplaylist)
+
+router.route('/removefromplaylist').delete(isAuthenticated,removefromplaylist)
 
 
 export default router;

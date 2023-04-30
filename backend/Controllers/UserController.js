@@ -3,6 +3,7 @@ import { User } from '../Models/User.js';
 import  bcrypt  from 'bcrypt';
 
 import jwt  from "jsonwebtoken";
+import { Course } from "../Models/Course.js";
 
 export const register = async(req,res,next) => {
    
@@ -103,6 +104,7 @@ export const logout = async(req,res) => {
 }
 
 export const getuserprofile  = async(req,res) => {
+
     try{
         const getuser = await User.findById(req.user._id);
 
@@ -182,4 +184,35 @@ export const  deleteuserprofile = async(req,res) => {
     }catch(error){
         console.log('Error While Deleting User',error);
     }
+}
+
+export const addedtoplaylist = async(req,res) => {
+
+    const user = await User.findById(req.user._id);
+    const course = await Course.findById(req.body.id);
+
+    if(!course){ return res.json({message : " Invalid Course ID "})}
+
+    const itemExist = user.playlist.find((item) => {
+        if(course._id.toString() === item.course.toString())
+        return true;
+    })
+
+    if(itemExist) {
+        return res.json({message : " Item already Existed "})
+    }
+
+
+    user.playlist.push({
+        course:course._id
+    })
+
+    await user.save();
+    res.status(200).json({
+        message : " Added to Playlist "
+    })
+}
+
+export const removefromplaylist = async(req,res) => {
+
 }
