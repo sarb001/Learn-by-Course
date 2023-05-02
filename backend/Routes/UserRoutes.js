@@ -5,7 +5,9 @@ import { DeleteUser, addedtoplaylist, changepassword,
       login, logout, register, removefromplaylist,
      updateUserRole, updateprofile } 
 from '../Controllers/UserController.js';
+
 import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
+
 const router = express.Router();
 
 
