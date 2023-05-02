@@ -23,20 +23,38 @@ export const useReducer =  createReducer({}, {
         state.message = null;
     },
 
-    signupRequest : (state) => {
-        state.loading = true; 
-    },  
-    signupSuccess  : (state,action) => {
+
+    loadUserRequest  : (state,action) =>  {
+        state.loading = true;
+    },
+    loadUserSuccess  : (state,action) =>  {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
-        state.message = action.payload.message     
+        state.user = action.payload;    
     },
-    signupFail  : (state,action) =>  {
+    loadUserFail  : (state,action) =>  {
         state.loading = false;
         state.isAuthenticated = false;
         state.error = action.payload.error;
     },
+
+
+
+
+    // signupRequest : (state) => {
+    //     state.loading = true; 
+    // },  
+    // signupSuccess  : (state,action) => {
+    //     state.loading = false;
+    //     state.isAuthenticated = true;
+    //     state.user = action.payload.user;
+    //     state.message = action.payload.message     
+    // },
+    // signupFail  : (state,action) =>  {
+    //     state.loading = false;
+    //     state.isAuthenticated = false;
+    //     state.error = action.payload.error;
+    // },
 
 
 })

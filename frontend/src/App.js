@@ -26,6 +26,7 @@ import Footer from './Components/Layout/Footer/Footer';
 
 import { useDispatch, useSelector } from 'react-redux';
 import toast,{ Toaster } from 'react-hot-toast';
+import { getmyprofile } from './Redux/actions/user';
 
 function App() {
 
@@ -42,6 +43,10 @@ function App() {
       dispatch({ type:"clearMessage" });
     }
   },[dispatch,error,message]);
+
+  useEffect(() => {
+      dispatch(getmyprofile())
+  },[dispatch])
 
   return (
     <div className = "App">

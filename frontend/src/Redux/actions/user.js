@@ -23,6 +23,24 @@ export  const login = (email,password) => async(dispatch) => {
 }
 
 
+export  const getmyprofile = () => async(dispatch) => {
+    try{
+        dispatch({type:"loadUserRequest"});
+
+        const { data }  = await axios.get(`${server}/getmyprofile` ,
+            {
+                withCredentials : true,
+            });
+
+    console.log('Get Profile Data is --',data);
+    dispatch({type : "loadUserSuccess",payload : data.user})
+    
+}catch(error){
+    dispatch({type : "loadUserFail", payload : error.response.data.message })
+    }
+}
+
+
 export  const register = (email,password) => async(dispatch) => {
     try{
         dispatch({type:"loginRequest"});
