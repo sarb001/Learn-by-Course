@@ -23,7 +23,7 @@ export  const login = (email,password) => async(dispatch) => {
 }
 
 
-export  const getmyprofile = () => async(dispatch) => {
+export  const loaduser = () => async(dispatch) => {
     try{
         dispatch({type:"loadUserRequest"});
 

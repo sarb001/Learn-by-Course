@@ -26,7 +26,7 @@ import Footer from './Components/Layout/Footer/Footer';
 
 import { useDispatch, useSelector } from 'react-redux';
 import toast,{ Toaster } from 'react-hot-toast';
-import { getmyprofile } from './Redux/actions/user';
+import { getmyprofile, loaduser } from './Redux/actions/user';
 
 function App() {
 
@@ -45,13 +45,12 @@ function App() {
   },[dispatch,error,message]);
 
   useEffect(() => {
-      dispatch(getmyprofile())
+    dispatch(loaduser());
   },[dispatch])
 
   return (
     <div className = "App">
        <Router>
-
           <Header user = {user}  isAuthenticated = {isAuthenticated} />
                 <Routes>
                     <Route exact path = "/"       element = {<Home />}>  </Route>
