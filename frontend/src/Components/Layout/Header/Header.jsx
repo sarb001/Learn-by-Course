@@ -16,10 +16,10 @@ import {
 
 import  ColorModeSwitcher  from  '../../../ColorModeSwitcher';
 import { useDisclosure } from '@chakra-ui/react';
-// import { useDispatch } from  'react-redux';
 import { Link } from 'react-router-dom';
 
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from 'react-icons/ri';
+
 
 const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
       <Link onClick = {onClose} to = {url}>
@@ -27,16 +27,10 @@ const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
       </Link>
 )
 
-const Header = () => {
+const Header = ({user, isAuthenticated }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // const dispatch = useDispatch();
 
-  const isAuthenticated =  false;
-  const user =  {
-    role: 'admin'
-  }
- 
   const logoutHandler = () => {
       console.log('lout');
   }
@@ -62,7 +56,7 @@ const Header = () => {
         <DrawerOverlay />
         <DrawerContent>
               <DrawerHeader borderBottomWidth={'1px'}>
-                COURSE BUNDLER
+                COURSE BUNDLERR 
               </DrawerHeader>
 
                 <DrawerBody>

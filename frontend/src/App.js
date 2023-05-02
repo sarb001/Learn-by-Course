@@ -25,12 +25,17 @@ import Users from './Components/Admin/Users/Users';
 import Footer from './Components/Layout/Footer/Footer';
 
 import { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 function App() {
+
+  const { isAuthenticated , user }  = useSelector(state => state.user)
+
   return (
     <div className = "App">
        <Router>
-          <Header />
+
+          <Header user = {user}  isAuthenticated = {isAuthenticated} />
                 <Routes>
                     <Route exact path = "/"       element = {<Home />}>  </Route>
 

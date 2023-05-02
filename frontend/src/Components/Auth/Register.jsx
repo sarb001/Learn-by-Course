@@ -10,9 +10,10 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { register } from '../../Redux/actions/user';
 
 export const fileUploadCss = {
   cursor: 'pointer',
@@ -37,7 +38,7 @@ const Register = () => {
   // const [imagePrev, setImagePrev] = useState('');
   // const [image, setImage] = useState('');
   
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
 
   // const changeImageHandler = e => {
@@ -66,7 +67,7 @@ const Register = () => {
       // myForm.append('file',image)
 
       console.log('myform is --',myForm);
-      // dispatch(register(myForm));
+      dispatch(register(myForm));
   }
 
 
