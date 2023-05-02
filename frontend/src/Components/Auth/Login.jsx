@@ -10,19 +10,19 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import  { useDispatch } from 'react-redux'
-// import { login } from '../../Redux/actions/user';
+import  { useDispatch } from 'react-redux';
+import { login } from '../../Redux/actions/user';
 
 const Login = () => {
   
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 
-// const dispatch = useDispatch()
+const dispatch = useDispatch()
 
 const submitHandler = e => {
   e.preventDefault();
-  // dispatch(login(email,password));
+  dispatch(login(email,password))
 };
 
 return (

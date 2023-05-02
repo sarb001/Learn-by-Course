@@ -1,12 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-
 export const useReducer =  createReducer({}, {
+
     loginRequest  : (state,action) =>  {
         state.loading = true;
     },
     loginSuccess  : (state,action) =>  {
-        state.loading = true;
+        state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
         state.message = action.payload.message     
@@ -14,12 +14,12 @@ export const useReducer =  createReducer({}, {
     loginFail  : (state,action) =>  {
         state.loading = false;
         state.isAuthenticated = false;
-        state.error = action.payload;
+        state.error = action.payload.error;
     },
     clearError : (state,action) => {
         state.error = null;
     },
-    clearMessage : () => {
+    clearMessage : (state) => {
         state.message = null;
     },
 })
