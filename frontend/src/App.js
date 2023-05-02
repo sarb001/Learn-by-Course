@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router , Route , Routes } from 'react-router-dom';
 import Home from './Components/Home/Home';
 import Header from './Components/Layout/Header/Header';
@@ -24,12 +24,24 @@ import AdminCourse from './Components/Admin/AdminCourses/AdminCourse';
 import Users from './Components/Admin/Users/Users';
 import Footer from './Components/Layout/Footer/Footer';
 
-import { Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import toast,{ Toaster } from 'react-hot-toast';
 
 function App() {
 
-  const { isAuthenticated , user }  = useSelector(state => state.user)
+  const { isAuthenticated , user  , message,error}  = useSelector(state => state.user)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(error){
+      toast.error(error);
+      dispatch({ type:"clearError" });
+    }
+    if(message){
+      toast.success(message);
+      dispatch({ type:"clearMessage" });
+    }
+  },[dispatch,error,message]);
 
   return (
     <div className = "App">
