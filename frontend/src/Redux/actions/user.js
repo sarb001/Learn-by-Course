@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 export  const login = (email,password) => async(dispatch) => {
     
+    const navigate = useNavigate();
     
     try{
-        const navigate = useNavigate();
         dispatch({type:"loginRequest"});
 
         const { data }  = await axios.post(`${server}/login` , {
