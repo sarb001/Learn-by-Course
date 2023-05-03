@@ -28,6 +28,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast,{ Toaster } from 'react-hot-toast';
 import { getmyprofile, loaduser } from './Redux/actions/user';
 
+import { ProtectedRoute } from 'protected-route-react';
+
+
 function App() {
 
   const { isAuthenticated , user  , message,error}  = useSelector(state => state.user)
@@ -58,11 +61,17 @@ function App() {
                     <Route  path = "/courses"     element = {<Courses />}>  </Route>
                     <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>
 
-                    <Route  path = "/login"  element = {<Login  /> }>  </Route>
+        {/* If user is not verified or logged in show Logged In Page */}
+                    <Route  path = "/login"  element = {
+                      <ProtectedRoute isAuthenticated = {!isAuthenticated}  redirect = "/profile">
+                        <Login  /> 
+                      </ProtectedRoute>
+                    }>  </Route>
                     <Route exact path = "/changepassword"  element = {<ChangePassword /> }>  </Route>
                     <Route exact path = "/updateprofile"  element = {<UpdateProfile /> }>  </Route>
-                    <Route exact path = "/profile"  element = {<Profile /> }>  </Route>
-                  
+                    <Route exact path = "/profile"  
+                      element = { <ProtectedRoute>  <Profile />  </ProtectedRoute>
+                    }>  </Route>
                   
                     <Route exact path = "/contact"  element = {<Contact /> }>  </Route>
                     <Route exact path = "/request"  element = {<Request /> }>  </Route>
