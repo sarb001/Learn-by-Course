@@ -38,6 +38,20 @@ export const useReducer =  createReducer({}, {
     //     state.error = action.payload.error;
     // },
 
+    logoutUserRequest : (state,action) => {
+        state.loading = true;
+    },
+    logoutUserSuccess : (state,action) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.message =  action.payload;
+    },
+    logoutUserFail  : (state,action) =>  {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.error = action.payload;
+        },
 
 
 
