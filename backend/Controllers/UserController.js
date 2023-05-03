@@ -34,7 +34,7 @@ export const register = async(req,res,next) => {
 
             const options = {
                 expires : new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-                httpOnly : true,
+                httpOnly : false,
                 secure : true,
                 sameSite : "none", 
             }
@@ -77,7 +77,7 @@ export const login  = async(req,res) => {
                 console.log(' Login token is - ',token);
                  const options = {
                     expires : new Date(Date.now() +  15 * 24 * 60 * 60 * 1000),
-                    httpOnly : true, 
+                    httpOnly :false, 
                     secure : true,
                     sameSite : "none", 
                 }
