@@ -99,7 +99,9 @@ export const login  = async(req,res) => {
 export const logout = async(req,res) => {
     res.status(200).cookie("token",null , {
         expires : new Date(Date.now()),
-        httpOnly : true,
+        httpOnly : false,
+        secure : true,
+        sameSite : "none", 
     }).json({
         message : " Logged Out Perfectly "
     })
