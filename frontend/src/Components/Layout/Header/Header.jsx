@@ -24,7 +24,7 @@ import { logout } from '../../../Redux/actions/user';
 
 
 const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
-      <Link onClick = {onClose} to = {url}>
+      <Link onClick    = {onClose} to = {url}>
         <Button variant={'ghost'}> {title}  </Button>
       </Link>
 )

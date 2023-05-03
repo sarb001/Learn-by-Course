@@ -1,8 +1,14 @@
 
 import axios from 'axios';
 import { server } from '../store';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export  const login = (email,password) => async(dispatch) => {
+
+    const navigate = useNavigate();
+
     try{
         dispatch({type:"loginRequest"});
 
@@ -14,8 +20,9 @@ export  const login = (email,password) => async(dispatch) => {
                 withCredentials : true,
             });
 
-    console.log('data is Login  --',data);
-    dispatch({type : "loginSuccess",payload : data})
+            console.log('data is Login  --',data);
+            dispatch({type : "loginSuccess",payload : data})
+            navigate('/profile')
     
 }catch(error){
     dispatch({type : "loginFail", payload : error.response.data.message })

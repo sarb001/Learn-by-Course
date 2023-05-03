@@ -63,7 +63,7 @@ function App() {
 
         {/* If user is not verified or logged in show Logged In Page */}
                     <Route  path = "/login"  element = {
-                      <ProtectedRoute isAuthenticated = {!isAuthenticated}  redirect = "/profile">
+                      <ProtectedRoute isAuthenticated = {!isAuthenticated}>
                         <Login  /> 
                       </ProtectedRoute>
                     }>  </Route>
