@@ -65,7 +65,7 @@ export const login  = async(req,res) => {
 
             if(!ismatch){
                  return res.json({message : ' InCorrect Email or Password '});
-            }else{
+            }
                 var token = jwt.sign({_id : user._id},'ekekkkeke' , {
                     expiresIn : '15d',
                    })
@@ -83,7 +83,7 @@ export const login  = async(req,res) => {
                     user,
                     token,
                 })
-            }
+            
 
         }catch(error)
         {
