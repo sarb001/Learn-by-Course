@@ -62,7 +62,7 @@ export const login  = async(req,res) => {
             let user = await User.findOne({email}).select("+password");
             if(!user) return res.json({message: " User not Present "})
             // const ismatch = await user.comparePassword(password);
-            const ismatch = await bcrypt.compare(password.user.password)
+            const ismatch = await bcrypt.compare(password,user.password)
 
             if(!ismatch){
                  return res.json({message : ' InCorrect Email or Password '});
