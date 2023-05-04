@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export  const login = (email,password) => async(dispatch) => {
     
     try{
-        const navigate = useNavigate();
+        // const navigate = useNavigate();
 
         dispatch({type:"loginRequest"});
 
@@ -22,7 +22,7 @@ export  const login = (email,password) => async(dispatch) => {
 
             console.log('data is Login  --',data);
             dispatch({type : "loginSuccess",payload : data})
-            navigate('/profile')
+            // navigate('/profile')
     
 }catch(error){
     dispatch({type : "loginFail", payload : error.response.data.message })
