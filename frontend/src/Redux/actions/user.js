@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export  const login = (email,password) => async(dispatch) => {
     
     try{
-        // const navigate = useNavigate();
+        const navigate = useNavigate();
 
            dispatch({type:"loginRequest"});
         const { data }  = await axios.post(`${server}/login` , {
@@ -20,7 +20,7 @@ export  const login = (email,password) => async(dispatch) => {
 
             console.log('data is Login  --',data);
             dispatch({type : "loginSuccess",payload : data})
-            // navigate('/profile')
+            navigate('/profile')
      }catch(error)
      {
         console.log('Error in Login  is --',error);
