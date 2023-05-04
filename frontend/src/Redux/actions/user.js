@@ -11,7 +11,6 @@ export  const login = (email,password) => async(dispatch) => {
         // const navigate = useNavigate();
 
         dispatch({type:"loginRequest"});
-
         const { data }  = await axios.post(`${server}/login` , {
             email,password},{
                 headers : {
@@ -23,10 +22,11 @@ export  const login = (email,password) => async(dispatch) => {
             console.log('data is Login  --',data);
             dispatch({type : "loginSuccess",payload : data})
             // navigate('/profile')
-    
-}catch(error){
-    dispatch({type : "loginFail", payload : error.response.data.message })
-    }
+     }catch(error)
+     {
+        console.log('Error in Login  is --',error);
+       dispatch({type : "loginFail", payload : error.response.data.message })
+     }
 }
 
 export const logout   = () =>  async dispatch   => {
