@@ -5,29 +5,29 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export  const login = (email,password) => async(dispatch) => {
+// export  const login = (email,password) => async(dispatch) => {
     
-    try{
-        // const navigate = useNavigate();
+//     try{
+//         // const navigate = useNavigate();
 
-        dispatch({type:"loginRequest"});
-        const { data }  = await axios.post(`${server}/login` , {
-            email,password},{
-                headers : {
-                    'Content-type' : "application/json",
-                },
-                withCredentials : true,
-            });
+//            dispatch({type:"loginRequest"});
+//         const { data }  = await axios.post(`${server}/login` , {
+//             email,password},{
+//                 headers : {
+//                     'Content-type' : "application/json",
+//                 },
+//                 withCredentials : true,
+//             });
 
-            console.log('data is Login  --',data);
-            dispatch({type : "loginSuccess",payload : data})
-            // navigate('/profile')
-     }catch(error)
-     {
-        console.log('Error in Login  is --',error);
-       dispatch({type : "loginFail", payload : error.response.data.message })
-     }
-}
+//             console.log('data is Login  --',data);
+//             dispatch({type : "loginSuccess",payload : data})
+//             // navigate('/profile')
+//      }catch(error)
+//      {
+//         console.log('Error in Login  is --',error);
+//        dispatch({type : "loginFail", payload : error.response.data.message })
+//      }
+// }
 
 // export const logout   = () =>  async dispatch   => {
 //     try{

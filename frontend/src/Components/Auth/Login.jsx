@@ -22,7 +22,7 @@ const dispatch = useDispatch()
 
 const submitHandler = e => {
   e.preventDefault();
-  dispatch(login(email,password))
+  // dispatch(login(email,password))
 };
 
 return (

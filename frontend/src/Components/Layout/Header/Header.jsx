@@ -35,9 +35,9 @@ const Header = ({user, isAuthenticated }) => {
 
   const dispatch = useDispatch();
 
-  // const logoutHandler = () => {
-  //       dispatch(logout());
-  // }
+  const logoutHandler = () => {
+        // dispatch(logout());
+  }
 
   return (
     <>
@@ -60,7 +60,7 @@ const Header = ({user, isAuthenticated }) => {
         <DrawerOverlay />
         <DrawerContent>
               <DrawerHeader borderBottomWidth={'1px'}>
-                COURSE BUNDLERRGGJJ
+                COURSE BUNDLERRD 
               </DrawerHeader>
 
                 <DrawerBody>
