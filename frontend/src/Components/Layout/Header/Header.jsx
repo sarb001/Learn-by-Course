@@ -60,7 +60,7 @@ const Header = ({user, isAuthenticated }) => {
         <DrawerOverlay />
         <DrawerContent>
               <DrawerHeader borderBottomWidth={'1px'}>
-                COURSE BUNDLERRGG 
+                COURSE BUNDLERRGGJJ
               </DrawerHeader>
 
                 <DrawerBody>
