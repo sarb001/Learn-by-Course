@@ -56,7 +56,7 @@ function App() {
        <Router>
           <Header user = {user}  isAuthenticated = {isAuthenticated} />
                 <Routes>
-                    <Route exact path = "/"       element = {<Home />}>  </Route>
+                    <Route  exact path = "/"       element = {<Home />}>  </Route>
 
                     <Route  path = "/courses"     element = {<Courses />}>  </Route>
                     <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>

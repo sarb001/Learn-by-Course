@@ -59,17 +59,13 @@ export const login  = async(req,res) => {
             if(!email || !password){
                 return res.json({message : " Please Fill All the Fields  "})
             }
-
             let user = await User.findOne({email}).select("+password");
-
             if(!user) return res.json({message: " User not Present "})
-
             const ismatch = await user.comparePassword(password);
 
             if(!ismatch){
                  return res.json({message : ' InCorrect Email or Password '});
             }else{
-
                 var token = jwt.sign({_id : user._id},'ekekkkeke' , {
                     expiresIn : '15d',
                    })
