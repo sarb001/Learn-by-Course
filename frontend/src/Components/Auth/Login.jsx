@@ -9,7 +9,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import  { useDispatch } from 'react-redux';
 import { login } from '../../Redux/actions/user';
 
@@ -19,10 +19,13 @@ const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 
 const dispatch = useDispatch()
+const navigate = useNavigate();
+
 
 const submitHandler = e => {
   e.preventDefault();
   dispatch(login(email,password))
+  navigate('/profile')
 };
 
 return (
