@@ -61,9 +61,10 @@ function App() {
                     <Route  path = "/courses"     element = {<Courses />}>  </Route>
                     <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>
 
-        {/* If user is not verified or logged in show Logged In Page */}
+              {/* If user is not verified or logged in show Logged In Page */}
+
                     <Route  path = "/login"  element = {
-                      <ProtectedRoute isAuthenticated = {!isAuthenticated}>
+                      <ProtectedRoute isAuthenticated = {!isAuthenticated} redirect = "/profile">
                         <Login  /> 
                       </ProtectedRoute>
                     }>  </Route>
@@ -72,7 +73,8 @@ function App() {
                     {/* Only able to access Profile if user is authenticated */}
                     <Route exact path = "/profile"  
                       element = {
-                         <ProtectedRoute isAuthenticated = {isAuthenticated}>  
+                         <ProtectedRoute isAuthenticated = {isAuthenticated} 
+                          >  
                           <Profile />  
                         </ProtectedRoute>
                     }>  </Route>
