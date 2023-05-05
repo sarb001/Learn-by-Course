@@ -65,14 +65,13 @@ export const login  = async(req,res) => {
 
             const ismatch = await bcrypt.compare(password,user.password)
 
-            if(!ismatch){
-                 return res.json({message : ' InCorrect Email or Password '});
-            }
-                var token = jwt.sign({_id : user._id},'ekekkkeke' , {
+            if(ismatch)
+            {
+                  var token = jwt.sign({_id : user._id},'ekekkkeke' , {
                     expiresIn : '15d',
                    })
 
-                console.log(' Login token is - ',token);
+                 console.log(' Login token is - ',token);
                  const options = {
                     expires : new Date(Date.now() +  15 * 24 * 60 * 60 * 1000),
                     httpOnly :true, 
@@ -85,7 +84,9 @@ export const login  = async(req,res) => {
                     user,
                     token,
                 })
-            
+            }else{
+                return res.json({message : ' InCorrect Email or Password '});
+            }
 
         }catch(error)
         {

@@ -4,8 +4,6 @@ import { server } from '../store';
 
 
 export  const login = (email,password) => async(dispatch) => {
-  
-    
          try{
            dispatch({type:"loginRequest"});
            const { data }  = await axios.post(`${server}/login` , {
@@ -22,7 +20,7 @@ export  const login = (email,password) => async(dispatch) => {
             }catch(error)
             {
                 console.log('Error in Login  is --',error);
-            dispatch({type : "loginFail", payload : error.response.data.message })
+                 dispatch({type : "loginFail", payload : error.response.data.message })
             }
         }
 
