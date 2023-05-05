@@ -5,51 +5,51 @@ import  bcrypt  from 'bcrypt';
 import jwt  from "jsonwebtoken";
 import { Course } from "../Models/Course.js";
 
-export const register = async(req,res,next) => {
+// export const register = async(req,res,next) => {
    
-        const { name,email , password } = req.body;
-        try{  
-            if(!name || !email || !password){
-                return res.json({message : " Please Fill All the Fields "})
-            }
-            let user = await User.findOne({email})
-            if(user){
-                return res.json({message : ' user Already Existed '})
-            }
+//         const { name,email , password } = req.body;
+//         try{  
+//             if(!name || !email || !password){
+//                 return res.json({message : " Please Fill All the Fields "})
+//             }
+//             let user = await User.findOne({email})
+//             if(user){
+//                 return res.json({message : ' user Already Existed '})
+//             }
            
-            const createuser = await User.create({
-                name,
-                email,
-                password 
-            })
+//             const createuser = await User.create({
+//                 name,
+//                 email,
+//                 password 
+//             })
 
-            console.log('created user is --',createuser);
+//             console.log('created user is --',createuser);
 
-            //creating Token 
-            var token = jwt.sign({_id : createuser._id},'ekekkkeke' , {
-                    expiresIn : '15d',
-            })
+//             //creating Token 
+//             var token = jwt.sign({_id : createuser._id},'ekekkkeke' , {
+//                     expiresIn : '15d',
+//             })
 
-            console.log(' Signup token is - ',token);
+//             console.log(' Signup token is - ',token);
 
-            const options = {
-                expires : new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-                httpOnly : false,
-                secure : true,
-                sameSite : "none", 
-            }
+//             const options = {
+//                 expires : new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+//                 httpOnly : false,
+//                 secure : true,
+//                 sameSite : "none", 
+//             }
 
-           return  res.status(201).cookie("token" , token , options).json({
-                message : " User Created Now",
-                createuser,
-                token,
-            })
+//            return  res.status(201).cookie("token" , token , options).json({
+//                 message : " User Created Now",
+//                 createuser,
+//                 token,
+//             })
 
-        }catch(error){
-            console.log('Error While Registering is- ',error);
-        }
+//         }catch(error){
+//             console.log('Error While Registering is- ',error);
+//         }
 
-}
+// }
 
 export const login  = async(req,res) => {
 
