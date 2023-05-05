@@ -19,13 +19,11 @@ const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 
 const dispatch = useDispatch()
-const navigate = useNavigate();
-
 
 const submitHandler = e => {
   e.preventDefault();
   dispatch(login(email,password))
-  navigate('/profile')
+
 };
 
 return (

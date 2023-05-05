@@ -71,10 +71,8 @@ function App() {
                     <Route exact path = "/changepassword"  element = {<ChangePassword /> }>  </Route>
                     <Route exact path = "/updateprofile"  element = {<UpdateProfile /> }>  </Route>
                     {/* Only able to access Profile if user is authenticated */}
-                    <Route exact path = "/profile"  
-                      element = {
-                         <ProtectedRoute isAuthenticated = {isAuthenticated} 
-                          >  
+                    <Route exact path = "/profile"  element = {
+                         <ProtectedRoute isAuthenticated = {isAuthenticated} >  
                           <Profile />  
                         </ProtectedRoute>
                     }>  </Route>
