@@ -53,16 +53,14 @@ export const register = async(req,res,next) => {
 
 export const login  = async(req,res) => {
 
-    const { email,password }  = req.body;
+            const { email,password }  = req.body;
 
-        try{
             if(!email || !password){
                 return res.json({message : " Please Fill All the Fields  "})
             }
             let user = await User.findOne({email}).select("+password");
             if(!user) return res.json({message: " User not Present "})
-            // const ismatch = await user.comparePassword(password);
-
+          
             const ismatch = await bcrypt.compare(password,user.password)
 
             if(ismatch)
@@ -87,11 +85,6 @@ export const login  = async(req,res) => {
             }else{
                 return res.json({message : ' InCorrect Email or Password '});
             }
-
-        }catch(error)
-        {
-            console.log('Error While Login is- ',error);
-        }
 
 }
 
