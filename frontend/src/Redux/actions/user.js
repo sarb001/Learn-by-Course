@@ -26,38 +26,38 @@ export  const login = (email,password) => async(dispatch) => {
         }
 
  
-    export const logout   = () =>  async dispatch   => {
-        try{
-            dispatch({ type: 'logoutUserRequest' });
-            const { data } = await axios.get(`${server}/logout`,
-            {
-                withCredentials : true,
-            }
-            );
-            console.log('Logout User Profile-- ',{data});
-            dispatch({ type: 'logoutUserSuccess'  , payload : data.message });
-        }catch(error){
-            dispatch({ type: 'logoutUserFail' , payload :error.response.data.message});
-        }
-    }
+    // export const logout   = () =>  async dispatch   => {
+    //     try{
+    //         dispatch({ type: 'logoutUserRequest' });
+    //         const { data } = await axios.get(`${server}/logout`,
+    //         {
+    //             withCredentials : true,
+    //         }
+    //         );
+    //         console.log('Logout User Profile-- ',{data});
+    //         dispatch({ type: 'logoutUserSuccess'  , payload : data.message });
+    //     }catch(error){
+    //         dispatch({ type: 'logoutUserFail' , payload :error.response.data.message});
+    //     }
+    // }
 
     
-    export  const loaduser = () => async(dispatch) => {
-        try{
-            dispatch({type:"loadUserRequest"});
+    // export  const loaduser = () => async(dispatch) => {
+    //     try{
+    //         dispatch({type:"loadUserRequest"});
 
-            const { data }  = await axios.get(`${server}/getmyprofile` ,
-                {
-                    withCredentials : true,
-                });
+    //         const { data }  = await axios.get(`${server}/getmyprofile` ,
+    //             {
+    //                 withCredentials : true,
+    //             });
 
-        console.log('Get Profile Data is --',data);
-        dispatch({type : "loadUserSuccess",payload : data.user})
+    //     console.log('Get Profile Data is --',data);
+    //     dispatch({type : "loadUserSuccess",payload : data.user})
         
-    }catch(error){
-        dispatch({type : "loadUserFail", payload : error.response.data.message })
-        }
-    }
+    // }catch(error){
+    //     dispatch({type : "loadUserFail", payload : error.response.data.message })
+    //     }
+    // }
 
 
 // export  const register = (email,password) => async(dispatch) => {

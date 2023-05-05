@@ -47,9 +47,10 @@ function App() {
     }
   },[dispatch,error,message]);
 
-  useEffect(() => {
-    dispatch(loaduser());
-  },[dispatch])
+
+  // useEffect(() => {
+  //   dispatch(loaduser());
+  // },[dispatch])
 
   return (
     <div className = "App">
@@ -79,8 +80,8 @@ function App() {
                   
                     <Route exact path = "/contact"  element = {<Contact /> }>  </Route>
                     <Route exact path = "/request"  element = {<Request /> }>  </Route>
-                    <Route exact path = "/about"  element = {<About /> }>  </Route>
-                    <Route  path = "/register"  element = {<Register /> }>  </Route>
+                    <Route exact path = "/about"   element = {<About /> }>     </Route>
+                    <Route  path = "/register"     element = {<Register /> }>  </Route>
 
 
                     <Route exact path = "/forgetpassword"  element = {<ForgetPassword  /> }>  </Route>
