@@ -47,9 +47,9 @@ function App() {
     }
   },[dispatch,error,message]);
 
-  // useEffect(() => {
-  //   dispatch(loaduser());
-  // },[dispatch])
+  useEffect(() => {
+    dispatch(loaduser());
+  },[dispatch])
 
   return (
     <div className = "App">

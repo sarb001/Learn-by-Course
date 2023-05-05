@@ -3,7 +3,6 @@ import validator from "validator";
 import bcrypt from  'bcrypt';
 
 const schema = new mongoose.Schema({
-
     name : {
         type:String,
         required : [true," Please Enter your Name "],
