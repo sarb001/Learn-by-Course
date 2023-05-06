@@ -2,6 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 
 
 export const UserReducer = createReducer({},{
+    
     loginRequest : (state) =>  {
             state.loading = true
     },

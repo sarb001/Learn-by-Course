@@ -72,8 +72,8 @@ export const login  = async(req,res) => {
                  console.log(' Login token is - ',token);
                  const options = {
                     expires : new Date(Date.now() +  15 * 24 * 60 * 60 * 1000),
-                    httpOnly :true, 
-                    secure : true,
+                    httpOnly : true, 
+                    secure   : true,
                     sameSite : "none", 
                 }
     
@@ -83,7 +83,7 @@ export const login  = async(req,res) => {
                     token,
                 })
             }else{
-                return res.json({message : ' InCorrect Email or Password '});
+                return res.status(422).json({message : ' InCorrect Email or Password '});
             }
 
 }
