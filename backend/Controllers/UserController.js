@@ -41,13 +41,14 @@ export const login  = async(req,res) => {
             sendToken(res,user,` Welcome Back  , ${user.name} Bro `,200);
 }
 
-export const logout = async(req,res) => {
+export const logout = async(req,res,next) => {
     res.status(200).cookie("token",null , {
         expires : new Date(Date.now()),
         httpOnly : true,
         secure : true,
         sameSite : "none", 
     }).json({
+        sucess : true,
         message : " Logged Out Perfectly "
     })
 }
