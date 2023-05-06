@@ -4,6 +4,7 @@ import  bcrypt  from 'bcrypt';
 
 import jwt  from "jsonwebtoken";
 import { Course } from "../Models/Course.js";
+import { sendToken } from "../Utils/sendToken.js";
 
 export const register = async(req,res,next) => {
    
@@ -63,29 +64,7 @@ export const login  = async(req,res) => {
           
             const ismatch = await bcrypt.compare(password,user.password)
 
-            if(ismatch)
-            {
-                  var token = jwt.sign({_id : user._id},'ekekkkeke' , {
-                    expiresIn : '15d',
-                   })
-
-                 console.log(' Login token is - ',token);
-                 const options = {
-                    expires : new Date(Date.now() +  15 * 24 * 60 * 60 * 1000),
-                    httpOnly : true, 
-                    secure   : true,
-                    sameSite : "none", 
-                }
-    
-               return  res.status(200).cookie("token" , token , options).json({
-                    message : ` Now ${user.name} Logged In Bro  `,
-                    user,
-                    token,
-                })
-            }else{
-                return res.status(422).json({message : ' InCorrect Email or Password '});
-            }
-
+            sendToken(res,user,` Welcome Back  , ${user.name} Bro `,200);
 }
 
 export const logout = async(req,res) => {
