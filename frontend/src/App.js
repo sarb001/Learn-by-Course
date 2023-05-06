@@ -26,7 +26,6 @@ import Footer from './Components/Layout/Footer/Footer';
 
 import { useDispatch, useSelector } from 'react-redux';
 import toast,{ Toaster } from 'react-hot-toast';
-// import { getmyprofile, loaduser } from './Redux/actions/user';
 
 import { ProtectedRoute } from 'protected-route-react';
 
@@ -46,6 +45,8 @@ function App() {
       dispatch({ type:"clearMessage" });
     }
   },[dispatch,error,message]);
+
+
 
   return (
     <div className = "App">
