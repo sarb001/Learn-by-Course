@@ -32,7 +32,7 @@ import { ProtectedRoute } from 'protected-route-react';
 
 function App() {
 
-  const { isAuthenticated , message,error}  = useSelector(state => state.user)
+  const { isAuthenticated ,user, message,error}  = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,11 +47,10 @@ function App() {
   },[dispatch,error,message]);
 
 
-
   return (
     <div className = "App">
        <Router>
-          <Header  isAuthenticated = {isAuthenticated} />
+          <Header user = {user}  isAuthenticated = {isAuthenticated} />
                 <Routes>
                     <Route  exact path = "/"       element = {<Home />}>  </Route>
 

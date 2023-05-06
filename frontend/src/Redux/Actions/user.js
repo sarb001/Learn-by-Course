@@ -20,3 +20,18 @@ export const login = (email,password) => async(dispatch) => {
         dispatch({ type:"loginFail" , payload : error.response.data.message });
     }
 }
+
+export const logout = async(dispatch) => {
+    try{
+        dispatch({ type: 'logoutUserRequest' });
+        const { data } = await axios.get(`${server}/logout`,
+         {
+            withCredentials : false,
+         }
+        );
+        console.log('data get Profile-- ',{data});
+        dispatch({ type: 'logoutUserSuccess'  , payload : data.message });
+    }catch(error){
+        dispatch({ type: 'logoutUserFail' , payload :error.response.data.message});
+    }
+}
