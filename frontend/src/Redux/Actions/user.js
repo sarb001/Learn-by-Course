@@ -18,6 +18,6 @@ export const login = (email,password) => async(dispatch) => {
 
     }catch(error){
         console.log('Login Error is -',error);
-        dispatch({ type:"loginFail" , payload : error });
+        dispatch({ type:"loginFail" , payload : error.response.data.message });
     }
 }
