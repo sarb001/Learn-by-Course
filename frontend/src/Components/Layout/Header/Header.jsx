@@ -34,7 +34,7 @@ const Header = ({user, isAuthenticated }) => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-      // dispatch(logout());
+      dispatch(logout());
       onClose();
   }
 
