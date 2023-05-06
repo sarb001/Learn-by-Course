@@ -38,6 +38,9 @@ export const login  = async(req,res) => {
           
             const ismatch = await bcrypt.compare(password,user.password)
 
+            if(!ismatch){
+                return res.json({message : " Incorrect Email or Password "});
+            }
             sendToken(res,user,` Welcome Back  , ${user.name} Bro `,200);
 }
 
