@@ -12,9 +12,9 @@ export const UserReducer = createReducer({},{
         state.message = action.payload.message;
     },
     loginFail : (state,action) =>  {
-        state.loading = true
+        state.loading = false
         state.isAuthenticated = false;
-        state.error = action.payload ;
+        state.error = action.payload.error ;
     },
     clearMessage : (state) => {
         state.message = null;
