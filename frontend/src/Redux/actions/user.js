@@ -21,7 +21,7 @@ export const login = (email,password) => async(dispatch) => {
     }
 }
 
-export const logout = async(dispatch) => {
+export const logout = () =>  async(dispatch) => {
     try{
         dispatch({ type: 'logoutUserRequest' });
         const { data } = await axios.get(`${server}/logout`,
