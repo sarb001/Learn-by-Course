@@ -26,14 +26,14 @@ import Footer from './Components/Layout/Footer/Footer';
 
 import { useDispatch, useSelector } from 'react-redux';
 import toast,{ Toaster } from 'react-hot-toast';
-import { getmyprofile, loaduser } from './Redux/actions/user';
+// import { getmyprofile, loaduser } from './Redux/actions/user';
 
 import { ProtectedRoute } from 'protected-route-react';
 
 
 function App() {
 
-  const { isAuthenticated , user  , message,error}  = useSelector(state => state.user)
+  const { isAuthenticated , message,error}  = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,15 +47,10 @@ function App() {
     }
   },[dispatch,error,message]);
 
-
-  // useEffect(() => {
-  //   dispatch(loaduser());
-  // },[dispatch])
-
   return (
     <div className = "App">
        <Router>
-          <Header user = {user}  isAuthenticated = {isAuthenticated} />
+          <Header  isAuthenticated = {isAuthenticated} />
                 <Routes>
                     <Route  exact path = "/"       element = {<Home />}>  </Route>
 

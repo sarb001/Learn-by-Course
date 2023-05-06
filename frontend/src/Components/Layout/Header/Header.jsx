@@ -20,8 +20,6 @@ import { Link } from 'react-router-dom';
 
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../../Redux/actions/user';
-
 
 const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
       <Link onClick    = {onClose} to = {url}>
@@ -36,7 +34,7 @@ const Header = ({user, isAuthenticated }) => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-        // dispatch(logout());  
+      console.log('Logout Working');
   }
 
   return (
