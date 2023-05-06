@@ -8,8 +8,8 @@ import { sendToken } from "../Utils/sendToken.js";
 
 export const register = async(req,res,next) => {
    
-        const { name,email , password } = req.body;
-        try{  
+          const { name,email , password } = req.body;
+     
             if(!name || !email || !password){
                 return res.json({message : " Please Fill All the Fields "})
             }
@@ -25,31 +25,7 @@ export const register = async(req,res,next) => {
             })
 
             console.log('created user is --',createuser);
-
-            //creating Token 
-            var token = jwt.sign({_id : createuser._id},'ekekkkeke' , {
-                    expiresIn : '15d',
-            })
-
-            console.log(' Signup token is - ',token);
-
-            const options = {
-                expires : new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-                httpOnly : false,
-                secure : true,
-                sameSite : "none", 
-            }
-
-           return  res.status(201).cookie("token" , token , options).json({
-                message : " User Created Now",
-                createuser,
-                token,
-            })
-
-        }catch(error){
-            console.log('Error While Registering is- ',error);
-        }
-
+            sendToken(res,user,' Registered Successfully ',201);
 }
 
 export const login  = async(req,res) => {
@@ -77,7 +53,6 @@ export const logout = async(req,res) => {
         message : " Logged Out Perfectly "
     })
 }
-
 
 
 export const getmyprofile  = async(req,res) => {
