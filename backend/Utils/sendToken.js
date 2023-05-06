@@ -1,6 +1,7 @@
 
-export const sendToken = (res,user,message,statusCode) => {
+import jwt  from 'jsonwebtoken';
 
+export const sendToken = (res,user,message,statusCode) => {
     const  token = jwt.sign({_id : user._id},'ekekkkeke' , {
         expiresIn : '15d',
        })

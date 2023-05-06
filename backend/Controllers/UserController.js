@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import { User } from '../Models/User.js';
 import  bcrypt  from 'bcrypt';
-
-import jwt  from "jsonwebtoken";
 import { Course } from "../Models/Course.js";
 import { sendToken } from "../Utils/sendToken.js";
 
