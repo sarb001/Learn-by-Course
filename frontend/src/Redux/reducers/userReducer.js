@@ -12,9 +12,9 @@ export const UserReducer = createReducer({},{
         state.message = action.payload.message;
     },
     loginFail : (state,action) =>  {
-        state.loading = false
+        state.loading = false;
         state.isAuthenticated = false;
-        state.error = action.payload.error ;
+        state.error = action.payload;
     },
     clearMessage : (state) => {
         state.message = null;
@@ -22,6 +22,8 @@ export const UserReducer = createReducer({},{
     clearError : (state) => {
         state.error = null;
     },
+
+
     logoutUserRequest : (state) => {
         state.loading = true;
     },

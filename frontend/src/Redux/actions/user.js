@@ -29,8 +29,8 @@ export const logout = () =>  async(dispatch) => {
          }
         );
         console.log('data get Profile-- ',{data});
-        dispatch({ type: 'logoutUserSuccess'  , payload : data.message });
+        dispatch({ type: 'logoutUserSuccess' , payload : data.message });
     }catch(error){
-        dispatch({ type: 'logoutUserFail' , payload :error.response.data.message});
+        dispatch({ type: 'logoutUserFail' , payload : error.response.data.message});
     }
 }
