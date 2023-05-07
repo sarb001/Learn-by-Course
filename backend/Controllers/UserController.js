@@ -30,7 +30,7 @@ export const register = async(req,res,next) => {
             sendToken(res,user,' Registered Successfully ',201);
 }
 
-export const login  = async(req,res) => {
+export const login  = async(req,res,next) => {
     const { email, password } = req.body;
 
     if (!email || !password)
