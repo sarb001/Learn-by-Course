@@ -12,7 +12,6 @@ export const login = (email,password) => async(dispatch) => {
             withCredentials : true,
         })
         console.log('login data --',data);
-
         dispatch({type: 'loginSuccess' , payload : data})
 
     }catch(error){

@@ -5,32 +5,29 @@ import  bcrypt  from 'bcrypt';
 import { Course } from "../Models/Course.js";
 import { sendToken } from  "../Utils/sendToken.js";
 import ErrorHandler  from  '../Utils/errorhandler.js';
+import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
 
+export const register =   catchAsyncError( async(req,res,next) => {
+    const { name,email , password } = req.body;
 
-
-export const register = async(req,res,next) => {
-   
-          const { name,email , password } = req.body;
+      if(!name || !email || !password){
+          return next(new ErrorHandler(" Please Enter All Fields ",400));
+      }
+      let user = await User.findOne({email})
+      if(user) return next(new ErrorHandler(" User Already Exist ",409));
      
-            if(!name || !email || !password){
-                return res.json({message : " Please Fill All the Fields "})
-            }
-            let user = await User.findOne({email})
-            if(user){
-                return res.json({message : ' user Already Existed '})
-            }
+      const createuser = await User.create({
+          name,
+          email,
+          password 
+      });
+
+      console.log('created user is --',createuser);
+      sendToken(res,user,' Registered Successfully ',201);
+})        
            
-            const createuser = await User.create({
-                name,
-                email,
-                password 
-            })
 
-            console.log('created user is --',createuser);
-            sendToken(res,user,' Registered Successfully ',201);
-}
-
-export const login  = async(req,res,next) => {
+export const login    =   catchAsyncError (async(req,res,next) => {
     const { email, password } = req.body;
 
     if (!email || !password)
@@ -40,15 +37,17 @@ export const login  = async(req,res,next) => {
     if (!user) return next(new ErrorHandler("Incorrect Email or Password", 401));
 
     const ismatch = await bcrypt.compare(password,user.password)
-    
+
+    console.log('ismatched --',ismatch);
+
     if (!ismatch)
       return next(new ErrorHandler("Incorrect Email or Password", 401));
 
     sendToken(res, user, `Welcome back, ${user.name}`, 200);
-}
+})
 
 
-export const logout = async(req,res,next) => {
+export const logout =     catchAsyncError (async(req,res,next) => {
     res.status(200).cookie("token",null , {
         expires : new Date(Date.now()),
         httpOnly : true,
@@ -58,7 +57,7 @@ export const logout = async(req,res,next) => {
         sucess : true,
         message : " Logged Out Perfectly "
     })
-}
+})
 
 
 export const getmyprofile  = async(req,res) => {
