@@ -3,6 +3,8 @@ import { User } from '../Models/User.js';
 import  bcrypt  from 'bcrypt';
 import { Course } from "../Models/Course.js";
 import { sendToken } from "../Utils/sendToken.js";
+import ErrorHandler from "../Utils/ErrorHandler.js";
+
 
 export const register = async(req,res,next) => {
    
@@ -27,22 +29,22 @@ export const register = async(req,res,next) => {
 }
 
 export const login  = async(req,res) => {
+    const { email, password } = req.body;
 
-            const { email,password }  = req.body;
-            if(!email || !password){
-                return res.status(400).json({message : " Please Fill All the Fields  "})
-            }
-            let user = await User.findOne({email}).select("+password");
-            if(!user) return res.json({message: " User not Present "})
-          
-            const ismatch = await bcrypt.compare(password,user.password)
+    if (!email || !password)
+      return next(new ErrorHandler("Please enter all field", 400));
 
-            if(!ismatch){
-                return res.status(401).json({message : " Incorrect Email or Password "});
-            }
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) return next(new ErrorHandler("Incorrect Email or Password", 401));
 
-            sendToken(res,user,` Welcome Back  , ${user.name} Bro `,200);
+    const ismatch = await bcrypt.compare(password,user.password)
+    
+    if (!ismatch)
+      return next(new ErrorHandler("Incorrect Email or Password", 401));
+
+    sendToken(res, user, `Welcome back, ${user.name}`, 200);
 }
+
 
 export const logout = async(req,res,next) => {
     res.status(200).cookie("token",null , {

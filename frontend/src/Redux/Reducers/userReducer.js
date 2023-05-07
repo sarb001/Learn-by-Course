@@ -22,8 +22,6 @@ export const UserReducer = createReducer({},{
     clearError : (state) => {
         state.error = null;
     },
-
-
     logoutUserRequest : (state) => {
         state.loading = true;
     },
