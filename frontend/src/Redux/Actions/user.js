@@ -20,6 +20,24 @@ export const login = (email,password) => async(dispatch) => {
     }
 }
 
+export const loaduser = () => async(dispatch) => {
+    try{
+        dispatch({ type: "loadUserRequest" });
+
+        const {data} = await axios.get(`${server}/getmyprofile` , 
+        {   
+            withCredentials : true,
+        })
+        
+        console.log(' Load data --',data);
+        dispatch({type: 'loadUserSuccess' , payload : data.user })
+    }catch(error){
+        console.log(' Load  Error is -',error);
+        dispatch({ type:"loadUserFail" , payload : error.response.data.message });
+    }
+}
+
+
 export const logout = () =>  async(dispatch) => {
     try{
         dispatch({ type: 'logoutUserRequest' });
