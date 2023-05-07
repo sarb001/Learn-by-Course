@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import { register } from '../../Redux/actions/user';
+// import { register } from '../../Redux/actions/user';
 
 export const fileUploadCss = {
   cursor: 'pointer',

@@ -1,103 +1,64 @@
+
 import mongoose from "mongoose";
 import { User } from '../Models/User.js';
 import  bcrypt  from 'bcrypt';
-
-import jwt  from "jsonwebtoken";
 import { Course } from "../Models/Course.js";
+import { sendToken } from  "../Utils/sendToken.js";
+import ErrorHandler  from  '../Utils/errorhandler.js';
+import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
 
-export const register = async(req,res,next) => {
-   
-        const { name,email , password } = req.body;
-        try{  
-            if(!name || !email || !password){
-                return res.json({message : " Please Fill All the Fields "})
-            }
-            let user = await User.findOne({email})
-            if(user){
-                return res.json({message : ' user Already Existed '})
-            }
+export const register =   catchAsyncError( async(req,res,next) => {
+    const { name,email , password } = req.body;
+
+      if(!name || !email || !password){
+          return next(new ErrorHandler(" Please Enter All Fields ",400));
+      }
+      let user = await User.findOne({email})
+      if(user) return next(new ErrorHandler(" User Already Exist ",409));
+     
+      const createuser = await User.create({
+          name,
+          email,
+          password 
+      });
+
+      console.log('created user is --',createuser);
+      sendToken(res,user,' Registered Successfully ',201);
+})        
            
-            const createuser = await User.create({
-                name,
-                email,
-                password 
-            })
 
-            console.log('created user is --',createuser);
+export const login    =   catchAsyncError (async(req,res,next) => {
+    const { email, password } = req.body;
 
-            //creating Token 
-            var token = jwt.sign({_id : createuser._id},'ekekkkeke' , {
-                    expiresIn : '15d',
-            })
+    if (!email || !password)
+      return next(new ErrorHandler("Please enter all field", 400));
 
-            console.log(' Signup token is - ',token);
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) return next(new ErrorHandler("Incorrect Email or Password", 401));
 
-            const options = {
-                expires : new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-                httpOnly : false,
-                secure : true,
-                sameSite : "none", 
-            }
+    const ismatch = await bcrypt.compare(password,user.password)
 
-           return  res.status(201).cookie("token" , token , options).json({
-                message : " User Created Now",
-                createuser,
-                token,
-            })
+    console.log('ismatched --',ismatch);
 
-        }catch(error){
-            console.log('Error While Registering is- ',error);
-        }
+    if (!ismatch)
+      return next(new ErrorHandler("Incorrect Email or Password", 401));
 
-}
+    sendToken(res, user, `Welcome back, ${user.name}`, 200);
+})
 
-export const login  = async(req,res) => {
 
-            const { email,password }  = req.body;
-
-            if(!email || !password){
-                return res.json({message : " Please Fill All the Fields  "})
-            }
-            let user = await User.findOne({email}).select("+password");
-            if(!user) return res.json({message: " User not Present "})
-          
-            const ismatch = await bcrypt.compare(password,user.password)
-
-            if(ismatch)
-            {
-                  var token = jwt.sign({_id : user._id},'ekekkkeke' , {
-                    expiresIn : '15d',
-                   })
-
-                 console.log(' Login token is - ',token);
-                 const options = {
-                    expires : new Date(Date.now() +  15 * 24 * 60 * 60 * 1000),
-                    httpOnly :true, 
-                    secure : true,
-                    sameSite : "none", 
-                }
-    
-               return  res.status(200).cookie("token" , token , options).json({
-                    message : ` Now ${user.name} Logged In Bro  `,
-                    user,
-                    token,
-                })
-            }else{
-                return res.json({message : ' InCorrect Email or Password '});
-            }
-
-}
-
-export const logout = async(req,res) => {
+export const logout =     catchAsyncError (async(req,res,next) => {
     res.status(200).cookie("token",null , {
         expires : new Date(Date.now()),
         httpOnly : true,
         secure : true,
         sameSite : "none", 
     }).json({
+        sucess : true,
         message : " Logged Out Perfectly "
     })
-}
+})
+
 
 export const getmyprofile  = async(req,res) => {
 

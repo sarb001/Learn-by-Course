@@ -22,7 +22,6 @@ import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../Redux/actions/user';
 
-
 const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
       <Link onClick    = {onClose} to = {url}>
         <Button variant={'ghost'}> {title}  </Button>
@@ -32,11 +31,11 @@ const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
 const Header = ({user, isAuthenticated }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-        dispatch(logout());
+      dispatch(logout());
+      onClose();
   }
 
   return (
@@ -60,7 +59,7 @@ const Header = ({user, isAuthenticated }) => {
         <DrawerOverlay />
         <DrawerContent>
               <DrawerHeader borderBottomWidth={'1px'}>
-                COURSE BUNDLER SARB  
+                COURSE BUNDLER SARBB
               </DrawerHeader>
 
                 <DrawerBody>

@@ -6,8 +6,7 @@ import course from './Routes/CourseRoutes.js';
 import cookieparser from  'cookie-parser';
 
 import cors from 'cors';
-
-
+import ErrorMiddleware from './Middlewares/Error.js';
 const app = express();
 
 dotenv.config({
@@ -29,14 +28,14 @@ app.use(express.json())
 app.use('/api/v1',user);
 app.use('/api/v1',course);
 
-
 app.listen(PORT,() => {
     console.log(` Server is Running ${PORT} Brooo.. `);
 })
-
 
 app.get('/' , (req,res)  => {
      res.send(`<h2> Server is Workinggg gBro   
      <a href = ${process.env.FRONTEND_URL}>  CLick herer  </a>
      </h2>`)
 })
+
+app.use(ErrorMiddleware);
