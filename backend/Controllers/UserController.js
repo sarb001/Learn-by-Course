@@ -61,10 +61,10 @@ export const logout =     catchAsyncError (async(req,res,next) => {
 
 
 export const getmyprofile  =  catchAsyncError (async(req,res,next) => {
-        const getuser = await User.findById(req.user._id);
+        const user = await User.findById(req.user._id);
         res.status(200).json({
             success : true,
-            getuser
+            user
     })
 })
 
