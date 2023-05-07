@@ -6,8 +6,7 @@ import course from './Routes/CourseRoutes.js';
 import cookieparser from  'cookie-parser';
 
 import cors from 'cors';
-
-
+import ErrorMiddleware from './Middlewares/ErrorMiddleware.js';
 const app = express();
 
 dotenv.config({
@@ -40,3 +39,5 @@ app.get('/' , (req,res)  => {
      <a href = ${process.env.FRONTEND_URL}>  CLick herer  </a>
      </h2>`)
 })
+
+app.use(ErrorMiddleware);
