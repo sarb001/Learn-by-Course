@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { register } from '../../Redux/actions/user';
 // import { register } from '../../Redux/actions/user';
 
 export const fileUploadCss = {
@@ -64,10 +65,9 @@ const Register = () => {
       myForm.append('name',name)
       myForm.append('email',email)
       myForm.append('password',password)
-      // myForm.append('file',image)
 
       console.log('myform is --',myForm);
-    //   dispatch(register(myForm));
+      dispatch(register(myForm));
   }
 
 

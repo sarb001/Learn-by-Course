@@ -38,6 +38,27 @@ export const loaduser = () => async(dispatch) => {
 }
 
 
+export const register = formdata => async(dispatch) => {
+    try{
+        dispatch({ type: "registerRequest" });
+        const {data} = await axios.post(`${server}/register` , formdata 
+        ,{
+            headers : {
+                'Content-type' : "multipart/form-data",
+            },
+            withCredentials : true,
+        });
+        
+        console.log(' Register  data --',data);
+        dispatch({type: 'registerSuccess' , payload : data})
+    }catch(error){
+        console.log(' Register Error is -',error);
+        dispatch({ type:"registerFail" , payload : error.response.data.message });
+    }
+}
+
+
+
 export const logout = () =>  async(dispatch) => {
     try{
         dispatch({ type: 'logoutUserRequest' });
