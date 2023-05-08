@@ -48,8 +48,10 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 
 
 export const logout =     catchAsyncError (async(req,res,next) => {
+
+
     res.status(200).clearCookie("token" ,null, {
-            expires : new Date(0),
+            expires : new Date(0).toUTCString(),
             httpOnly : true,
             secure : true,
             sameSite : "none",
@@ -58,17 +60,6 @@ export const logout =     catchAsyncError (async(req,res,next) => {
             sucess : true,
             message : " Logged Out Perfectly "
     })
-
-    // res.status(200).cookie("token",null, {
-    //     expires : new Date(Date.now()),
-    //     httpOnly : true,
-    //     secure : true,
-    //     sameSite : "none",
-    //     maxAge : -1,
-    // }).json({
-    //     sucess : true,
-    //     message : " Logged Out Perfectly "
-    // })
 })
 
 
