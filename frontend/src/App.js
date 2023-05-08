@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast,{ Toaster } from 'react-hot-toast';
 
 import { ProtectedRoute } from 'protected-route-react';
+import { loaduser } from './Redux/actions/user';
 
 
 function App() {
@@ -45,6 +46,10 @@ function App() {
       dispatch({ type:"clearMessage" });
     }
   },[dispatch,error,message]);
+
+  useEffect(() => {
+    dispatch(loaduser());
+  },[dispatch])
 
 
   return (

@@ -48,7 +48,7 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 
 
 export const logout =     catchAsyncError (async(req,res,next) => {
-    res.status(200).cookie("token",null , {
+    res.status(200).cookie("token",null, {
         expires : new Date(Date.now()),
         httpOnly : true,
         secure : true,
@@ -60,22 +60,13 @@ export const logout =     catchAsyncError (async(req,res,next) => {
 })
 
 
-export const getmyprofile  = async(req,res) => {
-
-    try{
-        const getuser = await User.findById(req.user._id);
-
+export const getmyprofile  =  catchAsyncError (async(req,res,next) => {
+        const user = await User.findById(req.user._id);
         res.status(200).json({
-            message : " User Found",
-            getuser,
-        })
-    }catch(error)
-    {
-        console.log('error is --',error);
-    }
-
-}
-
+            success : true,
+            user
+    })
+})
 
 export const changepassword  = async(req,res) => {
     const {oldpassword,newpassword} = req.body;
