@@ -6,7 +6,7 @@ export const sendToken = (res,user,message,statusCode) => {
     const expirationTime = 3600;
 
     const  token = jwt.sign({_id : user._id},'ekekkkeke' , {
-        expiresIn : '1hr',
+        expiresIn : '1h',
        })
 
     const options = {
