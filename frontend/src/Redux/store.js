@@ -9,6 +9,6 @@ const store = configureStore({
     }
 })
 
-export const server = 'https://learn-by-course-production-1594.up.railway.app/api/v1';
+export const server = 'https://learn-by-course-backend.vercel.app/api/v1';
 
 export default store;
