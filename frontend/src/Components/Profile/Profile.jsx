@@ -25,6 +25,7 @@ import { fileUploadCss } from '../Auth/Register';
 
 const Profile = ({user}) => {
 
+      console.log(' Present User is --',user);
     const { isOpen, onClose, onOpen } = useDisclosure();
 
     const changeImageSubmitHandler = (e,image) => {
@@ -54,12 +55,12 @@ const Profile = ({user}) => {
             <VStack spacing = {'4'} alignItems={['center', 'flex-start']}>
 
             <HStack>
-                <Text children = "Name" fontWeight = {'bold'} />
+                <Text children = "Namee" fontWeight = {'bold'} />
                 <Text children = {user?.name} />
             </HStack>{' '}
 
             <HStack>
-                <Text children = "Email" fontWeight = {'bold'} />
+                <Text children = "Emaill" fontWeight = {'bold'} />
                 <Text children = {user?.email} />
             </HStack>
 
