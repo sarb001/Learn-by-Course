@@ -89,7 +89,7 @@ function App() {
                       {/* Only able to access Profile if user is authenticated */}
                       <Route exact path = "/profile"  element = {
                           <ProtectedRoute isAuthenticated = {isAuthenticated} >  
-                            <Profile />  
+                            <Profile user = {user}  />  
                           </ProtectedRoute>
                       }>  </Route>
                     

@@ -30,23 +30,6 @@ const Profile = ({user}) => {
     const changeImageSubmitHandler = (e,image) => {
       e.preventDefault();
     }
-
-
-    // const user = {
-    //   name : "abhi",
-    //   createAt : String(new Date()),
-    //   email: "abhi@gmail.com",
-    //   role: "user",
-    //   subscription : {
-    //     status : undefined
-    //   },
-    //   playlist : [
-    //     {
-    //       course : "sadased",
-    //       poster : ''
-    //     }
-    //   ]
-    // }
  
     const removeFromPlaylistHandler = (id) => {
       console.log('removed idsi ',id);
@@ -88,7 +71,7 @@ const Profile = ({user}) => {
              {user?.role !== "admin" && (
                 <HStack>
                 <Text   children = "Subscription"   fontWeight = 'bold' />
-                  {user?.subscription && user?.subscription.status === "active" ? (
+                  {user.subscription && user.subscription.status === "active" ? (
                     <Button> Cancel Subscription  </Button>
                     ) : (
                       <Link to = "/subscribe">
