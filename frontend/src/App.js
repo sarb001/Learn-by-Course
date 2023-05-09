@@ -29,11 +29,12 @@ import toast,{ Toaster } from 'react-hot-toast';
 
 import { ProtectedRoute } from 'protected-route-react';
 import { loaduser } from './Redux/actions/user';
+import Loader from './Components/Layout/Loader/Loader';
 
 
 function App() {
 
-  const { isAuthenticated ,user, message,error}  = useSelector(state => state.user)
+  const { isAuthenticated ,user, message,error ,loading }  = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,60 +56,103 @@ function App() {
   return (
     <div className = "App">
        <Router>
-          <Header user = {user}  isAuthenticated = {isAuthenticated} />
-                <Routes>
-                    <Route  exact path = "/"       element = {<Home />}>  </Route>
+              { loading ? (
+              <Loader /> ) : (
+              <>
+                  <Header user = {user}  isAuthenticated = {isAuthenticated} />
+                  <Routes>
+                      <Route  exact path = "/"       element = {<Home />}>  </Route>
 
-                    <Route  path = "/courses"     element = {<Courses />}>  </Route>
-                    <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>
+                      <Route  path = "/courses"     element = {<Courses />}>  </Route>
+                      <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>
 
-              {/* If user is not verified or logged in show Logged In Page */}
+                {/* If user is not verified or logged in show Logged In Page */}
 
-                    <Route  path = "/login"  element = {
-                      <ProtectedRoute isAuthenticated = {!isAuthenticated} redirect = "/profile">
-                        <Login  /> 
-                      </ProtectedRoute>
-                    }>  </Route>
-                    <Route exact path = "/changepassword"  element = {<ChangePassword /> }>  </Route>
-                    <Route exact path = "/updateprofile"  element = {<UpdateProfile /> }>  </Route>
-                    {/* Only able to access Profile if user is authenticated */}
-                    <Route exact path = "/profile"  element = {
-                         <ProtectedRoute isAuthenticated = {isAuthenticated} >  
-                          <Profile />  
+                      <Route  path = "/login"  element = {
+                        <ProtectedRoute isAuthenticated = {!isAuthenticated} redirect = "/profile">
+                          <Login  /> 
                         </ProtectedRoute>
-                    }>  </Route>
-                  
-                    <Route exact path = "/contact"  element = {<Contact /> }>  </Route>
-                    <Route exact path = "/request"  element = {<Request /> }>  </Route>
-                    <Route exact path = "/about"   element = {<About /> }>     </Route>
-                    <Route  path = "/register"     element = {
-                       <ProtectedRoute isAuthenticated = {!isAuthenticated} redirect = "/profile" >
-                           <Register />
-                       </ProtectedRoute> 
-                     }>  
-                     </Route>
+                      }>  </Route>
+
+                      <Route exact path = "/changepassword" 
+                      element = 
+                      { <ProtectedRoute isAuthenticated = {isAuthenticated} >
+                            <ChangePassword />
+                        </ProtectedRoute> }>  
+
+                      </Route>
+                      <Route exact path = "/updateprofile"  element = {
+                          <ProtectedRoute isAuthenticated = {isAuthenticated} >
+                            <UpdateProfile /> 
+                          </ProtectedRoute>
+                      }>  </Route>
+                      {/* Only able to access Profile if user is authenticated */}
+                      <Route exact path = "/profile"  element = {
+                          <ProtectedRoute isAuthenticated = {isAuthenticated} >  
+                            <Profile />  
+                          </ProtectedRoute>
+                      }>  </Route>
+                    
+                      <Route exact path = "/contact"  element = {<Contact /> }>  </Route>
+                      <Route exact path = "/request"  element = {<Request /> }>  </Route>
+                      <Route exact path = "/about"   element = {<About /> }>     </Route>
+                      <Route  path = "/register"     element = {
+                        <ProtectedRoute isAuthenticated = {!isAuthenticated} redirect = "/profile" >
+                            <Register />
+                        </ProtectedRoute> 
+                      }>  
+                      </Route>
 
 
-                    <Route exact path = "/forgetpassword"  element = {<ForgetPassword  /> }>  </Route>
-                    <Route exact path = "/resetpassword/:token"  element = {<ResetPassword /> }>  </Route>
+                      <Route exact path = "/forgetpassword"  element = {<ForgetPassword  /> }>  </Route>
+                      <Route exact path = "/resetpassword/:token"  element = {<ResetPassword /> }>  </Route>
 
-                    <Route exact path = "/subscribe"  element = {<Subscribe /> }>  </Route>
-                    <Route exact path = "*"  element = {<NotFound /> }>  </Route>
-                    <Route exact path = "/paymentsuccess"  element = {<PaymentSuccess /> }>  </Route>
-                    <Route exact path = "/paymentfail"  element = {<PaymentFail /> }>  </Route>
+                      <Route exact path = "/subscribe"  element = {
+                        <ProtectedRoute isAuthenticated = {isAuthenticated}>
+                          <Subscribe /> 
+                        </ProtectedRoute>
+                      }>  </Route>
+                      <Route exact path = "*"  element = {<NotFound /> }>  </Route>
+                      <Route exact path = "/paymentsuccess"  element = {<PaymentSuccess /> }>  </Route>
+                      <Route exact path = "/paymentfail"  element = {<PaymentFail /> }>  </Route>
+                      
+                      
+                      <Route exact path = "/admin/dashboard"  element = {
+                          <ProtectedRoute isAuthenticated = {isAuthenticated} 
+                            adminRoute = {true}           // bydefault move to admin 
+                            isAdmin = { user && user.role === "admin" } >    
+                              <Dashboard />
+                          </ProtectedRoute>}>  
+                        </Route>
                     
-                    
-                    <Route exact path = "/admin/dashboard"  element = {<Dashboard /> }>  </Route>
-                  
-                    <Route exact path = "/admin/createcourse"  element = {<CreateCourse /> }>  </Route>
-                    
-                    <Route exact path = "/admin/courses"  element = {<AdminCourse /> }>  </Route>
-                    
-                    <Route exact path = "/admin/users"  element = {<Users /> }>  </Route> 
+                      <Route exact path = "/admin/createcourse"  element = {
+                          <ProtectedRoute isAuthenticated = {isAuthenticated} 
+                          adminRoute = {true} 
+                          isAdmin = { user && user.role === "admin" } >
+                            <CreateCourse /> 
+                        </ProtectedRoute> }>  
+                      </Route>
+                      
+                      <Route exact path = "/admin/courses"  element = { 
+                            <ProtectedRoute isAuthenticated = {isAuthenticated} 
+                            adminRoute = {true} 
+                            isAdmin = { user && user.role === "admin" } >
+                              <AdminCourse /> 
+                          </ProtectedRoute> }>  
+                       </Route>
+                      
+                      <Route exact path = "/admin/users"  element = { 
+                          <ProtectedRoute isAuthenticated = {isAuthenticated} 
+                              adminRoute = {true} 
+                              isAdmin = { user && user.role === "admin" } >
+                              <Users /> 
+                            </ProtectedRoute> }>  
+                      </Route> 
 
-                </Routes>
-              <Footer />
-              <Toaster />
+                  </Routes>
+                  <Footer />
+                 <Toaster />
+              </>) }
        </Router>
 
     </div>
