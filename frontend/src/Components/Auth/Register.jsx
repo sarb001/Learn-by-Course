@@ -48,7 +48,7 @@ const Register = () => {
       myForm.append('email',email)
       myForm.append('password',password)
 
-      console.log('myform is --',Object.fromEntries(FormData));
+      console.log('myform is --',Object.fromEntries(myForm));
       dispatch(register(myForm));
   }
 
