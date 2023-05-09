@@ -41,7 +41,8 @@ export const loaduser = () => async(dispatch) => {
 export const register = formdata => async(dispatch) => {
     try{
         dispatch({ type: "registerRequest" });
-        const {data} = await axios.post(`${server}/register` , formdata 
+        console.log('form data iss ---',formdata);
+        const { data } = await axios.post(`${server}/register` , formdata 
         ,{
             headers : {
                 'Content-type' : "multipart/form-data",
