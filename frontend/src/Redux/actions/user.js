@@ -42,13 +42,16 @@ export const register = formdata => async(dispatch) => {
     try{
         dispatch({ type: "registerRequest" });
         console.log('form data iss ---', formdata);
-        const { data } = await axios.post(`${server}/register` , formdata 
-        ,{
+
+        const config = {
             headers : {
                 'Content-Type' : "multipart/form-data",
             },
             withCredentials : true,
-        });
+        }
+
+
+        const { data } = await axios.post(`${server}/register` , formdata , config);
 
         console.log(' Register  data --',data);
         dispatch({type: 'registerSuccess' , payload : data})
