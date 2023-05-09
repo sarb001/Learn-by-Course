@@ -41,13 +41,14 @@ const Register = () => {
 
   const submitHandler = (e)  => {
       e.preventDefault();
+
       const myForm = new FormData();
 
       myForm.append('name',name)
       myForm.append('email',email)
       myForm.append('password',password)
 
-      console.log('myform is --',myForm);
+      console.log('myform is --',Object.fromEntries(FormData));
       dispatch(register(myForm));
   }
 
