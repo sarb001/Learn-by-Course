@@ -48,7 +48,7 @@ export const register = formdata => async(dispatch) => {
             },
             withCredentials : true,
         });
-        
+
         console.log(' Register  data --',data);
         dispatch({type: 'registerSuccess' , payload : data})
     }catch(error){

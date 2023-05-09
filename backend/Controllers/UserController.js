@@ -16,13 +16,13 @@ export const register =   catchAsyncError( async(req,res,next) => {
       let user = await User.findOne({email})
       if(user) return next(new ErrorHandler(" User Already Exist ",409));
      
-      const createuser = await User.create({
+      user = await User.create({
           name,
           email,
           password 
       });
 
-      console.log('created user is --',createuser);
+      console.log('created user is --',user);
       sendToken(res,user,' Registered Successfully ',201);
 })        
            
