@@ -41,7 +41,6 @@ const Register = () => {
 
   const submitHandler = (e)  => {
       e.preventDefault();
-
       const myForm = new FormData();
 
       myForm.append('name',name)
@@ -57,11 +56,7 @@ return (
           <VStack h={'full'} justifyContent="center" spacing={'16'}>
               <Heading textTransform={'uppercase'} children={'Registration'} />
 
-              <form onSubmit = {submitHandler} style={{ width: '100%' }}>
-              {/* <Box my="4" display={'flex'} justifyContent="center">
-                  <Avatar src = {imagePrev} size={'2xl'} />
-              </Box> */}
-              
+              <form onSubmit = {submitHandler} style = {{ width: '100%' }}>
               <Box my={'4'}>
                   <FormLabel htmlFor="name" children="Name" />
                   <Input

@@ -1,5 +1,4 @@
 import { server } from "../store";
-
 import  axios from 'axios';
 
 export const login = (email,password) => async(dispatch) => {
@@ -38,18 +37,15 @@ export const loaduser = () => async(dispatch) => {
 }
 
 
-export const register = formdata => async(dispatch) => {
+export const register = formdata => async dispatch => {
     try{
         dispatch({ type: "registerRequest" });
         console.log('form data iss ---', formdata);
 
-        const config = {
-            headers : {
-                'Content-Type' : "multipart/form-data",
-            },
+        const config = { headers : {
+                'Content-Type' : "application/json" },
             withCredentials : true,
         }
-
 
         const { data } = await axios.post(`${server}/register` , formdata , config);
 

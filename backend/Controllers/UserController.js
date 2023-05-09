@@ -11,8 +11,9 @@ export const register =   catchAsyncError( async(req,res,next) => {
     const { name,email , password } = req.body;
 
       if(!name || !email || !password){
-          return next(new ErrorHandler(" Please Enter All Fields ",400));
+          return next(new ErrorHandler(" Please Enter All Fieldsss ",400));
       }
+      
       let user = await User.findOne({email})
       if(user) return next(new ErrorHandler(" User Already Exist ",409));
      
@@ -48,7 +49,6 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 
 
 export const logout =     catchAsyncError (async(req,res,next) => {
-
 
     res.status(200).clearCookie("token" ,null, {
             expires : new Date(0).toUTCString(),
