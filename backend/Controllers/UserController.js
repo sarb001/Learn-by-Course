@@ -48,7 +48,7 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 })
 
 
-export const logout =     catchAsyncError (async(req,res,next) => {
+export const logout     =   catchAsyncError (async(req,res,next) => {
 
     res.status(200).clearCookie("token" ,null, {
             expires : new Date(0).toUTCString(),
@@ -71,51 +71,47 @@ export const getmyprofile  =  catchAsyncError (async(req,res,next) => {
     })
 })
 
-export const changepassword  = async(req,res) => {
+export const changepassword  = catchAsyncError(async(req,res,next) => {
     const {oldpassword,newpassword} = req.body;
 
     if(!oldpassword || !newpassword){
-        return res.json({message: " Please Fill All the Fields "})
+        return next(new ErrorHandler("Please enter all field", 400));
     }
 
-    const  userpass  = await User.findById(req.user._id).select("+password");
-    const ismatch = await userpass.comparePassword(oldpassword);
+    const  user  = await User.findById(req.user._id).select("+password");
+    const ismatch    = await bcrypt.compare(password,user.password)
     
-
     if(!ismatch){
-        return res.json({message : " Old Password is not Correct "})
+        return next(new ErrorHandler("Old Password is not Correct ", 401));
     }
 
-    userpass.password = newpassword;
-    await userpass.save();
+    user.password = newpassword;
+    await user.save();
 
     res.status(200).json({
+        success : true,
         message : " Password Updated "
     })
-}
+})
 
-export const updateprofile   = async(req,res) => {
-    const { name ,email } = req.body;
-
-    try{
+export const updateprofile   = catchAsyncError(async(req,res,next) => {
+          const { name ,email } = req.body;
+ 
         if(!email || !name){
-            return res.json({message: " Please Fill All the Fields "})
+            return next(new ErrorHandler("Please enter all field", 400));
         }
+        
         const user = await User.findById(req.user._id);
 
-        if(name)  { user.name  =  name}
-        if(email) { user.email = email}
+        if(name)   user.name  =  name;
+        if(email)  user.email = email;
 
         await user.save();
         return res.status(200).json({
+            success : true,
             message : " Profile Data Updated "
         })
-
-    }catch(error){
-    console.log('Error While uDPATE pROFILE',error);
-    }
-
-}
+})
 
 export const forgetpassword  = async(req,res) => {
 

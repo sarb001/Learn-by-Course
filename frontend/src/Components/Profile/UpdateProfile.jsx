@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
 
 import { useDispatch } from 'react-redux';
-// import { updateprofile } from '../../Redux/actions/profile';
+import { updateProfile } from '../../Redux/actions/profile';
 
 const UpdateProfile = () => {
   
@@ -13,8 +13,7 @@ const UpdateProfile = () => {
   
   const submitHandler = (e) => {
     e.preventDefault();
-
-    // dispatch(updateprofile(name,email));
+    dispatch(updateProfile(name,email));
   }
 
   return (

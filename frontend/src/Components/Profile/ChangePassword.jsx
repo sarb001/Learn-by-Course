@@ -2,36 +2,35 @@ import React , {  useEffect, useState  } from 'react';
 import { Button, Container, Heading, Input, Toast, VStack, useToast } from '@chakra-ui/react';
 
 import  { useDispatch, useSelector } from 'react-redux';
-// import { changepassword } from '../../Redux/actions/profile';
-
 import { toast } from 'react-hot-toast';
+import { changePassword } from '../../Redux/actions/profile';
 
 const ChangePassword = () => {
 
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
-  // const dispatch =  useDispatch();
-    // const toast = useToast();
-
+  const dispatch =  useDispatch();
+    
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch(changepassword(oldPassword,newPassword));
+    dispatch(changePassword(oldPassword,newPassword))
   }
 
-  // const { loading , message , error } = useSelector(state => state.profile);
+  const { loading ,message ,error } = useSelector(state => state.profile)
 
-  // useEffect(() => {
-  //   if(error){
-  //     toast.error(error);
-  //     dispatch({type:"clearError"});
-  //   }
+  useEffect(() => {
+     
+    if(error){
+      toast.error(error);
+      dispatch({type: "clearError"});
+    }
+    if(message){
+      toast.success(message);
+      dispatch({type: "clearMessage"});
+    }
 
-  //   if(message){
-  //     toast.error(message);
-  //     dispatch({type:"clearMessage"});
-  //   }
-  // },[dispatch,error,message])
+  },[dispatch,error,message])
 
 
   return (
@@ -66,7 +65,7 @@ const ChangePassword = () => {
               />
 
               <Button
-              // isLoading = {loading}
+              isLoading = {loading}
                 w="full"
                 colorScheme={'yellow'}
                 type="submit"
