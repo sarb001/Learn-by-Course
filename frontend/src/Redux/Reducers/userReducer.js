@@ -93,6 +93,8 @@ export const profileReducer = createReducer(
       clearError: (state) => {
         state.error = null;
       },
+
+      
       changepasswordRequest: (state) => {
         state.loading = true;
       },

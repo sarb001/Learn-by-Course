@@ -71,6 +71,7 @@ export const getmyprofile  =  catchAsyncError (async(req,res,next) => {
     })
 })
 
+
 export const changepassword  = catchAsyncError(async(req,res,next) => {
     const {oldPassword,newPassword} = req.body;
 
@@ -108,7 +109,7 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
         if(email)  user.email = email;
 
         await user.save();
-        return res.status(200).json({
+         res.status(200).json({
             success : true,
             message : " Profile Data Updated "
         })
