@@ -27,9 +27,8 @@ export const  changePassword = (oldPassword,newPassword) => async(dispatch) =>
 {
     try{
         dispatch({ type: "changepasswordRequest" });
-        
         const { data }  = await axios.put(`${server}/changepassword` , 
-        { oldPassword,newPassword}, 
+        { oldPassword,newPassword} , 
         {
             headers : {
                 'Content-Type' : "application/json",

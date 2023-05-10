@@ -100,7 +100,7 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
         if(!email || !name){
             return next(new ErrorHandler("Please enter all field", 400));
         }
-        
+
         const user = await User.findById(req.user._id);
 
         if(name)   user.name  =  name;
@@ -112,6 +112,7 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
             message : " Profile Data Updated "
         })
 })
+
 
 export const forgetpassword  = async(req,res) => {
 

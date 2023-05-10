@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '../../Redux/actions/profile';
+import { loaduser } from '../../Redux/actions/user';
 
-const UpdateProfile = () => {
+const UpdateProfile = ({user}) => {
   
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName]   = useState(user.name);
+  const [email, setEmail] = useState(user.email);
 
   const dispatch =  useDispatch();
   
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(updateProfile(name,email));
+    dispatch(loaduser())
   }
+
+  const { loading } = useSelector(state => state.profile);
 
   return (
     <div>
@@ -46,6 +50,7 @@ const UpdateProfile = () => {
           />
           
           <Button 
+            isLoading = {loading}
             w="full"
             colorScheme={'yellow'}
             type = "submit"
