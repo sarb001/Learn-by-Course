@@ -48,7 +48,7 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 })
 
 
-export const logout     =   catchAsyncError (async(req,res,next) => {
+export const logout       =   catchAsyncError (async(req,res,next) => {
 
     res.status(200).clearCookie("token" ,null, {
             expires : new Date(0).toUTCString(),
@@ -78,9 +78,9 @@ export const changepassword  = catchAsyncError(async(req,res,next) => {
         return next(new ErrorHandler("Please enter all fieldSSS", 400));
     }
 
-    const  user     = await User.findById(req.user._id).select("+password");
-    console.log('user pass is --',user);
-    const ismatch    = await bcrypt.compare(password,user.password)
+    const  user     = await User.findById(req.user._id).select("+password");            // old pass  
+    console.log('user pass is --',user); 
+    const ismatch    = await bcrypt.compare(oldPassword,user.password)
     
     if(!ismatch){
         return next(new ErrorHandler("Old Password is not Correct ", 401));
