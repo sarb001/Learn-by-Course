@@ -72,20 +72,20 @@ export const getmyprofile  =  catchAsyncError (async(req,res,next) => {
 })
 
 export const changepassword  = catchAsyncError(async(req,res,next) => {
-    const {oldpassword,newpassword} = req.body;
+    const {oldPassword,newPassword} = req.body;
 
-    if(!oldpassword || !newpassword){
-        return next(new ErrorHandler("Please enter all field", 400));
+    if(!oldPassword || !newPassword){
+        return next(new ErrorHandler("Please enter all fieldSSS", 400));
     }
 
-    const  user  = await User.findById(req.user._id).select("+password");
+    const  user     = await User.findById(req.user._id).select("+password");
     const ismatch    = await bcrypt.compare(password,user.password)
     
     if(!ismatch){
         return next(new ErrorHandler("Old Password is not Correct ", 401));
     }
 
-    user.password = newpassword;
+    user.password = newPassword;
     await user.save();
 
     res.status(200).json({
@@ -98,7 +98,7 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
           const { name ,email } = req.body;
  
         if(!email || !name){
-            return next(new ErrorHandler("Please enter all field", 400));
+            return next(new ErrorHandler("Please enter all fieldsss", 400));
         }
 
         const user = await User.findById(req.user._id);
