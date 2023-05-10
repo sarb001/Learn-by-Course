@@ -76,34 +76,33 @@ export const UserReducer = createReducer(
 export const profileReducer = createReducer(
   {},
   {
-    updateProfileRequest: (state) => {
-      state.loading = true;
-    },
-    updateProfileSuccess: (state, action) => {
-      state.loading = false;
-      state.message = action.payload;
-    },
-    updateProfileFail: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+      updateProfileRequest: (state) => {
+        state.loading = true;
+      },
+      updateProfileSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      updateProfileFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
       clearMessage: (state) => {
         state.message = null;
       },
       clearError: (state) => {
         state.error = null;
       },
-
-    changepasswordRequest: (state) => {
-      state.loading = true;
-    },
-    changepasswordSuccess: (state, action) => {
-      state.loading = false;
-      state.message = action.payload;
-    },
-    changepasswordFail: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+      changepasswordRequest: (state) => {
+        state.loading = true;
+      },
+      changepasswordSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      changepasswordFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
   }
 );
