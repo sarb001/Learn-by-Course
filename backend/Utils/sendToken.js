@@ -3,7 +3,8 @@ import jwt  from 'jsonwebtoken';
 
 export const sendToken = (res,user,message,statusCode) => {
 
-    const expirationTime = 3600;
+    // const expirationTime = 3600; ms
+    const expirationTime = 60 * 60 * 1000;      // ms = 1hr 
 
     const  token = jwt.sign({_id : user._id},'ekekkkeke' , {
         expiresIn : '1h',
