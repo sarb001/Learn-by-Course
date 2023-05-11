@@ -7,7 +7,9 @@ import { sendToken } from  "../Utils/sendToken.js";
 import ErrorHandler  from  '../Utils/errorhandler.js';
 import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
 import crypto from 'crypto';
-import sendmail from "../Utils/sendmail.js";
+import { sendEmail } from "../Utils/sendmail.js";
+
+
 
 
 export const register =   catchAsyncError( async(req,res,next) => {
@@ -146,7 +148,7 @@ export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
 
             const message = ` Click on link to reset pass ${url} `;
             
-            await  sendmail(user.email,"  Reset Password  ",message);
+            await sendEmail(user.email,"  Reset Password  ",message);
 
             res.status(200).json({
                 success : true,
