@@ -131,7 +131,7 @@ export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
             const user  = await  User.findOne({ email });
              if(!user) return next(new ErrorHandler(" User not Found ",400))
               
-              function getresetToken() {
+             const  getresetToken = () =>  {
                 const resetoken  =         crypto.randomBytes(32).toString("hex");
                 const resetPasswordToken = crypto.createHash("sha256")
                 .update(resetoken)
