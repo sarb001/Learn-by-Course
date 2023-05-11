@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { resetpassword } from '../../Redux/actions/profile';
 
 
 const ResetPassword = () => {
@@ -12,6 +13,7 @@ const ResetPassword = () => {
 
     const submitHandler = e => {
         e.preventDefault();
+        dispatch(resetpassword(token,password))
     }
 
   return (

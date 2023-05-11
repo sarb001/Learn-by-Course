@@ -2,6 +2,8 @@ import mongoose , { Schema } from "mongoose";
 import validator from "validator";
 import bcrypt from  'bcrypt';
 
+import crypto from 'crypto';
+
 const schema = new mongoose.Schema({
     name : {
         type:String,
@@ -54,12 +56,13 @@ schema.pre("save" , async function(next){
 });
 
 schema.methods.getresetToken = async function(){
-    const resetoken  =         crypto.randomBytes(32).toString("hex");
-    const resetPasswordToken = crypto.createHash("sha256")
+
+     const resetoken  =         crypto.randomBytes(32).toString("hex");
+     this.resetPasswordToken = crypto.createHash("sha256")
     .update(resetoken)
     .digest("hex");
 
-    const resetexpires = Date.now() +  15 * 60 * 1000;
+    this.resetPasswordExpire = Date.now() +  15 * 60 * 1000;
     return resetoken;
 }
 

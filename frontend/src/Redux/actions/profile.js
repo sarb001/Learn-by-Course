@@ -46,3 +46,53 @@ export const  changePassword = (oldPassword,newPassword) => async(dispatch) =>
             payload : error.response.data.message });
     }
 }
+
+
+export const forgetgetpassword = (email) => async(dispatch) => {
+    try{
+        dispatch({type:"forgetpasswordRequest"})
+        const config = {
+            headers: {
+              'Content-type': 'application/json',
+            },
+      
+            withCredentials: true,
+          };
+      
+          const { data } = await axios.post(
+            `${server}/forgetpassword`,{ email }, config
+          );
+      
+        dispatch({type:"forgetpasswordSuccess" ,payload : data.message })
+        
+    }catch(error){
+        dispatch({
+            type:"forgetpasswordFail",
+            payload : error.response.data.message })
+    }
+}
+
+
+export const resetpassword = (token,password) => async(dispatch) => {
+    try{
+        dispatch({type:"resetpasswordRequest"})
+        const config = {
+            headers: {
+              'Content-type': 'application/json',
+            },
+      
+            withCredentials: true,
+          };
+      
+          const { data } = await axios.put(
+            `${server}/resetpassword/${token}`,{ password }, config
+          );      
+        dispatch({type:"resetpasswordSuccess" ,payload : data.message })
+        
+    }catch(error){
+        dispatch({
+            type:"resetpasswordFail",
+            payload : error.response.data.message })
+    }
+
+}

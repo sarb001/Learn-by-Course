@@ -123,7 +123,6 @@ export const profileReducer = createReducer(
       },
 
 
-
       resetpasswordRequest: (state) => {
         state.loading = true;
       },
@@ -135,7 +134,6 @@ export const profileReducer = createReducer(
         state.loading = false;
         state.error = action.payload;
       },
-
 
   }
 );
