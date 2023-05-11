@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { resetpassword } from '../../Redux/actions/profile';
+import { useDispatch } from 'react-redux';
 
 
 const ResetPassword = () => {
@@ -11,10 +12,25 @@ const ResetPassword = () => {
     const params = useParams();
     const navigate = useNavigate();
 
+    const {loading , message , error} = useSelector(state => state.profile);
+
+    const dispatch = useDispatch();
+
     const submitHandler = e => {
         e.preventDefault();
         dispatch(resetpassword(token,password))
     }
+
+    useEffect(() => {
+      if(error){
+        toast.error(error);
+        dispatch({type:"clearError" })
+      }
+      if(message){
+        toast.success(message);
+        dispatch({type:"clearMessage" })
+      }
+    },[dispatch,error,message])  
 
   return (
     <div> 
@@ -37,6 +53,7 @@ const ResetPassword = () => {
                     />
 
                         <Button 
+                        isLoading = {loading}
                             type = "submit"
                             w = {'full'}
                             colorScheme="yellow"

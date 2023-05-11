@@ -1,15 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
 import { forgetpassword } from '../../Redux/actions/profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
 
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState('');
 
+  const {loading , message , error} = useSelector(state => state.profile);
+
+  const dispatch = useDispatch();
+
   const submitHandler = e => {
     e.preventDefault();
     dispatch(forgetpassword(email))
   };
+
+  useEffect(() => {
+    if(error){
+      toast.error(error);
+      dispatch({type:"clearError" })
+    }
+    if(message){
+      toast.success(message);
+      dispatch({type:"clearMessage" })
+    }
+  },[dispatch,error,message])
 
   return (
     <div> 
@@ -33,6 +50,7 @@ const ForgetPassword = () => {
           />
 
           <Button
+           isLoading = {loading}
             type="submit"
             w={'full'}
             colorScheme="yellow"
