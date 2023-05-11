@@ -140,7 +140,6 @@ export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
                 const resetexpires = Date.now() +  15 * 60 * 1000;
                 return resetoken;
             }
-
                 const resetToken = await user.getresetToken();
                 await user.save();
 
