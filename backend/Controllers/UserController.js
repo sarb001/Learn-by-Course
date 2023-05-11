@@ -101,6 +101,7 @@ export const changepassword  = catchAsyncError(async(req,res,next) => {
     })
 })
 
+
 export const updateprofile   = catchAsyncError(async(req,res,next) => {
           const { name ,email } = req.body;
  
@@ -146,7 +147,7 @@ export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
 })
 
 
-export const resetpassword = catchAsyncError(async(req,res,next) => {
+export const resetpassword    =    catchAsyncError(async(req,res,next) => {
     
      const { token } = req.params;
 

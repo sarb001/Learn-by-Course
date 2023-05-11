@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
-import { forgetgetpassword } from '../../Redux/actions/profile';
+import { forgetpassword } from '../../Redux/actions/profile';
 
 
 const ForgetPassword = () => {
@@ -8,7 +8,7 @@ const ForgetPassword = () => {
 
   const submitHandler = e => {
     e.preventDefault();
-    dispatch(forgetgetpassword(email))
+    dispatch(forgetpassword(email))
   };
 
   return (

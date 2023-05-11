@@ -48,7 +48,7 @@ export const  changePassword = (oldPassword,newPassword) => async(dispatch) =>
 }
 
 
-export const forgetgetpassword = (email) => async(dispatch) => {
+export const forgetpassword = (email) => async(dispatch) => {
     try{
         dispatch({type:"forgetpasswordRequest"})
         const config = {
