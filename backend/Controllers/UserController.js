@@ -6,6 +6,9 @@ import { Course } from "../Models/Course.js";
 import { sendToken } from  "../Utils/sendToken.js";
 import ErrorHandler  from  '../Utils/errorhandler.js';
 import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
+import crypto from 'crypto';
+import sendmail from "../Utils/sendmail.js";
+
 
 export const register =   catchAsyncError( async(req,res,next) => {
     const { name,email , password } = req.body;
@@ -118,13 +121,70 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
 
 export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
 
+        const { email } = req.body;
+         if(!email){
+             return next(new ErrorHandler(" Please Enter Email in Field ",400));
+         }
+         
+            const user  = await  User.findOne({ email });
+             if(!user) return next(new ErrorHandler(" User not Found ",400))
+              
+              function getresetToken() {
+                const resetoken  =         crypto.randomBytes(32).toString("hex");
+                const resetPasswordToken = crypto.createHash("sha256")
+                .update(resetoken)
+                .digest("hex");
+
+                const resetexpires = Date.now() +  15 * 60 * 1000;
+                return resetoken;
+            }
+
+                const resetToken = await user.getresetToken();
+                await user.save();
+
+            const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+
+            const message = ` Click on link to reset pass ${url} `;
+            
+            await  sendmail(user.email,"  Reset Password  ",message);
+
+            res.status(200).json({
+                success : true,
+                message : ` Reset Token  has been sent to ${user.email} `,
+            });
 })
 
 
 export const resetpassword = catchAsyncError(async(req,res,next) => {
     
+     const { token } = req.params;
 
-    
+     const resetPasswordToken = crypto
+     .createHash("sha256")
+     .update(token)
+     .digest("hex")
+
+     const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire : {
+            $gt : Date.now(),
+        }
+     })
+
+     if(!user){
+        return next(new ErrorHandler(" Token is invalid or Expired ",401));
+     }
+
+     user.password = req.body.password;
+     user.resetPasswordToken = undefined;
+     user.resetPasswordExpire = undefined;
+
+     await user.save();
+
+     res.status(200).json({
+        success : true,
+        message : " Password Changed Successfully ",
+     });
 })
 
 

@@ -32,6 +32,8 @@ router.route('/forgetpassword').post(forgetpassword)
 router.route('/resetpassword/:token').put(resetpassword)
 
 
+
+
 router.route('/updateprofile').put( isAuthenticated ,updateprofile)
 
 
