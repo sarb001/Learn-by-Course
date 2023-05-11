@@ -116,9 +116,17 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
 })
 
 
-export const forgetpassword  = async(req,res) => {
+export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
 
-}
+})
+
+
+export const resetpassword = catchAsyncError(async(req,res,next) => {
+    
+
+    
+})
+
 
 export const  deletemyprofile = async(req,res) => {
     try{
@@ -237,3 +245,4 @@ export const DeleteUser = async(req,res) => {
     })
 
 }
+

@@ -94,7 +94,8 @@ export const profileReducer = createReducer(
         state.error = null;
       },
 
-      
+        // Change from old to new  pass
+
       changepasswordRequest: (state) => {
         state.loading = true;
       },
@@ -106,5 +107,35 @@ export const profileReducer = createReducer(
         state.loading = false;
         state.error = action.payload;
       },
+
+      
+
+      forgetpasswordRequest: (state) => {
+        state.loading = true;
+      },
+      forgetpasswordSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      forgetpasswordFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+
+
+
+      resetpasswordRequest: (state) => {
+        state.loading = true;
+      },
+      resetpasswordSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      resetpasswordFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+
+
   }
 );

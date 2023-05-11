@@ -23,6 +23,7 @@ export const  updateProfile = (name,email) => async(dispatch) =>
     }
 }
 
+// old to new 
 
 export const  changePassword = (oldPassword,newPassword) => async(dispatch) => 
 {

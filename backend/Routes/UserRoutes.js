@@ -3,6 +3,7 @@ import { DeleteUser, addedtoplaylist, changepassword,
      deletemyprofile,forgetpassword, getallusers,
       getmyprofile,
       login, logout, register, removefromplaylist,
+     resetpassword,
      updateUserRole, updateprofile } 
 from '../Controllers/UserController.js';
 
@@ -21,8 +22,14 @@ router.route('/deletemyprofile').delete( isAuthenticated ,deletemyprofile)
 
 router.route('/changepassword').put( isAuthenticated ,changepassword)
 
-// Deploy First 
-router.route('/forgetpassword').put( isAuthenticated ,forgetpassword)
+
+// forget get link via email 
+
+router.route('/forgetpassword').post(forgetpassword)
+
+// with token create new pass  
+
+router.route('/resetpassword/:token').put(resetpassword)
 
 
 router.route('/updateprofile').put( isAuthenticated ,updateprofile)
