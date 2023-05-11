@@ -130,21 +130,11 @@ export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
          
             const user  = await  User.findOne({ email });
              if(!user) return next(new ErrorHandler(" User not Found ",400))
-              
-             const  getresetToken = () =>  {
-                const resetoken  =         crypto.randomBytes(32).toString("hex");
-                const resetPasswordToken = crypto.createHash("sha256")
-                .update(resetoken)
-                .digest("hex");
-
-                const resetexpires = Date.now() +  15 * 60 * 1000;
-                return resetoken;
-            }
+           
                 const resetToken = await user.getresetToken();
                 await user.save();
 
             const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
-
             const message = ` Click on link to reset pass ${url} `;
             
             await sendEmail(user.email,"  Reset Password  ",message);

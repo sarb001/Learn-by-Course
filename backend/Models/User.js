@@ -53,9 +53,14 @@ schema.pre("save" , async function(next){
     next()
 });
 
+schema.methods.getresetToken = async function(){
+    const resetoken  =         crypto.randomBytes(32).toString("hex");
+    const resetPasswordToken = crypto.createHash("sha256")
+    .update(resetoken)
+    .digest("hex");
 
-// schema.methods.comparePassword = async function (password) {
-//      return await bcrypt.compare(password,this.password);
-// }
+    const resetexpires = Date.now() +  15 * 60 * 1000;
+    return resetoken;
+}
 
 export const User = mongoose.model("User",schema)
