@@ -4,6 +4,7 @@ import { Container , Heading , Input  ,Button , Text , HStack, VStack, Stack, Im
 import { Link } from 'react-router-dom';
 import { getallcourses } from '../../Redux/actions/course';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
 
 
 const Course = ({views,title,imageSrc,id,addToPlaylistHandler,creator,description,lectureCount}) => {
