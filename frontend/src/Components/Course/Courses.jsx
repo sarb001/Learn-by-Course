@@ -1,7 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container , Heading , Input  ,Button , Text , HStack, VStack, Stack, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { getallcourses } from '../../Redux/actions/course';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Course = ({views,title,imageSrc,id,addToPlaylistHandler,creator,description,lectureCount}) => {
@@ -65,7 +67,9 @@ const Course = ({views,title,imageSrc,id,addToPlaylistHandler,creator,descriptio
 const Courses = () => {
 
   const [category, setCategory] = useState('');
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword]   = useState('');
+
+  const dispatch =  useDispatch();
 
   const categories = [
     'Web development',
@@ -80,10 +84,28 @@ const Courses = () => {
     console.log('playerer');
   }
 
+   const { loading , courses , error , message } = useSelector(state => state.course)
+
+  
+  useEffect(() => {
+    dispatch(getallcourses(category, keyword));
+
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [category, keyword, dispatch, error, message]);
+
+
   return (
     <div>
-       <Container minH = {'95vh'} maxW="container.lg" paddingY={'8'}>
-             <Heading children="All Courses" m={'8'} />
+       <Container   minH   = {'95vh'} maxW="container.lg" paddingY={'8'}>
+             <Heading children = "All Courses" m={'8'} />
 
                      <Input
                         value = {keyword}
@@ -99,8 +121,7 @@ const Courses = () => {
                         '&::-webkit-scrollbar': {
                             display: 'none',
                         },
-                        }}
-                    >
+                        }}>
                         {categories.map((item, index) => (
                         <Button key={index} onClick={() => setCategory(item)} minW = {'60'}>
                             <Text children={item} />
@@ -114,16 +135,26 @@ const Courses = () => {
                     justifyContent={['flex-start', 'space-evenly']}
                     alignItems={['center', 'flex-start']}>
 
-                        <Course 
-                        title = {"ttttttt"}
-                        views = {"VVVVVV"}
-                        imageSrc  = {"IIi"}
-                        id = {"SSSSS"}
-                        addToPlaylistHandler = {addToPlaylistHandler}
-                        creator = {"CCCC"}
-                        description = {"DDDDD"}
-                        lectureCount = {"LLLL"}
-                        loading ={"....."} />        
+
+               {courses.length > 0 ? 
+               (courses.map(item => (
+                    <Course
+                      key={item._id}
+                      title={item.title}
+                      description={item.description}
+                      views={item.views}
+                      imageSrc={item.poster.url}
+                      id={item._id}
+                      creator={item.createdBy}
+                      lectureCount={item.numOfVideos}
+                      addToPlaylistHandler={addToPlaylistHandler}
+                      loading={loading}
+                    />
+                  ))
+                ) : 
+              (
+                <Heading mt="4" children="Courses Not Found" />
+              )}
 
                  </Stack>
              </Container>

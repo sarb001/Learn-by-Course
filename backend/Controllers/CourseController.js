@@ -50,7 +50,7 @@ export const getallcourses = async(req,res) => {
             courses,
         })
     }catch(error){
-        console.log('');
+        console.log('error forallcourses -- ',error);
     }
 }
 

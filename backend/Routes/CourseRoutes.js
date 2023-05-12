@@ -4,6 +4,7 @@ from '../Controllers/CourseController.js';
 import { authorizeAdmin, isAuthenticated } from '../Middlewares/auth.js';
 
 const router = express.Router();
+
 router.route('/allcourses').get(getallcourses)
 
 router.route('/createcourse').post(isAuthenticated,authorizeAdmin,createcourse)
