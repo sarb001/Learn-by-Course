@@ -4,7 +4,7 @@ export const sendEmail = async(to,subject,text) => {
     const transporter  = createTransport({
         host : process.env.SMTP_HOST,
         port : process.env.SMTP_PORT,
-        secure : true,
+        secure : false,
         logger: true,
         debug : true,
         ignoreTLS : true,

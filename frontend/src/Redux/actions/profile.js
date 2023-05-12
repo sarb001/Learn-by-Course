@@ -51,11 +51,9 @@ export const  changePassword = (oldPassword,newPassword) => async(dispatch) =>
 export const forgetpassword = (email) => async(dispatch) => {
     try{
         dispatch({type:"forgetpasswordRequest"})
-        const config = {
-            headers: {
-              'Content-type': 'application/json',
+        const config = { headers: {
+              'Content-Type': 'application/json',
             },
-      
             withCredentials: true,
           };
       
@@ -67,7 +65,7 @@ export const forgetpassword = (email) => async(dispatch) => {
         
     }catch(error){
         dispatch({
-            type:"forgetpasswordFail",
+            type : "forgetpasswordFail",
             payload : error.response.data.message })
     }
 }
