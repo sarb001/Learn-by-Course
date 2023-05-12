@@ -7,9 +7,9 @@ import { sendToken } from  "../Utils/sendToken.js";
 import ErrorHandler  from  '../Utils/errorhandler.js';
 import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
 import crypto from 'crypto';
-import { sendEmail } from "../Utils/sendmail.js";
+// import { sendEmail } from "../Utils/sendmail.js";
 
-
+import nodemailer from 'nodemailer';
 
 
 export const register =   catchAsyncError( async(req,res,next) => {
@@ -138,12 +138,37 @@ export const forgetpassword  =   catchAsyncError (async(req,res,next) => {
             const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
             const message = ` Click on link to reset pass ${url} `;
             
-            await sendEmail(user.email,"  Reset Password  ",message);
+            // await sendEmail(user.email,"  Reset Password  ",message);
 
-            res.status(200).json({
-                success : true,
-                message : ` Reset Token  has been sent to ${user.email} `,
-            });
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true,
+                auth: {
+                 user: 'sarbbsandhu555@gmail.com',
+                 pass: 'phbbxsizbrfpvzbk',
+                },
+               });
+             
+               const sendEmail = (email, token) => {
+                const mailOptions = {
+                 from: 'sarbbsandhu555@gmail.com',
+                 to:'mrsinghbusiness05@gmail.com',
+                 subject: 'Email verification',
+                 html: ` ${message} is -- ${url}`,
+               };
+             
+               transporter.sendMail(mailOptions, function (error, info) {
+                 if (error) {
+                   console.log('Error in sending email  ' + error);
+                   return true;
+                 } else {
+                  console.log(' Reset token has been Sent to mail ' + info.response);
+                  return false;
+                 }
+                });
+               };
 })
 
 
