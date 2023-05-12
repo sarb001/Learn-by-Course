@@ -1,6 +1,7 @@
 import { server } from "../store";
 import  axios from 'axios';
 
+
 export const  updateProfile = (name,email) => async(dispatch) => 
 {
     try{

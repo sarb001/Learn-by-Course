@@ -87,19 +87,19 @@ const Courses = () => {
 
    const { loading , courses , error , message } = useSelector(state => state.course)
 
-  
+
   useEffect(() => {
     dispatch(getallcourses(category, keyword));
 
-    if (error) {
+    if(error){
       toast.error(error);
-      dispatch({ type: 'clearError' });
+      dispatch({type:'clearError'})
+    }
+    if(message){
+      toast.success(success);
+      dispatch({type:'clearMessage'})
     }
 
-    if (message) {
-      toast.success(message);
-      dispatch({ type: 'clearMessage' });
-    }
   }, [category, keyword, dispatch, error, message]);
 
 
