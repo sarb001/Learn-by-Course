@@ -144,7 +144,6 @@ const Courses = () => {
                       title={item.title}
                       description={item.description}
                       views={item.views}
-                      imageSrc={item.poster.url}
                       id={item._id}
                       creator={item.createdBy}
                       lectureCount={item.numOfVideos}
