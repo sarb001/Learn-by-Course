@@ -7,7 +7,7 @@ import { sendToken } from  "../Utils/sendToken.js";
 import ErrorHandler  from  '../Utils/errorhandler.js';
 import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
 import crypto from 'crypto';
-// import { sendEmail } from "../Utils/sendmail.js";
+
 
 import nodemailer from 'nodemailer';
 
@@ -203,7 +203,7 @@ export const resetpassword    =    catchAsyncError(async(req,res,next) => {
 })
 
 
-export const  deletemyprofile = async(req,res) => {
+export const  deletemyprofile =  catchAsyncError(async(req,res,next) => {
     try{
         const deluser = await User.findById(req.user._id);
 
@@ -218,40 +218,46 @@ export const  deletemyprofile = async(req,res) => {
     }catch(error){
         console.log('Error While Deleting User',error);
     }
-}
+})
 
 
+export const addedtoplaylist = catchAsyncError(async(req,res,next) => {
 
-export const addedtoplaylist = async(req,res) => {
-
-    const user = await User.findById(req.user._id);
+    const user   = await User.findById(req.user._id);
     const course = await Course.findById(req.body.id);
 
-    if(!course){ return res.json({message : " Invalid Course ID "})}
+    if(!course){ 
+        return next(new ErrorHandler(" Invalid Course Id ",404));
+    }
 
     const itemExist = user.playlist.find((item) => {
         if(course._id.toString() === item.course.toString())
         return true;
     })
 
-    if(itemExist) {return res.json({message : " Item already Existed "}) }
+    if(itemExist) {
+        return next( new ErrorHandler(" item Already Exist ",409));
+     }
 
     user.playlist.push({ course:course._id})
 
     await user.save();
-    res.status(200).json({
-        message : " Added to Playlist "
-    })
-}
 
-export const removefromplaylist = async(req,res) => {
-    const user  = await User.findById(req.user._id);
+    res.status(200).json({
+        success  : true,
+        message  : " Added to Playlist ",
+    })
+})
+
+
+export const removefromplaylist = catchAsyncError(async(req,res,next) => {
+    const user    = await User.findById(req.user._id);
     const course  = await Course.findById(req.query.id);
 
     if(!course){
-        return res.json({message : " Invalid Course ID "});
+        return next(new ErrorHandler(" Invalid Course ID ",404));
     }
-    
+
     const newPlaylist  = user.playlist.filter((item) => {
         if(item.course.toString() !== course._id.toString())
         return item;
@@ -264,8 +270,7 @@ export const removefromplaylist = async(req,res) => {
         success: true,
         message : " Removed From Playlist ",
     })
-
-}
+})
 
 
 

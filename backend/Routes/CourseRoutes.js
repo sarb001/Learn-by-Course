@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.route('/allcourses').get(getallcourses)
 
-router.route('/createcourse').post(isAuthenticated,authorizeAdmin,createcourse)
+router.route('/createcourse')
+.post(isAuthenticated,authorizeAdmin,createcourse)
 
 router.route('/course/:id')
 .get(isAuthenticated,getcourselectures)

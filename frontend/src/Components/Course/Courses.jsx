@@ -88,7 +88,6 @@ const Courses = () => {
    const { courses , error , message } = useSelector(state => state.course);
 
   useEffect(() => {
-    
     dispatch(getallcourses(category,keyword))
 
     if(error){

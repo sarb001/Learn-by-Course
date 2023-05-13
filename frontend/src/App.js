@@ -33,7 +33,7 @@ import Loader from './Components/Layout/Loader/Loader';
 
 
 function App() {
-
+  
   const { isAuthenticated ,user, message,error ,loading }  = useSelector(state => state.user)
   const dispatch = useDispatch();
 
@@ -51,7 +51,6 @@ function App() {
   useEffect(() => {
     dispatch(loaduser());
   },[dispatch])
-
 
   return (
     <div className = "App">
