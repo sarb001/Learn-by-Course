@@ -7,7 +7,7 @@ const store = configureStore({
     reducer:{
         user : UserReducer,
         profile : profileReducer,
-        courses : courseReducer
+        course : courseReducer
     }
 })
 
