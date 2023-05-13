@@ -47,7 +47,7 @@ export const  deletecourse = async(req,res) => {
 export const getallcourses =   catchAsyncError(async(req,res,next) => {
        
      const keyword  =  req.query.keyword   || "";
-     const category =  req.query.category || "";
+     const category =  req.query.category  || "";
     
     const courses = await Course.find({
             title : {
