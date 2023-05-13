@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Avatar,
     Button,
@@ -22,19 +22,39 @@ import {
 import {  Link } from 'react-router-dom';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { fileUploadCss } from '../Auth/Register';
+import { useDispatch } from 'react-redux';
+import { loaduser } from '../../Redux/actions/user';
+import { toast } from 'react-hot-toast';
+import { removedfromplaylist } from '../../Redux/actions/profile';
 
 const Profile = ({user}) => {
 
       console.log(' Present User is --',user);
     const { isOpen, onClose, onOpen } = useDisclosure();
 
+      const dispatch = useDispatch();
+     
     const changeImageSubmitHandler = (e,image) => {
       e.preventDefault();
     }
  
-    const removeFromPlaylistHandler = (id) => {
-      console.log('removed idsi ',id);
+    const removeFromPlaylistHandler = async id => {
+         console.log('removed id is -- ',id);
+         await dispatch(removedfromplaylist(id))
+         dispatch(loaduser());
     }
+
+    useEffect(() => {
+
+      if(error){
+        toast.error(error);
+        dispatch({ type:"clearError" });
+      }
+      if(message){
+        toast.success(message);
+        dispatch({ type:"clearMessage" });
+      }
+    },[dispatch,error,message]);
 
 
   return (

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getallcourses } from '../../Redux/actions/course';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
+import { addToPlaylist } from '../../Redux/actions/profile';
 
 
 const Course = ({views,title,imageSrc,id,addToPlaylistHandler,creator,description,lectureCount}) => {
@@ -83,6 +84,7 @@ const Courses = () => {
 
   const addToPlaylistHandler = (id) => {
     console.log('playerer');
+    dispatch(addToPlaylist(id))
   }
 
    const { courses , error , message } = useSelector(state => state.course);

@@ -34,7 +34,6 @@ router.route('/resetpassword/:token').put(resetpassword)
 
 router.route('/updateprofile').put( isAuthenticated ,updateprofile)
 
-
 // added to Playlist
 
 router.route('/addedtoplaylist').post(isAuthenticated,addedtoplaylist)
