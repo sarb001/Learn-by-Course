@@ -97,7 +97,7 @@ const Courses = () => {
     }
     if(message){
       toast.success(message);
-      dispatch({type:'clearMessage'})
+      dispatch({type:"clearMessage"})
     }
 
   }, [category, keyword, dispatch, error, message]);
