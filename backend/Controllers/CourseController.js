@@ -60,9 +60,6 @@ export const getallcourses =   catchAsyncError(async(req,res,next) => {
             },
         }).select("-lectures");
         res.status(200).json({
-            courses,
-        })
-        res.status(200).json({
             success : true,
             courses,
         });

@@ -1,9 +1,8 @@
 import   {createReducer} from  '@reduxjs/toolkit'; 
 
 
-export const courseReducer =  createReducer({  
-    courses : []
-}, {
+export const courseReducer =  createReducer(
+    { courses : [] }, {
     allcoursesRequest : (state) => {
         state.loading = true;
     },
