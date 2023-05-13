@@ -42,17 +42,28 @@ export const  deletecourse = async(req,res) => {
     })
 }
 
-export const getallcourses = async(req,res) => {
-
-    try{
-        const courses = await Course.find();
+export const getallcourses =   (async(req,res,next) => {
+       
+     const keyword = req.qurty.keyword   || "";
+     const category = req.qurty.category || "";
+    
+    const courses = await Course.find({
+            title : {
+            $regex : keyword,
+            $options : "i"}
+        }, 
+        {
+            $regex : category,
+            $options : "i"
+        }).select("-lectures")
         res.status(200).json({
             courses,
         })
-    }catch(error){
-        console.log('error forallcourses -- ',error);
-    }
-}
+        res.status(200).json({
+            success : true,
+            courses,
+        });
+})
 
 export const addlecture    = async(req,res) => {
     const { id } = req.params;
