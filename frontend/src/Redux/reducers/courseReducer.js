@@ -7,7 +7,7 @@ export const courseReducer =  createReducer({
     allcoursesRequest : (state) => {
         state.loading = true;
     },
-    allcoursesSuccess : (state) => {
+    allcoursesSuccess : (state,action) => {
         state.loading = false;
         state.courses = action.payload;
     },
