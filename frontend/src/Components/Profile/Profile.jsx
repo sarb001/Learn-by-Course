@@ -22,7 +22,7 @@ import {
 import {  Link } from 'react-router-dom';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { fileUploadCss } from '../Auth/Register';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loaduser } from '../../Redux/actions/user';
 import { toast } from 'react-hot-toast';
 import { removedfromplaylist } from '../../Redux/actions/profile';
@@ -34,6 +34,8 @@ const Profile = ({user}) => {
 
       const dispatch = useDispatch();
      
+    const { error ,message  } = useSelector(state => state.profile);
+
     const changeImageSubmitHandler = (e,image) => {
       e.preventDefault();
     }
