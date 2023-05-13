@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import { Course } from "../Models/Course.js";
+import { catchAsyncError } from "../Middlewares/catchAsyncError.js";
 
 
 export const  createcourse = async(req,res) => {
@@ -42,7 +43,8 @@ export const  deletecourse = async(req,res) => {
     })
 }
 
-export const getallcourses =   (async(req,res,next) => {
+
+export const getallcourses =   catchAsyncError(async(req,res,next) => {
        
      const keyword = req.qurty.keyword   || "";
      const category = req.qurty.category || "";
