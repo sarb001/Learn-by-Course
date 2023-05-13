@@ -87,7 +87,6 @@ const Courses = () => {
 
    const { loading , courses , error , message } = useSelector(state => state.course)
 
-
   useEffect(() => {
     dispatch(getallcourses(category, keyword));
 
@@ -149,7 +148,7 @@ const Courses = () => {
                       creator={item.createdBy}
                       lectureCount={item.numOfVideos}
                       addToPlaylistHandler={addToPlaylistHandler}
-                      loading={loading}
+                      loading =  {loading}
                     />
                   ))
                 ) : 
