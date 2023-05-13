@@ -44,8 +44,6 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 
     const ismatch = await bcrypt.compare(password,user.password)
 
-    console.log('ismatched --',ismatch);
-
     if (!ismatch)
       return next(new ErrorHandler("Incorrect Email or Password", 401));
 
