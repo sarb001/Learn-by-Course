@@ -12,10 +12,9 @@ export const getallcourses = (category = "",keyword = "") => async(dispatch) => 
                 withCredentials : true,
             }
 
-        const { data }  = await axios.get(`${server}/allcourses` , 
-        {category,keyword}, config
-        );
-        dispatch({ type: "allcoursesSuccess"  , payload : data.message });
+        const { data }  = await axios.get(`${server}/allcourses?keyword=${keyword}&category=${category}` 
+        , config);
+        dispatch({ type: "allcoursesSuccess"  , payload : data.courses });
         
     }catch(error){
         dispatch({ 

@@ -88,7 +88,8 @@ const Courses = () => {
    const { courses , error , message } = useSelector(state => state.course);
 
   useEffect(() => {
-    dispatch(getallcourses(category, keyword));
+    
+    dispatch(getallcourses(category,keyword))
 
     if(error){
       toast.error(error);
@@ -136,7 +137,7 @@ const Courses = () => {
                     alignItems={['center', 'flex-start']}>
 
 
-               {courses.length > 0 ? 
+               {courses?.length > 0 ? 
                (courses.map(item => (
                     <Course
                       key={item._id}
