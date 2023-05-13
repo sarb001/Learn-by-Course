@@ -106,7 +106,7 @@ const Courses = () => {
   return (
     <div>
        <Container   minH   = {'95vh'} maxW="container.lg" paddingY={'8'}>
-             <Heading children = "All Courses" m={'8'} />
+             <Heading children = "All Courses Here " m={'8'} />
 
                      <Input
                         value = {keyword}
