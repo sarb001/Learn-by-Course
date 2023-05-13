@@ -85,7 +85,7 @@ const Courses = () => {
     console.log('playerer');
   }
 
-   const {  courses , error , message , loading  } = useSelector(state => state.course)
+   const { courses , error , loading , message } = useSelector(state => state.course);
 
   useEffect(() => {
     dispatch(getallcourses(category, keyword));
