@@ -6,14 +6,13 @@ import { instance } from "../app.js";
 import crypto from 'crypto';
 
 
-
 export const buysubscription    = catchAsyncError(async(req,res,next) => {
     const user = await User.findById(req.user._id);
 
     if(user.role === "admin")
      return next(new ErrorHandler("Admin can't buy Subscription",400));
 
-    // const plain_id = ;
+    const plain_id = process.env.PLAIN_ID || "plan_LpZavJyyGA6ubu"
 
     const subscription = await instance.subscriptions.create({
         plain_id,
