@@ -1,10 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import user from './Routes/UserRoutes.js';
 import { connectdb } from './Config/Database.js';
+import user from './Routes/UserRoutes.js';
 import course from './Routes/CourseRoutes.js';
-import cookieparser from  'cookie-parser';
+import payment from './Routes/paymentRoutes.js';
 
+import cookieparser from  'cookie-parser';
+import RazorPay from 'razorpay';
 import cors from 'cors';
 import ErrorMiddleware from './Middlewares/Error.js';
 const app = express();
@@ -27,6 +29,13 @@ app.use(express.json())
 
 app.use('/api/v1',user);
 app.use('/api/v1',course);
+app.use('/api/v1',payment);
+
+export const instance = new RazorPay({
+    key_id    :process.env.RAZORPAY_API_KEY,
+    key_secret:process.env.RAZORPAY_API_SECRET,
+})
+
 
 app.listen(PORT,() => {
     console.log(` Server is Running ${PORT} Brooo.. `);
@@ -37,5 +46,6 @@ app.get('/' , (req,res)  => {
      <a href = ${process.env.FRONTEND_URL}>  CLick herer  </a>
      </h2>`)
 })
+
 
 app.use(ErrorMiddleware);

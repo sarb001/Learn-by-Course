@@ -73,3 +73,39 @@ export const logout = () =>  async(dispatch) => {
         dispatch({ type: 'logoutUserFail' , payload : error.response.data.message});
     }
 }
+
+
+export const  buySubscription = () =>  async(dispatch) => {
+    try{
+        dispatch({type:"buysubscriptionRequest"})
+        
+        const {data}  = await axios.get(`${server}/subscribe` , {
+            withCredentials : true,
+        })
+
+        dispatch({type:"buysubscriptionSuccess" , payload : data.subscriptionId });
+
+    }catch(error){
+        dispatch({
+            type : "buysubscriptionFail",
+            payload : error.response.data.message,
+        });        
+    }
+};
+
+export const cancelsubscription = () => async (dispatch) => {
+    try {
+        dispatch({ type: 'cancelSubscriptionRequest' });
+    
+        const { data } = await axios.delete(`${server}/subscribe/cancel`, {
+          withCredentials: true,
+        });
+    
+        dispatch({ type: 'cancelSubscriptionSuccess', payload: data.message });
+      } catch (error) {
+        dispatch({
+          type: 'cancelSubscriptionFail',
+          payload: error.response.data.message,
+        });
+      }
+}

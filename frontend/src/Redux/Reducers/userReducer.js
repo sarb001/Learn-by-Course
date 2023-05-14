@@ -155,3 +155,37 @@ export const profileReducer = createReducer(
   }
 );
 
+
+export const subscriptionreducer  = createReducer(
+  {},{
+    buysubscriptionRequest: (state) => {
+      state.loading = true;
+    },
+    buysubscriptionSuccess: (state, action) => {
+      state.loading = false;
+      state.subscriptionId = action.payload;
+    },
+    buysubscriptionFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    cancelSubscriptionRequest: state => {
+      state.loading = true;
+    },
+    cancelSubscriptionSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    cancelSubscriptionFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    clearMessage: (state) => {
+      state.message = null;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+})

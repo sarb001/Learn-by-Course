@@ -8,11 +8,60 @@ import {
 } from '@chakra-ui/react';
 import logo from '../../Assests/Images/logo.png';
 
-const Subscribe = () => {
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { buySubscription } from '../../Redux/actions/user';
+import { toast } from 'react-hot-toast';
+import { server } from '../../Redux/store';
 
-  const subscribeHandler = () => {
+const Subscribe = ({user}) => {
 
+   const dispatch = useDispatch();
+   const [key,setkey] = useState(' ');
+
+   const { loading , error , subscriptionId  } = useSelector(state => state.subscription);
+
+   const subscribeHandler =  async() => {
+      const { data : { key } } = await axios.get(`${server}/razorpaykey`);
+
+      setkey(key);
+      dispatch(buySubscription());
   }
+
+   useEffect(() => {
+     if(error){
+      toast.error(error);
+      dispatch({ type: "clearError" });
+     }
+
+     if (subscriptionId) {
+      const openPopUp = () => {
+        const options = {
+          key,
+          name: 'CourseBundler',
+          description: 'Get access to all premium content',
+          image: logo,
+          subscription_id: subscriptionId,
+          callback_url: `${server}/paymentverification`,
+          prefill: {
+            name: user.name,
+            email: user.email,
+            contact: '',
+          },
+          notes: {
+            address: '6 pack programmer at youtube',
+          },
+          theme: {
+            color: '#FFC800',
+          },
+        };
+
+        const razor = new window.Razorpay(options);
+        razor.open();
+      };
+      openPopUp();
+    }
+   },[dispatch,error,key,user.name,user.email,subscriptionId])
 
 
   return (
@@ -33,8 +82,7 @@ const Subscribe = () => {
                 <VStack textAlign={'center'} px="8" mt={'4'} spacing="8">
                   <Text children={`Join pro pack and get access to all content.`} />
                   <Heading size="md" children={'₹299 Only'} />
-                </VStack>
-
+                </VStack> 
               <Button
                 my="8"
                 w="full"

@@ -24,18 +24,23 @@ import {  Link } from 'react-router-dom';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { fileUploadCss } from '../Auth/Register';
 import { useDispatch, useSelector } from 'react-redux';
-import { loaduser } from '../../Redux/actions/user';
+import { cancelsubscription, loaduser } from '../../Redux/actions/user';
 import { toast } from 'react-hot-toast';
 import { removedfromplaylist } from '../../Redux/actions/profile';
 
 const Profile = ({user}) => {
 
-      console.log(' Present User is --',user);
     const { isOpen, onClose, onOpen } = useDisclosure();
 
       const dispatch = useDispatch();
      
     const { error ,message  ,loading } = useSelector(state => state.profile);
+
+     const { 
+     loading : subscriptionLoading ,
+     message : subscriptionMessage ,
+     error   : subscriptionError ,
+     } = useSelector(state => state.subscription);
 
     const changeImageSubmitHandler = (e,image) => {
       e.preventDefault();
@@ -46,6 +51,11 @@ const Profile = ({user}) => {
          await dispatch(removedfromplaylist(id))
          dispatch(loaduser());
     }
+
+     const cancelsubscriptionHandler = () => {
+      dispatch(cancelsubscription());
+     }
+
 
     useEffect(() => {
       if(error){
@@ -95,7 +105,10 @@ const Profile = ({user}) => {
                 <HStack>
                 <Text   children = "Subscription"   fontWeight = 'bold' />
                   {user.subscription && user.subscription.status === "active" ? (
-                    <Button> Cancel Subscription  </Button>
+                    <Button 
+                     onClick = {cancelsubscriptionHandler} 
+                     isLoading = {subscriptionLoading}
+                    > Cancel Subscription  </Button>
                     ) : (
                       <Link to = "/subscribe">
                       <Button colorScheme = 'yellow'> Subscribe  </Button>

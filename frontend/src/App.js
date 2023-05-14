@@ -121,7 +121,7 @@ function App() {
 
                       <Route exact path = "/subscribe"  element = {
                         <ProtectedRoute isAuthenticated = {isAuthenticated}>
-                          <Subscribe /> 
+                          <Subscribe  user = {user} /> 
                         </ProtectedRoute>
                       }>  </Route>
                       <Route exact path = "*"  element = {<NotFound /> }>  </Route>
