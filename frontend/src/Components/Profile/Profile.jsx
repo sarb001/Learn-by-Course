@@ -30,7 +30,7 @@ import { removedfromplaylist } from '../../Redux/actions/profile';
 
 const Profile = ({user}) => {
 
-    const { isOpen, onClose, onOpen } = useDisclosure();
+      const { isOpen, onClose, onOpen } = useDisclosure();
 
       const dispatch = useDispatch();
      

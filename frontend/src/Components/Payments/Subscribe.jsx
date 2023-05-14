@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { buySubscription } from '../../Redux/actions/user';
 import { toast } from 'react-hot-toast';
 import { server } from '../../Redux/store';
+import axios from 'axios';
 
 const Subscribe = ({user}) => {
 
