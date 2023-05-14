@@ -177,7 +177,7 @@ function ChangePhotoBox({
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
 
-  const changeImage = e => {git
+  const changeImage = e => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
