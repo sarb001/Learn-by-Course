@@ -34,7 +34,7 @@ const Profile = ({user}) => {
 
       const dispatch = useDispatch();
      
-    const { error ,message  } = useSelector(state => state.profile);
+    const { error ,message  ,loading } = useSelector(state => state.profile);
 
     const changeImageSubmitHandler = (e,image) => {
       e.preventDefault();
@@ -175,7 +175,7 @@ function ChangePhotoBox({
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
 
-  const changeImage = e => {
+  const changeImage = e => {git
     const file = e.target.files[0];
     const reader = new FileReader();
 
