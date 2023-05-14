@@ -18,6 +18,7 @@ import {
     Text,
     useDisclosure,
     VStack,
+    isLoading,
   } from '@chakra-ui/react';
 import {  Link } from 'react-router-dom';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
@@ -47,7 +48,6 @@ const Profile = ({user}) => {
     }
 
     useEffect(() => {
-
       if(error){
         toast.error(error);
         dispatch({ type:"clearError" });
@@ -142,7 +142,7 @@ const Profile = ({user}) => {
                       </Link>webkit
 
                       <Button 
-                       isLoading = {loading}      
+                        isLoading = {loading}      
                         onClick={() => removeFromPlaylistHandler(element.course)}
                       >
                         <RiDeleteBin7Fill />
@@ -155,8 +155,9 @@ const Profile = ({user}) => {
 
            <ChangePhotoBox 
               changeImageSubmitHandler={changeImageSubmitHandler}
-              isOpen={isOpen}
-              onClose={onClose}
+              isOpen = {isOpen}
+              onClose = {onClose}
+              loading = {loading}
             />
  </Container>
     </div>
@@ -169,7 +170,8 @@ export default Profile
 function ChangePhotoBox({
   changeImageSubmitHandler,
   isOpen,
-  onClose
+  onClose,
+  loading
 }) {
 
   const [image, setImage] = useState('');
@@ -212,7 +214,8 @@ function ChangePhotoBox({
                   onChange={changeImage}
                 />
 
-                <Button
+                <Button 
+                  isLoading = {loading}
                   w="full"
                   colorScheme={'yellow'}
                   type="submit"
