@@ -119,7 +119,7 @@ const Profile = ({user}) => {
             
         <Heading children="Playlist" size={'md'} my="8" /> 
 
-          {user?.playlist.length > 0 && (
+             {user?.playlist.length > 0 && (
               <Stack
                 direction={['column', 'row']}
                 alignItems={'center'}
@@ -137,11 +137,12 @@ const Profile = ({user}) => {
                     <HStack>
                       <Link to={`/course/${element.course}`}>
                         <Button variant={'ghost'} colorScheme="yellow">
-                          Watch Now
+                          Watch now 
                         </Button>
-                      </Link>
+                      </Link>webkit
 
                       <Button 
+                       isLoading = {loading}      
                         onClick={() => removeFromPlaylistHandler(element.course)}
                       >
                         <RiDeleteBin7Fill />
