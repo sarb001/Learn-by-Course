@@ -58,7 +58,6 @@ export const register = formdata => async dispatch => {
 }
 
 
-
 export const logout = () =>  async(dispatch) => {
     try{
         dispatch({ type: 'logoutUserRequest' });
