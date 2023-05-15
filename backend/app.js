@@ -27,14 +27,15 @@ const PORT = process.env.PORT
 app.use(cookieparser());
 app.use(express.json())
 
-app.use('/api/v1',user);
-app.use('/api/v1',course);
-app.use('/api/v1',payment);
-
 export const instance = new RazorPay({
     key_id    :process.env.RAZORPAY_API_KEY,
     key_secret:process.env.RAZORPAY_API_SECRET,
 })
+
+app.use('/api/v1',user);
+app.use('/api/v1',course);
+app.use('/api/v1',payment);
+
 
 
 app.listen(PORT,() => {
