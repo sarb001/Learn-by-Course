@@ -83,6 +83,8 @@ export const  buySubscription = () =>  async(dispatch) => {
             withCredentials : true,
         })
 
+        console.log('buy-sub-data --',{data});
+
         dispatch({type:"buysubscriptionSuccess" , payload : data.subscriptionId });
 
     }catch(error){
