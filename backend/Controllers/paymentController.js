@@ -10,13 +10,9 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 
     const user = await User.findById(req.user._id);
 
-      console.log('user find sub 1-',user);
 
     if(user.role === "admin")
      return next(new ErrorHandler("Admin can't buy Subscription",400));
-
-       console.log('user sub 2 -');
-    
 
     const plain_id = process.env.PLAIN_ID || "plan_LpZavJyyGA6ubu"
 
@@ -35,7 +31,6 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
         success : true,
         subscriptionId : subscription.id,
     });
-    console.log('user sub 3  -');
 })
 
 
@@ -76,7 +71,7 @@ export const cancelsubscription  = catchAsyncError(async(req,res,next) => {
 export const getRazorpaykey      = catchAsyncError(async(req,res,next) => {
     res.status(200).json({
         success: true,
-        key: process.env.RAZORPAY_API_KEY,
+        key: "rzp_test_NC0PR1FuzOxQdG",
       });
 })
 
