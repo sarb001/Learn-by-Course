@@ -37,7 +37,6 @@ app.use('/api/v1',course);
 app.use('/api/v1',payment);
 
 
-
 app.listen(PORT,() => {
     console.log(` Server is Running ${PORT} Brooo.. `);
 })
