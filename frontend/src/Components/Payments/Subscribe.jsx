@@ -41,7 +41,6 @@ const Subscribe = ({user}) => {
           key,
           name: 'CourseBundler',
           description: 'Get access to all premium content',
-          image: logo,
           subscription_id: subscriptionId,
           callback_url: `${server}/paymentverification`,
           prefill: {
@@ -56,9 +55,8 @@ const Subscribe = ({user}) => {
             color: '#FFC800',
           },
         };
-
-        const razor = new window.Razorpay(options);
-        razor.open();
+         const razor  = new window.Razorpay(options);
+         razor.open();
       };
       openPopUp();
     }
