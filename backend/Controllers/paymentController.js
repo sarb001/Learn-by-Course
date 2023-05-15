@@ -14,10 +14,10 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
     return next(new ErrorHandler("Admin can't buy Subscription",400));  
     }
 
-    const plain_id = process.env.PLAIN_ID || "plan_LpZavJyyGA6ubu"
+    const plan_id =  "plan_LpZavJyyGA6ubu"; 
 
     const subscription = await instance.subscriptions.create({
-        plain_id,
+        plan_id,
         customer_notify:1,
         total_count:12,
     })
