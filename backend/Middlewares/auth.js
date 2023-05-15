@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { catchAsyncError } from './catchAsyncError.js';
 import ErrorHandler from '../Utils/errorhandler.js';
 
-export const isAuthenticated =   catchAsyncError(async ( req,res,next) => {
+export const isAuthenticated   =  catchAsyncError(async( req,res,next) => {
     const { token } = req.cookies;
 
     if(!token) return next(new ErrorHandler(" Not Logged In ",401));
