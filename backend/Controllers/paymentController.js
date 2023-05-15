@@ -5,7 +5,6 @@ import ErrorHandler from "../Utils/errorhandler.js";
 import { instance } from "../app.js";
 import crypto from 'crypto';
 
-
 export const buysubscription    = catchAsyncError(async(req,res,next) => {
     const user = await User.findById(req.user._id);
 
