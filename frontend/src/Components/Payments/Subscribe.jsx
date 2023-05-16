@@ -25,8 +25,6 @@ const Subscribe = ({user}) => {
    const subscribeHandler =  async() => {
       const { data :{key} } = await axios.get(`${server}/razorpaykey`);
 
-      // console.log('data is -',{data});
-
       setkey(key);
       console.log('key is -',key);
       dispatch(buySubscription());
@@ -86,11 +84,13 @@ const Subscribe = ({user}) => {
                   <Text children={`Join pro pack and get access to all content.`} />
                   <Heading size="md" children={'₹299 Only'} />
                 </VStack> 
+                
               <Button
                 my="8"
                 w="full"
                 colorScheme={'yellow'}
-                onClick = {subscribeHandler} >  Buy Now  </Button>
+                onClick = {subscribeHandler} 
+                isLoading = {loading} >  Buy Now  </Button>
           </Box>
 
           <Box bg="blackAlpha.600" p="4" css={{ borderRadius: '0 0 8px 8px' }}>
