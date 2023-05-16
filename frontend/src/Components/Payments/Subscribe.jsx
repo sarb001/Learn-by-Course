@@ -23,12 +23,12 @@ const Subscribe = ({user}) => {
    const { loading , error , subscriptionId  } = useSelector(state => state.subscription);
 
    const subscribeHandler =  async() => {
-      const { data } = await axios.get(`${server}/razorpaykey`);
+      const { data :{key} } = await axios.get(`${server}/razorpaykey`);
 
-      console.log('data is -',{data});
+      // console.log('data is -',{data});
 
-      setkey(data.key);
-      console.log('key is -',data.key);
+      setkey(key);
+      console.log('key is -',key);
       dispatch(buySubscription());
   }
 
