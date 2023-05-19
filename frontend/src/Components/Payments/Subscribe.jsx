@@ -56,7 +56,7 @@ const Subscribe = ({user}) => {
             color: '#FFC800',
           },
         };
-         const razor  = new window.Razorpay(options);
+         const razor = new window.Razorpay(options);
          razor.open();
       };
       openPopUp();

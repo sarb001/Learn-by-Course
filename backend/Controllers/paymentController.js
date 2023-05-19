@@ -33,7 +33,6 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 })
 
 export const paymentverification  = catchAsyncError(async(req,res,next) => {
-
      const { razorpay_signature, razorpay_payment_id, subscription_id } =  req.body;
 
      console.log('razorpay data  is --',req.body);
@@ -43,21 +42,23 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
         // const subscription_id = user.subscription.id;
 
+     const datasign = `${subscription_id}|${razorpay_payment_id}`
+
         const generated_signature = crypto
         .createHmac("sha256", "qdkmGMLXwEb6tzKXxrlvN3SY")
-        .update(razorpay_payment_id + "|" + subscription_id, "utf-8")
+        .update(datasign)
         .digest("hex");
 
-  console.log(' gen sign is -',      generated_signature);
-  console.log(' Razorpay sign is -', razorpay_signature);
- 
-  const isAuthentic = generated_signature === razorpay_signature;
+      console.log(' gen sign is -',      generated_signature);
+      console.log(' Razorpay sign is -', razorpay_signature);
+    
+       const isAuthentic = generated_signature === razorpay_signature;
 
-   console.log('is Authentic --',isAuthentic);
+         console.log('is Authentic --',isAuthentic);
 
     if (!isAuthentic){  
-      return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
       console.log(' Payment Failed ');
+      return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
     }
 
     // database comes here
