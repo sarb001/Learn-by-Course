@@ -39,9 +39,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
     const user = await User.findById(req.user._id);
     console.log('user in verification is --',user);
-
-        // const subscription_id = user.subscription.id;
-
+    
      const datasign = `${subscription_id}|${razorpay_payment_id}`
 
         const generated_signature = crypto
@@ -65,7 +63,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
     await Payment.create({
       razorpay_signature,
       razorpay_payment_id,
-      razorpay_subscription_id,
+      razorpay_subscription_id : subscription_id,
     });
 
   user.subscription.status = "active";

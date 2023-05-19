@@ -28,8 +28,8 @@ app.use(cookieparser());
 app.use(express.json())
 
 export const instance = new RazorPay({
-    key_id    : process.env.RAZORPAY_API_KEY,
-    key_secret: process.env.RAZORPAY_API_SECRET,
+    key_id    : "rzp_test_NC0PR1FuzOxQdG",           // rzp
+    key_secret: "qdkmGMLXwEb6tzKXxrlvN3SY",          // qd
 })
 
 app.use('/api/v1',user);
