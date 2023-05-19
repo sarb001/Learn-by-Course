@@ -23,7 +23,7 @@ const Subscribe = ({user}) => {
    const { loading , error , subscriptionId  } = useSelector(state => state.subscription);
 
    const subscribeHandler =  async() => {
-      const { data :{key} } = await axios.get(`${server}/razorpaykey`);
+      const { data : {key} } = await axios.get(`${server}/razorpaykey`);
 
       setkey(key);
       console.log('key is -',key);
@@ -57,6 +57,7 @@ const Subscribe = ({user}) => {
           },
         };
 
+          // const razor = new Razorpay(options);
          const razor  = new window.Razorpay(options);
          razor.open();
       };
@@ -84,7 +85,7 @@ const Subscribe = ({user}) => {
                   <Text children={`Join pro pack and get access to all content.`} />
                   <Heading size="md" children={'₹299 Only'} />
                 </VStack> 
-                
+
               <Button
                 my="8"
                 w="full"

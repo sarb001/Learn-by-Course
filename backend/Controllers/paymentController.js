@@ -7,7 +7,6 @@ import crypto from 'crypto';
 
 
 export const buysubscription    = catchAsyncError(async(req,res,next) => {
-
     const user = await User.findById(req.user._id);
 
     if(user.role === "admin"){
@@ -31,6 +30,48 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
         success : true,
         subscriptionId : subscription.id,
     });
+})
+
+export const paymentverification  = catchAsyncError(async(req,res,next) => {
+
+  const { razorpay_signature, razorpay_payment_id, razorpay_subscription_id } =  req.body;
+   console.log('razorpay data  is --',req.body);
+
+    const user = await User.findById(req.user._id);
+    console.log('user in verification is --',user);
+
+  const subscription_id = user.subscription.id;
+
+const generated_signature = crypto
+  .createHmac("sha256", "qdkmGMLXwEb6tzKXxrlvN3SY")
+  .update(razorpay_payment_id + "|" + subscription_id, "utf-8")
+  .digest("hex");
+
+  console.log(' gen sign is -',generated_signature);
+  console.log(' Razorpay sign is -', razorpay_signature);
+ 
+  const isAuthentic = generated_signature === razorpay_signature;
+
+ console.log('is Authneentic--',isAuthentic);
+
+if (!isAuthentic)
+  return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
+
+// database comes here
+await Payment.create({
+  razorpay_signature,
+  razorpay_payment_id,
+  razorpay_subscription_id,
+});
+
+user.subscription.status = "active";
+
+await user.save();
+
+res.redirect(
+  `${process.env.FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
+);
+
 })
 
 
@@ -75,43 +116,3 @@ export const getRazorpaykey      = catchAsyncError(async(req,res,next) => {
       });
 })
 
-export const paymentverification  = catchAsyncError(async(req,res,next) => {
-
-    const { razorpay_signature, razorpay_payment_id, razorpay_subscription_id } =
-    req.body;
-
-  const user = await User.findById(req.user._id);
-  console.log('user in verification is --',user);
-
-  const subscription_id = user.subscription.id;
-
-  const generated_signature = crypto
-    .createHmac("sha256", "qdkmGMLXwEb6tzKXxrlvN3SY")
-    .update(razorpay_payment_id + "|" + subscription_id, "utf-8")
-    .digest("hex");
-
-    console.log('gen sign is -',generated_signature);
-
-    const isAuthentic = generated_signature === razorpay_signature;
-
-   console.log('is Authneentic--',isAuthentic);
-
-  if (!isAuthentic)
-    return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
-
-  // database comes here
-  await Payment.create({
-    razorpay_signature,
-    razorpay_payment_id,
-    razorpay_subscription_id,
-  });
-
-  user.subscription.status = "active";
-
-  await user.save();
-
-  res.redirect(
-    `${process.env.FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
-  );
-
-})
