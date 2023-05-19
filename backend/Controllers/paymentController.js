@@ -33,45 +33,41 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 })
 
 export const paymentverification  = catchAsyncError(async(req,res,next) => {
-     const { razorpay_signature, razorpay_payment_id, subscription_id } =  req.body;
+     
+  const { razorpay_payment_id , razorpay_subscription_id , razorpay_signature } = req.body;
 
-     console.log('razorpay data  is --',req.body);
+   const user = await User.findById(req.user._id);
 
-    const user = await User.findById(req.user._id);
-    console.log('user in verification is --',user);
-    
-     const datasign = `${subscription_id}|${razorpay_payment_id}`
+   const subscription_id = user.subscription.id;
 
-        const generated_signature = crypto
-        .createHmac("sha256", "qdkmGMLXwEb6tzKXxrlvN3SY")
-        .update(datasign)
-        .digest("hex");
+   const generated_signature = crypto.createHmac("sha256" ,"qdkmGMLXwEb6tzKXxrlvN3SY")
+   .update(razorpay_payment_id + "|" + subscription_id,"utf-8")
+   .digest("hex")
 
-      console.log(' gen sign is -',      generated_signature);
-      console.log(' Razorpay sign is -', razorpay_signature);
-    
-       const isAuthentic = generated_signature === razorpay_signature;
+      const isAuthentic =  generated_signature === razorpay_signature;
 
-         console.log('is Authentic --',isAuthentic);
+      if(!isAuthentic){
+         return res.redirect(`${process.env.FRONTEND_URL}/paymentfailed`)
+      }
 
-    if (!isAuthentic){  
-      console.log(' Payment Failed ');
-      return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
-    }
+      await Payment.create({
+        razorpay_signature,
+        razorpay_payment_id,
+        razorpay_subscription_id
+      })
 
-    // database comes here
-    await Payment.create({
-      razorpay_signature,
-      razorpay_payment_id,
-      razorpay_subscription_id : subscription_id,
-    });
+      user.subscription.status = "active"
 
-  user.subscription.status = "active";
-  await user.save();
-  res.redirect(
-  `${process.env.FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
-);
+      await user.save();
 
+      res.redirect(
+        `${process.env.FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
+        )
+
+      res.status(201).json({
+        success : true,
+        subscriptionId : subscription.id,
+      });
 })
 
 

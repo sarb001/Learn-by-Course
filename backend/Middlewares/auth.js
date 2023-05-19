@@ -7,7 +7,7 @@ import ErrorHandler from '../Utils/errorhandler.js';
 export const isAuthenticated   =  catchAsyncError(async( req,res,next) => {
     const { token } = req.cookies;
 
-    if(!token) return next(new ErrorHandler(" Not Logged In ",401));
+    if(!token) return next(new ErrorHandler(" Not Logged In Brr ",401));
 
     const decoded = jwt.verify(token,'ekekkkeke');
     console.log('decoded data is --',decoded);
