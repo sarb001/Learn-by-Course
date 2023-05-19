@@ -56,7 +56,9 @@ const Subscribe = ({user}) => {
             color: '#FFC800',
           },
         };
+         console.log('options are -',options);
          const razor = new window.Razorpay(options);
+         console.log('razor is --',razor);
          razor.open();
       };
       openPopUp();
