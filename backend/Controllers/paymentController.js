@@ -40,7 +40,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
    const subscription_id = user.subscription.id;
 
    const generated_signature = crypto.createHmac("sha256" ,"qdkmGMLXwEb6tzKXxrlvN3SY")
-   .update(razorpay_payment_id + "|" + subscription_id,"utf-8")
+   .update(razorpay_payment_id + "|" +  razorpay_subscription_id,"utf-8")
    .digest("hex")
 
       const isAuthentic =  generated_signature === razorpay_signature;
