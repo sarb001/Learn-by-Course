@@ -51,12 +51,14 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
   console.log(' gen sign is -',generated_signature);
   console.log(' Razorpay sign is -', razorpay_signature);
  
-  const isAuthentic = generated_signature === payload.razorpay_signature;
+  const isAuthentic = generated_signature === razorpay_signature;
 
-   console.log('is Authentic--',isAuthentic);
+   console.log('is Authentic --',isAuthentic);
 
-if (!isAuthentic)
-  return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
+    if (!isAuthentic){  
+      return res.redirect(`${process.env.FRONTEND_URL}/paymentfail`);
+      console.log(' Payment Failed ');
+    }
 
 // database comes here
 await Payment.create({
