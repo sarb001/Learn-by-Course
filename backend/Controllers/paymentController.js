@@ -24,6 +24,8 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
     user.subscription.id     = subscription.id;
     user.subscription.status = subscription.status;
 
+    console.log('subs id or subsId -',user.subscription.id);
+
     await user.save();
 
     res.status(201).json({
@@ -38,6 +40,8 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
    const user = await User.findById(req.user._id);
    const subscription_id = user.subscription.id;
+
+    console.log('payment subs Id --',subscription_id);
 
    const generated_signature = crypto.createHmac("sha256" ,"qdkmGMLXwEb6tzKXxrlvN3SY")
    .update(razorpay_payment_id + "|" +  razorpay_subscription_id,"utf-8")
