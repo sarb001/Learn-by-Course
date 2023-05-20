@@ -4,7 +4,7 @@ import { Payment } from "../Models/payment.js";
 import ErrorHandler from "../Utils/errorhandler.js";
 import { instance } from "../app.js";
 import crypto from 'crypto';
-
+import {  validatePaymentVerification } from 'razorpay/dist/utils/razorpay-utils.js';
 
 export const buysubscription    = catchAsyncError(async(req,res,next) => {
     const user = await User.findById(req.user._id);
@@ -43,15 +43,11 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
     console.log('payment subs Id --',subscription_id);
 
-    const hmac = crypto.createHmac('sha256',"qdkmGMLXwEb6tzKXxrlvN3SY");
-    hmac.update(subscription_id+"|"+razorpay_payment_id);
-    let generated_signature = hmac.digest('hex');
-
-        //   const generatedd_signature = crypto.createHmac("sha256" ,"qdkmGMLXwEb6tzKXxrlvN3SY")
-        //  .update(subscription_id + "|" + razorpay_payment_id ,"utf-8")
-        //  .digest("hex")
-
-    const isAuthentic =  generated_signature === razorpay_signature;
+    let generated_signature = crypto.createHmac('sha256',"qdkmGMLXwEb6tzKXxrlvN3SY")
+    .update(subscription_id+"|"+razorpay_payment_id)
+    .digest('hex');
+    
+    const isAuthentic = validatePaymentVerification({razorpay_payment_id,subscription_id},generated_signature,qdkmGMLXwEb6tzKXxrlvN3SY)
 
       if(!isAuthentic)
         { res.status(400).json({ status: 'failure',
