@@ -8,7 +8,9 @@ import { toast } from 'react-hot-toast';
 import { addToPlaylist } from '../../Redux/actions/profile';
 
 
-const Course = ({views,title,imageSrc,id,addToPlaylistHandler,creator,description,lectureCount}) => {
+const Course = (
+  {views,title,imageSrc,id,addToPlaylistHandler,creator,description,lectureCount }
+  ) => {
          return(
           <>
            <VStack className="course" alignItems={['center', 'flex-start']}>
@@ -39,7 +41,7 @@ const Course = ({views,title,imageSrc,id,addToPlaylistHandler,creator,descriptio
                     <Heading
                     textAlign={'center'}
                     size="xs"
-                    children={`Lectures - ${lectureCount}`}
+                    children={`Lecture Count -- ${lectureCount}`}
                     textTransform="uppercase"
                     />
 

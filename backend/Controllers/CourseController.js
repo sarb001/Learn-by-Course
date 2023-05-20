@@ -61,7 +61,8 @@ export const getallcourses =   catchAsyncError(async(req,res,next) => {
         });
 })
 
-export const addlecture    =   catchAsyncError  (async(req,res,next) => {
+export const addlecture    =   catchAsyncError(async(req,res,next) => {
+    
     const { id } = req.params;
     const {title,description} = req.body;
 

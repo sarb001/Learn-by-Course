@@ -132,6 +132,7 @@ function App() {
                       <Route exact path = "/paymentsuccess"  element = {<PaymentSuccess /> }>  </Route>
                       <Route exact path = "/paymentfail"  element = {<PaymentFail /> }>  </Route>
                       
+                            {/* admin Routes  */}
                       
                       <Route exact path = "/admin/dashboard"  element = {
                           <ProtectedRoute isAuthenticated = {isAuthenticated} 

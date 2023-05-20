@@ -11,7 +11,9 @@ import {
 } from '@chakra-ui/react';
 import Sidebar from '../Sidebar'
 import { fileUploadCss } from '../../Auth/Register';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createcourse } from '../../../Redux/actions/admin';
 
 const CreateCourses = () => {
 
@@ -22,6 +24,7 @@ const CreateCourses = () => {
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
 
+   const dispatch = useDispatch();
 
   const categories = [
     'Web development',
@@ -47,6 +50,11 @@ const CreateCourses = () => {
   const submitHandler = e => {
     e.preventDefault();
   }
+
+   useEffect(() => {
+       dispatch(createcourse())
+    },[])
+
 
   return (
     <div>
