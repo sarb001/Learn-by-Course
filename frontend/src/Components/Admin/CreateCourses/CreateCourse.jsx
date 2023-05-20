@@ -12,8 +12,9 @@ import {
 import Sidebar from '../Sidebar'
 import { fileUploadCss } from '../../Auth/Register';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createcourse } from '../../../Redux/actions/admin';
+import { toast } from 'react-hot-toast';
 
 const CreateCourses = () => {
 
@@ -24,7 +25,8 @@ const CreateCourses = () => {
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
 
-   const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const { loading , error ,message } = useSelector(state => state.admin)
 
   const categories = [
     'Web development',
@@ -49,12 +51,28 @@ const CreateCourses = () => {
 
   const submitHandler = e => {
     e.preventDefault();
+
+     const myForm = new FormData();
+     myForm.append('title',title);
+     myForm.append('description',description);
+     myForm.append('createdBy',createdBy);
+     myForm.append('category',category);
+
+     dispatch(createcourse(myForm))
   }
 
-   useEffect(() => {
-       dispatch(createcourse())
-    },[])
+  useEffect(() => {
+     
+    if(error){
+      toast.error(error);
+      dispatch({type: "clearError"});
+    }
+    if(message){
+      toast.success(message);
+      dispatch({type: "clearMessage"});
+    }
 
+  },[dispatch,error,message])
 
   return (
     <div>
@@ -132,7 +150,7 @@ const CreateCourses = () => {
                         )}
 
                       <Button
-                    
+                        isLoading = {loading}
                         w="full"
                         colorScheme={'purple'}
                         type="submit"
