@@ -41,13 +41,13 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
    const user = await User.findById(req.user._id);
   //  const subscription_id = user.subscription.id;
 
-    console.log('payment subs Id --',subscription_id);
+    // console.log('payment subs Id --',subscription_id);
 
     let generated_signature = crypto.createHmac('sha256',"qdkmGMLXwEb6tzKXxrlvN3SY")
     .update(subscription_id+"|"+razorpay_payment_id)
     .digest('hex');
     
-    const isAuthentic = validatePaymentVerification(subscription_id,
+    const isAuthentic = validatePaymentVerification({"subscription_id" : subscription_id},
     generated_signature,"qdkmGMLXwEb6tzKXxrlvN3SY")
 
       if(!isAuthentic || isAuthentic == "false") 
