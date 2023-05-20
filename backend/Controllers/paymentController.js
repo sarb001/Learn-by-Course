@@ -64,7 +64,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
       await Payment.create({
         razorpay_signature,
         razorpay_payment_id,
-        razorpay_subscription_id
+        subscription_id
       })
 
       user.subscription.status = "active"
@@ -75,7 +75,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
       res.status(201).json({
         success : true,
-        subscriptionId : subscription.id,
+        subscription_id : subscription.id,
       });
 })
 
