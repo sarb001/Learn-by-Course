@@ -55,8 +55,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
       if(!isAuthentic || isAuthentic == "false") 
         { res.status(400).json({ status: 'failure',
-           generated_signature  : generated_signature,
-           razorpay_signature :   razorpay_signature
+               "message" : " sign not same"
          })
          return res.redirect(`${process.env.FRONTEND_URL}/paymentfailed`)
       }
