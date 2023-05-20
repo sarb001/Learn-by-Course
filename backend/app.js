@@ -43,7 +43,7 @@ app.listen(PORT,() => {
 })
 
 app.get('/' , (req,res)  => {
-     res.send(`<h2> Server is Workinggg gBro   
+     res.send(`<h2> Server is Working Brother   
      <a href = ${process.env.FRONTEND_URL}>  CLick herer  </a>
      </h2>`)
 })

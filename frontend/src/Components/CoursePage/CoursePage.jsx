@@ -1,47 +1,32 @@
-import React , { useState } from 'react'
+import React , { useEffect, useState } from 'react'
 
 import { Box, Grid, Heading, Text, VStack } from '@chakra-ui/react';
 
 import introVideo from '../../../src/Assests/Videos/intro.mp4';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCourseLectures } from '../../Redux/actions/course';
+import { useParams } from 'react-router-dom';
 
-const Coursepage = () => {
+const Coursepage = ({user}) => {
 
     const [lectureNumber,setLectureNumber] = useState(0);
 
-    const lectures = [
-        {
-             _id:  'id-1',
-             title: "tititiit111",
-             description : 'DEDEDEDE',
-             video : {
-                url:'URLURLURLURL'
-             },
-        },
-        {
-             _id:  'id-2',
-             title: "tititiit222",
-             description : 'DEDEDEDE',
-             video : {
-                url:'URLURLURLURL'
-             },
-        },
-        {
-             _id:  'id-3',
-             title: "tititiit333",
-             description : 'DEDEDEDE',
-             video : {
-                url:'URLURLURLURL'
-             },
-        },
-    ]
+     const { lectures  , loading } = useSelector(state => state.course);
+
+     const dispatch = useDispatch();
+     const params = useParams();
+
+     useEffect(() => {
+        dispatch(getCourseLectures(params.id));
+     },[dispatch,params.id]);
 
 
   return (
     <div> 
         
         <Grid minH = {'90vh'} templateColumns={['1fr', '3fr 1fr']}>
-       {lectures && lectures.length > 0 ? (
-        <>
+        {lectures && lectures.length > 0 ? (
+          <>
           <Box>
             <video
               width = {'100%'}

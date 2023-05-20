@@ -63,7 +63,11 @@ function App() {
                       <Route  exact path = "/"       element = {<Home />}>  </Route>
 
                       <Route  path = "/courses"     element = {<Courses />}>  </Route>
-                      <Route  path = "/course/:id"  element = {<CoursePage />}>  </Route>
+                      <Route  path = "/course/:id"  element = { 
+                        <ProtectedRoute isAuthenticated = {isAuthenticated} >
+                            <CoursePage user = {user} />
+                        </ProtectedRoute>
+                      }>  </Route>
 
                 {/* If user is not verified or logged in show Logged In Page */}
 

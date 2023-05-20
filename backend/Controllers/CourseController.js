@@ -113,7 +113,7 @@ export const deletelecture     =  catchAsyncError (async(req,res,next) => {
                 })
 })
 
-export const getcourselectures =  catchAsyncError(async(req,res) => {
+export const getcourselectures =  catchAsyncError(async(req,res,next) => {
         const { id }  = req.params;
         const findcourse = await Course.findById(id);
 
