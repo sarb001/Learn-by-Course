@@ -51,13 +51,16 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
     
       const isAuthentic  =  instance.payments.paymentVerification({
-      "subscription_id" : razorpay_subscription_id,
+      "subscription_id" : subscription_id,
       "payment_id" : razorpay_payment_id,
       "signature" : generated_signature
     },secret)
     
 
     if(!isAuthentic || isAuthentic == "false") { 
+        res.json({
+            success :''
+        })
        return res.redirect(`${process.env.FRONTEND_URL}/paymentfailed`)
       }
 
