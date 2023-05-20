@@ -8,7 +8,7 @@ export const adminReducer = createReducer({} , {
         state.loading = false;
         state.message = action.payload;
      },
-     createCourseFail : (state) => {
+     createCourseFail : (state,action) => {
          state.loading = false;
          state.error = action.payload;
      },
