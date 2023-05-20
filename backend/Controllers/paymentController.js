@@ -47,7 +47,9 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
     .update(subscription_id+"|"+razorpay_payment_id)
     .digest('hex');
     
-    const isAuthentic = validatePaymentVerification({razorpay_payment_id,subscription_id},generated_signature,"qdkmGMLXwEb6tzKXxrlvN3SY")
+    const isAuthentic = validatePaymentVerification({"subscription_id": subscription_id , 
+    "payment_id" : "razorpay_payment_id" },
+    generated_signature,"qdkmGMLXwEb6tzKXxrlvN3SY")
 
       if(!isAuthentic || isAuthentic == "false") 
         { res.status(400).json({ status: 'failure',
