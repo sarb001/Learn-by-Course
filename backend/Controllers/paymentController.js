@@ -37,11 +37,7 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 export const paymentverification  = catchAsyncError(async(req,res,next) => {
      
   const { razorpay_payment_id , subscription_id , razorpay_signature } = req.body;
-
-   const user = await User.findById(req.user._id);
-  //  const subscription_id = user.subscription.id;
-
-    // console.log('payment subs Id --',subscription_id);
+    const user = await User.findById(req.user._id);
 
     let generated_signature = crypto.createHmac('sha256',"qdkmGMLXwEb6tzKXxrlvN3SY")
     .update(subscription_id+"|"+razorpay_payment_id)
@@ -49,21 +45,26 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
     
      const secret = "qdkmGMLXwEb6tzKXxrlvN3SY" ;
 
-    const isAuthentic = validatePaymentVerification( {'payment_id' : razorpay_payment_id,
-    "subscription_id" : subscription_id },
-    generated_signature,secret)
+    // const isAuthentic = validatePaymentVerification({'payment_id' : razorpay_payment_id,
+    // "subscription_id" : subscription_id },
+    // generated_signature,secret)
 
-      if(!isAuthentic || isAuthentic == "false") 
-        { res.status(400).json({ status: 'failure',
-               "message" : " sign not same"
-         })
-         return res.redirect(`${process.env.FRONTEND_URL}/paymentfailed`)
+    
+      const isAuthentic  =  instance.payments.paymentVerification({
+      "subscription_id" : razorpay_subscription_id,
+      "payment_id" : razorpay_payment_id,
+      "signature" : generated_signature
+    },secret)
+    
+
+    if(!isAuthentic || isAuthentic == "false") { 
+       return res.redirect(`${process.env.FRONTEND_URL}/paymentfailed`)
       }
 
       await Payment.create({
         razorpay_signature,
         razorpay_payment_id,
-        subscription_id
+        subscription_id 
       })
 
       user.subscription.status = "active"
@@ -74,7 +75,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
       res.status(201).json({
         success : true,
-        subscription_id : subscription.id,
+        subscription_id 
       });
 })
 

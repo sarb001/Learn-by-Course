@@ -57,8 +57,8 @@ const Subscribe = ({user}) => {
           },
         };
          console.log('options are -',options);
+         console.log('options in sub id -',options.subscription_id);
          const razor = new window.Razorpay(options);
-         console.log('razor is --',razor);
          razor.open();
       };
       openPopUp();
