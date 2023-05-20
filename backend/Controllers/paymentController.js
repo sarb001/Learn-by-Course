@@ -36,10 +36,10 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 
 export const paymentverification  = catchAsyncError(async(req,res,next) => {
      
-  const { razorpay_payment_id , subscription_id , razorpay_signature } = req.body;
+  const { razorpay_payment_id , razorpay_subscription_id , razorpay_signature } = req.body;
 
    const user = await User.findById(req.user._id);
-  //  const subscription_id = user.subscription.id;
+   const subscription_id = user.subscription.id;
 
     // console.log('payment subs Id --',subscription_id);
 
@@ -47,7 +47,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
     .update(subscription_id+"|"+razorpay_payment_id)
     .digest('hex');
     
-    const isAuthentic = validatePaymentVerification( subscription_id,
+    const isAuthentic = validatePaymentVerification(subscription_id,
     generated_signature,"qdkmGMLXwEb6tzKXxrlvN3SY")
 
       if(!isAuthentic || isAuthentic == "false") 
