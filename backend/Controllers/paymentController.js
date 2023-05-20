@@ -43,11 +43,15 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
 
     console.log('payment subs Id --',subscription_id);
 
-   const generated_signature = crypto.createHmac("sha256" ,"qdkmGMLXwEb6tzKXxrlvN3SY")
-   .update(subscription_id + "|" + razorpay_payment_id ,"utf-8")
-   .digest("hex")
+    const hmac = crypto.createHmac('sha256',"qdkmGMLXwEb6tzKXxrlvN3SY");
+    hmac.update(subscription_id+"|"+razorpay_payment_id);
+    let generated_signature = hmac.digest('hex');
 
-      const isAuthentic =  generated_signature === razorpay_signature;
+        //   const generatedd_signature = crypto.createHmac("sha256" ,"qdkmGMLXwEb6tzKXxrlvN3SY")
+        //  .update(subscription_id + "|" + razorpay_payment_id ,"utf-8")
+        //  .digest("hex")
+
+    const isAuthentic =  generated_signature === razorpay_signature;
 
       if(!isAuthentic)
         { res.status(400).json({ status: 'failure',
