@@ -143,7 +143,7 @@ const AdminCourses = () => {
 
 export default AdminCourses
 
-const Row = ({item, coureDetailsHandler, deleteButtonHandler}) => (
+const Row = ({item, coureDetailsHandler, deleteButtonHandler , loading }) => (
 
     <Tr>
       <Td>#{item._id}</Td>
