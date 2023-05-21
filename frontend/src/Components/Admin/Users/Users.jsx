@@ -110,7 +110,7 @@ const Row = ({item  , updateHandler , deleteButtonHandler }) =>
        <Td>  {item.email} </Td>
        <Td>  {item.role} </Td>
        <Td> 
-          {item.subscription.status === "active" ? "Active" : "Not Active" }
+          {/* {item.subscription.status === "active" ? "Active" : "Not Active" } */}
        </Td>
 
      <Td isNumeric>
