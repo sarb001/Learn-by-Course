@@ -16,26 +16,38 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteUser, getallUsers, updateuser } from '../../../Redux/actions/admin';
+import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+
+
 const Users = () => {
 
-  const updateHandler = (id)  => {
-    
+   const { users,loading ,error, message } = useSelector(state => state.admin);
+   const disptach = useDispatch();
+
+  const updateHandler = (userId)  => {
+     disptach(updateuser(userId))
   }
 
-  const deleteButtonHandler = (id)  => {
-
+  const deleteButtonHandler = (userId)  => {
+     disptach(deleteUser(userId))
   }
 
-  const users = [{
-     _id : "id1id1iid1id1id1i",
-     name : "Abhii",
-     role : "admin",
-     email  : "abhi@gmail.com",
-     subscription : {
-      status :  "active" 
-     },
-  }]
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      disptach({ type: 'clearError' })
+    }
 
+    if (message) {
+      toast.success(message);
+      disptach({ type: 'clearMessage' })
+    }
+
+     disptach(getallUsers());
+  }, [disptach, error, message]);
 
   return (
     <div>

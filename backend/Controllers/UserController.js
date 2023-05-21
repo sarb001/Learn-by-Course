@@ -290,7 +290,6 @@ export const getallusers = async(req,res) => {
 }
 
 
-
 export const updateUserRole = async(req,res) => {
 
     const updateuser =  await User.findById(req.params.id);
@@ -310,6 +309,7 @@ export const updateUserRole = async(req,res) => {
          message : " Role Updated "
     })
 }
+
 
 export const DeleteUser = async(req,res) => {
 

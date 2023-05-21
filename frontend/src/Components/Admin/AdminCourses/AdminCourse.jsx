@@ -155,7 +155,7 @@ const Row = ({item, coureDetailsHandler, deleteButtonHandler , loading }) => (
       <Td>{item.title}</Td>
       <Td textTransform={'uppercase'}>{item.category}</Td>
       <Td>{item.createdBy}</Td>
-      <Td isNumeric>{item.views}</Td>
+      <Td isNumeric>  {item.views} </Td>
       <Td isNumeric>  {item.numofVideos} </Td>
 
       <Td isNumeric>

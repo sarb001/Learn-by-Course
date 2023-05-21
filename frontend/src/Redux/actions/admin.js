@@ -2,6 +2,8 @@ import { server } from "../store";
 import  axios from 'axios';
 
 
+// Only Available for Admin Access 
+
 export const createcourse = (formdata) => async(dispatch) => {
     try{
          const config = {
@@ -43,6 +45,8 @@ export const deletecourse = (id) => async(dispatch) => {
     }
 
 }
+
+    // 
 
 export const  addLecture   = (id,formdata) => async(dispatch) => {
     try{
@@ -88,3 +92,69 @@ export const  deleteLecture = (courseId,lectureId) => async(dispatch) => {
             payload : error.response.data.message });
     }
 }
+
+// get all users
+
+export const  getallUsers   = () => async(dispatch) => {
+    try{
+        const config = {
+            withCredentials: true,
+        };
+
+        dispatch({type:"getAllUsersRequest"});
+        const { data } =  await axios.get(`${server}/admin/users` ,
+         config );
+
+        dispatch({type:"getAllUsersSuccess",payload : data.users })
+
+    }catch(error){
+        dispatch({ 
+            type: "getAllUsersFail" ,
+            payload : error.response.data.message });
+    }
+}
+
+
+export const  updateuser   = (id) => async(dispatch) => {
+    try{
+        const config = {
+            withCredentials: true,
+        };
+
+        dispatch({type:"updateUserRoleRequest"});
+        const { data } =  await axios.put(`${server}/admin/user/${id}` ,
+         config );
+
+        dispatch({type:"updateUserRoleSuccess",payload : data.message })
+
+    }catch(error){
+        dispatch({ 
+            type: "updateUserRoleFail" ,
+            payload : error.response.data.message });
+    }
+}
+
+
+export const  deleteUser   = (id) => async(dispatch) => {
+    try{
+        
+        const config = {
+            withCredentials: true,
+        };
+
+        dispatch({type:"deleteUserRequest"});
+        const { data } =  await axios.delete(`${server}/admin/user/${id}` ,
+         config );
+
+        dispatch({type:"deleteUserSuccess",payload : data.message })
+
+    }catch(error){
+        dispatch({ 
+            type: "deleteUserFail" ,
+            payload : error.response.data.message });
+    }
+}
+
+
+
+
