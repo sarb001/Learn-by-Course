@@ -33,7 +33,6 @@ export const deletecourse = (id) => async(dispatch) => {
 
          dispatch({type:"deleteCourseRequest"});
          const { data } =  await axios.delete(`${server}/course/${id}` ,
-         formdata ,
           config );
 
          dispatch({type:"deleteCourseSuccess",payload : data.message })
