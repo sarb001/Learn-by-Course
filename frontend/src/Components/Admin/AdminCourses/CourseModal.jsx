@@ -94,6 +94,7 @@ const CourseModal = ({ isOpen, onClose , id,
           onSubmit={e => addLectureHandler(e, id, title, description, video)
           }
         >
+
           <VStack spacing={'4'}>
                   <Heading
                     children="Add Lecture"
@@ -142,6 +143,7 @@ const CourseModal = ({ isOpen, onClose , id,
                   colorScheme={'purple'}
                   type = "submit" >  Upload </Button>
           </VStack>
+          
         </form>
       </Box>
     </Grid>
@@ -185,7 +187,6 @@ const VideoCard = ({  title,
         >
           <RiDeleteBin7Fill />
         </Button>
-
          </Stack>
 
         </>

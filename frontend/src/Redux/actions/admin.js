@@ -43,3 +43,39 @@ export const deletecourse = (id) => async(dispatch) => {
     }
 
 }
+
+
+export const  addLecture   = (id,formdata) => async(dispatch) => {
+    try{
+        dispatch({type:"addLectureRequest"});
+        const config = {
+            headers: {
+              'Content-type': 'application/json',
+            },
+            withCredentials: true,
+          };
+        const { data } =  await axios.post(`${server}/course/${id}` ,
+         config );
+
+        dispatch({type:"addLectureSuccess",payload : data.message })
+
+    }catch(error){
+        dispatch({ 
+            type: "addLectureFail" ,payload : error.response.data.message });
+    }
+}
+
+
+export const  deleteLecture = () => async(dispatch) => {
+    try{
+        dispatch({type:"deleteLectureRequest"});
+        const { data } =  await axios.delete(`${server}/lecture` ,
+         config );
+
+        dispatch({type:"deleteLectureSuccess",payload : data.message })
+
+    }catch(error){
+        dispatch({ 
+            type: "deleteLectureFail" ,payload : error.response.data.message });
+    }
+}

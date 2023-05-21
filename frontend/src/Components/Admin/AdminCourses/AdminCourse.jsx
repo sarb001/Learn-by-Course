@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getallcourses, getCourseLectures } from '../../../Redux/actions/course';
 
 import  { toast } from 'react-hot-toast';
-import { deletecourse } from '../../../Redux/actions/admin';
+import { addLecture, deletecourse } from '../../../Redux/actions/admin';
 
 const AdminCourses = () => {
   
@@ -38,9 +38,11 @@ const AdminCourses = () => {
 
    const {  message ,loading ,error  }  = useSelector(state => state.admin);
 
-  const coureDetailsHandler = (courseId) => {
+  const coureDetailsHandler = (courseId,title) => {
     disptach(getCourseLectures(courseId))
     onOpen();
+    setCourseId(courseId)
+    setCourseTitle(title)
   }
 
    const deleteButtonHandler = (courseId) => {
@@ -51,7 +53,13 @@ const AdminCourses = () => {
     
    }
 
-    const addLectureHandler = () => {
+    const addLectureHandler = (e,courseId,title,description,video) => {
+        e.preventDefault();
+        const myForm = new FormData();
+
+        myForm.append('title',title);
+        myForm.append('description',description);
+        disptach(addLecture(courseId,myForm));
 
     }
 
@@ -118,6 +126,7 @@ const AdminCourses = () => {
                   <CourseModal
                     isOpen =  {isOpen}
                     onClose = {onClose}  
+                    id = {courseId}
                     courseTitle={courseTitle}
                     deleteButtonHandler={deleteLectureButtonHandler}
                     addLectureHandler={addLectureHandler}
