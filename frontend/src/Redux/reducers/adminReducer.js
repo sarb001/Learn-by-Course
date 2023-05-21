@@ -16,6 +16,6 @@ export const adminReducer = createReducer({} , {
         state.message = null;
       },
     clearError: (state) => {
-        state.error = null;
+            state.error = null;
     },
 })

@@ -24,8 +24,8 @@ const CourseModal = ({ isOpen, onClose , id,
   deleteButtonHandler,
   addLectureHandler,
   courseTitle,
-  lectures = [],}) => {
-
+  lectures = [],
+  loading }) => {
   
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -84,6 +84,7 @@ const CourseModal = ({ isOpen, onClose , id,
             lectureId={item._id}
             courseId={id}
             deleteButtonHandler={deleteButtonHandler}
+            loading = {loading}
           />
         ))}
       </Box>

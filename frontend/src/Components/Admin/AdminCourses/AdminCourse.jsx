@@ -21,7 +21,9 @@ import { RiDeleteBin7Fill } from 'react-icons/ri';
 import CourseModal from './CourseModal';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getallcourses } from '../../../Redux/actions/course';
+import { getallcourses, getCourseLectures } from '../../../Redux/actions/course';
+
+import  { toast } from 'react-hot-toast';
 
 const AdminCourses = () => {
   
@@ -33,9 +35,10 @@ const AdminCourses = () => {
    const disptach = useDispatch();
    const { courses ,loading ,error } = useSelector(state => state.course);
 
-
+   const {  message  }  = useSelector(state => state.admin);
 
   const coureDetailsHandler = () => {
+    disptach(getCourseLectures(courseId))
     onOpen();
   }
 
@@ -52,9 +55,19 @@ const AdminCourses = () => {
     }
 
     useEffect(() => {
-        disptach(getallcourses())
-    },[disptach])
 
+         if(error){
+           toast.error(error);
+           disptach({ type:"clearError" });
+         }
+
+         if(message){
+          toast.success(message);
+          disptach({ type:"clearMessage"});
+        }
+
+        disptach(getallcourses())
+    },[disptach,error,message,onClose])
 
   return (
     <div> 
@@ -93,6 +106,7 @@ const AdminCourses = () => {
                           deleteButtonHandler={deleteButtonHandler}
                           key={item._id}
                           item={item}
+                          loading = {loading}
                         />
                       ))}
                     </Tbody>
@@ -106,6 +120,8 @@ const AdminCourses = () => {
                     courseTitle={courseTitle}
                     deleteButtonHandler={deleteLectureButtonHandler}
                     addLectureHandler={addLectureHandler}
+                    lectures = {lectures}
+                    loading = {loading}
                     /> 
             </Box>  
         <Sidebar />

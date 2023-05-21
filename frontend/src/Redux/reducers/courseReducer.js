@@ -46,7 +46,4 @@ export const courseReducer =  createReducer(
         state.loading = false;
         state.error = action.payload;
       },
-
-
-
 })
