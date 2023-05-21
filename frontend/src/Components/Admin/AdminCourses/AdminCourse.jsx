@@ -33,9 +33,9 @@ const AdminCourses = () => {
   const [courseTitle, setCourseTitle] = useState('');
 
    const disptach = useDispatch();
-   const { courses ,loading ,error } = useSelector(state => state.course);
+   const { courses ,lectures } = useSelector(state => state.course);
 
-   const {  message  }  = useSelector(state => state.admin);
+   const {  message ,loading ,error  }  = useSelector(state => state.admin);
 
   const coureDetailsHandler = () => {
     disptach(getCourseLectures(courseId))
