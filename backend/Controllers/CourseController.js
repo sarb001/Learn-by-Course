@@ -85,22 +85,22 @@ export const addlecture    =   catchAsyncError(async(req,res,next) => {
 
 export const deletelecture     =  catchAsyncError (async(req,res,next) => {
 
-                const { courseid , lectureid  } = req.query;
+                const { courseId , lectureId  } = req.query;
 
-                const findcourse = await Course.findById(courseid);
+                const findcourse = await Course.findById(courseId);
                 if(!findcourse){
                     return next(new ErrorHandler(" Course Not Found " , 404));
                 }
                 
                 const findspecificlecture = findcourse.lectures.find((item) => {
-                    if(item._id.toString() === lectureid.toString())
+                    if(item._id.toString() === lectureId.toString())
                     return item;
                 });  
                 
                 console.log('find lecture -- ',findspecificlecture);                        // got the  lecture 
                 
                 findcourse.lectures = findcourse.lectures.filter((item) => {          // here Removed it Permanently 
-                    if(item._id.toString() !== lectureid.toString())
+                    if(item._id.toString() !== lectureId.toString())
                         return item;
                 })
 

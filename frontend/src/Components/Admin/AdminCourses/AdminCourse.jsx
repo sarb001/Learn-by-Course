@@ -54,13 +54,14 @@ const AdminCourses = () => {
      disptach(getCourseLectures(courseId));
    }
 
-    const addLectureHandler = (e,courseId,title,description,video) => {
+    const addLectureHandler = async(e,courseId,title,description,video) => {
         e.preventDefault();
         const myForm = new FormData();
 
         myForm.append('title',title);
         myForm.append('description',description);
-        disptach(addLecture(courseId,myForm));
+
+        await disptach(addLecture(courseId,myForm));
         disptach(getCourseLectures(courseId))
     }
 
