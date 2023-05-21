@@ -20,7 +20,7 @@ import Sidebar from '../Sidebar';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import CourseModal from './CourseModal';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getallcourses } from '../../../Redux/actions/course';
 
 const AdminCourses = () => {
@@ -31,20 +31,9 @@ const AdminCourses = () => {
   const [courseTitle, setCourseTitle] = useState('');
 
    const disptach = useDispatch();
+   const { courses ,loading ,error } = useSelector(state => state.course);
 
-  const courses = [
-    {
-      _id : "ididddddd",
-      title: "React Course",
-      category : 'Web Dev',
-      poster : {
-        url : "https://images.unsplash.com/photo-1537884944318-390069bb8665?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNvZGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-      },
-      createdBy : '6 PACKKK',
-      views :123,
-      numofVideos: 12
-    }
-  ]
+
 
   const coureDetailsHandler = () => {
     onOpen();
