@@ -6,7 +6,7 @@ export const createcourse = (formdata) => async(dispatch) => {
     try{
          const config = {
             headers : {
-                'Content-type' : "multipart/form-data",
+                'Content-Type' : "application/json"
             },
             withCredentials : true,
          }
