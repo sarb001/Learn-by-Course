@@ -37,7 +37,7 @@ const AdminCourses = () => {
 
    const {  message ,loading ,error  }  = useSelector(state => state.admin);
 
-  const coureDetailsHandler = () => {
+  const coureDetailsHandler = (courseId) => {
     disptach(getCourseLectures(courseId))
     onOpen();
   }
