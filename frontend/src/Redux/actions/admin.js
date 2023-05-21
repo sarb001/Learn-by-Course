@@ -47,14 +47,17 @@ export const deletecourse = (id) => async(dispatch) => {
 
 export const  addLecture   = (id,formdata) => async(dispatch) => {
     try{
-        dispatch({type:"addLectureRequest"});
+        
         const config = {
             headers: {
-              'Content-type': 'application/json',
+                'Content-type': 'application/json',
             },
             withCredentials: true,
-          };
+        };
+        
+        dispatch({type:"addLectureRequest"});
         const { data } =  await axios.post(`${server}/course/${id}` ,
+         formdata,
          config );
 
         dispatch({type:"addLectureSuccess",payload : data.message })
