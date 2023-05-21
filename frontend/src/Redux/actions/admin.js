@@ -125,7 +125,7 @@ export const  updateuser   = (id) => async(dispatch) => {
         const { data } =  await axios.put(`${server}/admin/user/${id}` ,
          config );
 
-        dispatch({type:"updateUserRoleSuccess",payload : data.message })
+        dispatch({type:"updateUserRoleSuccess", payload : data.message })
 
     }catch(error){
         dispatch({ 

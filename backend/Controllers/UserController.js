@@ -274,28 +274,28 @@ export const removefromplaylist = catchAsyncError(async(req,res,next) => {
 
 
 
-export const getallusers = async(req,res) => {
+export const getallusers   = catchAsyncError (async(req,res,next) => {
     const getusers =  await  User.find();
     console.log(' Getall users --',getusers);
 
     if(!getusers){
-        return res.json({message : " No User Available "})
+        return next(new ErrorHandler(" No User Available ",404))
     }
 
     res.status(200).json({
+        success: true,
         message : " All users available are --",
         getusers
     })
+})
 
-}
 
-
-export const updateUserRole = async(req,res) => {
+export const updateUserRole  = catchAsyncError(async(req,res,next) => {
 
     const updateuser =  await User.findById(req.params.id);
 
     if(!updateuser){
-        return res.status(200).json({message : " User Not FOund "})
+        return next(new ErrorHandler(" User Not Found ",200));
     }
 
     if(updateuser.role === "user"){
@@ -303,26 +303,28 @@ export const updateUserRole = async(req,res) => {
     }else{
         updateuser.role = "user";
     }
-
     await updateuser.save();
+
     res.status(200).json({
+         success: true,
          message : " Role Updated "
     })
-}
+})
 
 
-export const DeleteUser = async(req,res) => {
+export const DeleteUser     = catchAsyncError (async(req,res,next) => {
 
     const { id } = req.params;
     const getuser = await User.findById(id);
+
     if(!getuser){
-        return res.json({message : " User Not Present "})
+        return next(new ErrorHandler(" User Not Present ",200));
     }
 
     getuser.deleteOne();
     res.status(200).json({
+        success: true,
         message : " User Deleted By Admin "
     })
-
-}
+})
 
