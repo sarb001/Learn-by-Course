@@ -147,7 +147,7 @@ function App() {
                           adminRoute = {true} 
                           isAdmin = { user && user.role === "admin" } >
                             <CreateCourse /> 
-                        </ProtectedRoute> }>  
+                        </ProtectedRoute> }> 
                       </Route>
                       
                       <Route exact path = "/admin/courses"  element = { 

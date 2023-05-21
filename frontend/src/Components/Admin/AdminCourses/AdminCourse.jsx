@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getallcourses, getCourseLectures } from '../../../Redux/actions/course';
 
 import  { toast } from 'react-hot-toast';
-import { addLecture, deletecourse } from '../../../Redux/actions/admin';
+import { addLecture, deletecourse, deleteLecture } from '../../../Redux/actions/admin';
 
 const AdminCourses = () => {
   
@@ -49,8 +49,9 @@ const AdminCourses = () => {
      disptach(deletecourse(courseId))
    }
 
-   const deleteLectureButtonHandler = () => {
-    
+   const deleteLectureButtonHandler = async(courseId,lectureId) => {
+     await disptach(deleteLecture(courseId,lectureId));
+     disptach(getCourseLectures(courseId));
    }
 
     const addLectureHandler = (e,courseId,title,description,video) => {
@@ -60,7 +61,7 @@ const AdminCourses = () => {
         myForm.append('title',title);
         myForm.append('description',description);
         disptach(addLecture(courseId,myForm));
-
+        disptach(getCourseLectures(courseId))
     }
 
     useEffect(() => {
@@ -159,16 +160,18 @@ const Row = ({item, coureDetailsHandler, deleteButtonHandler}) => (
       <Td isNumeric>
         <HStack justifyContent={'flex-end'}>
           <Button
-            onClick={() => coureDetailsHandler(item._id, item.title)}
-            variant={'outline'}
-            color="purple.500"
+            onClick = {() => coureDetailsHandler(item._id, item.title)}
+            variant = {'outline'}
+            color = "purple.500"
+            isLoading = {loading}
           >
             View Lectures
           </Button>
 
           <Button
-            onClick={() => deleteButtonHandler(item._id)}
-            color={'purple.600'}
+            onClick = {() => deleteButtonHandler(item._id)}
+            color = {'purple.600'}
+            isLoading = {loading}
           >
             <RiDeleteBin7Fill />
           </Button>
