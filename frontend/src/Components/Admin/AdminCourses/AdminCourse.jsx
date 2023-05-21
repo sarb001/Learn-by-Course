@@ -121,7 +121,7 @@ const Row = ({item, coureDetailsHandler, deleteButtonHandler}) => (
     <Tr>
       <Td>#{item._id}</Td>
       <Td>
-        <Image src={item.poster.url} />
+        {/* <Image src={item.poster.url} /> */}
       </Td>
 
       <Td>{item.title}</Td>
