@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getallcourses, getCourseLectures } from '../../../Redux/actions/course';
 
 import  { toast } from 'react-hot-toast';
+import { deletecourse } from '../../../Redux/actions/admin';
 
 const AdminCourses = () => {
   
@@ -42,12 +43,12 @@ const AdminCourses = () => {
     onOpen();
   }
 
-   const deleteButtonHandler = () => {
-    
+   const deleteButtonHandler = (courseId) => {
+     disptach(deletecourse(courseId))
    }
 
    const deleteLectureButtonHandler = () => {
-     
+    
    }
 
     const addLectureHandler = () => {

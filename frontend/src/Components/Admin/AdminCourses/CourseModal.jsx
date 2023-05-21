@@ -77,7 +77,7 @@ const CourseModal = ({ isOpen, onClose , id,
 
         {lectures.map((item, i) => (
           <VideoCard
-            key={i}
+            key = {i}
             title={item.title}
             description={item.description}
             num={i + 1}

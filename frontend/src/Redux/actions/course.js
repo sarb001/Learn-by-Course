@@ -32,3 +32,4 @@ export const getCourseLectures = (id) => async(dispatch) => {
             payload : error.response.data.message });
     }
 }
+
