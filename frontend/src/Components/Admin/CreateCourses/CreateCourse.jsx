@@ -37,17 +37,6 @@ const CreateCourses = () => {
     'Game Development',
   ];
 
-  // const changeImageHandler = e => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
-
-  //   reader.readAsDataURL(file);
-
-  //   reader.onloadend = () => {
-  //     setImagePrev(reader.result);
-  //     setImage(file);
-  //   };
-  // };
 
   const submitHandler = e => {
     e.preventDefault();

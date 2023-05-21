@@ -19,6 +19,9 @@ import React , { useState } from 'react'
 import Sidebar from '../Sidebar';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import CourseModal from './CourseModal';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getallcourses } from '../../../Redux/actions/course';
 
 const AdminCourses = () => {
   
@@ -26,6 +29,8 @@ const AdminCourses = () => {
 
   const [courseId, setCourseId] = useState('');
   const [courseTitle, setCourseTitle] = useState('');
+
+   const disptach = useDispatch();
 
   const courses = [
     {
@@ -56,6 +61,11 @@ const AdminCourses = () => {
     const addLectureHandler = () => {
 
     }
+
+    useEffect(() => {
+        disptach(getallcourses())
+    },[disptach])
+
 
   return (
     <div> 
@@ -104,7 +114,6 @@ const AdminCourses = () => {
                   <CourseModal
                     isOpen =  {isOpen}
                     onClose = {onClose}  
-                    // id={courseId}
                     courseTitle={courseTitle}
                     deleteButtonHandler={deleteLectureButtonHandler}
                     addLectureHandler={addLectureHandler}
