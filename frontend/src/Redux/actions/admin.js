@@ -54,7 +54,7 @@ export const  addLecture   = (id,formdata) => async(dispatch) => {
             },
             withCredentials: true,
         };
-        
+
         dispatch({type:"addLectureRequest"});
         const { data } =  await axios.post(`${server}/course/${id}` ,
          formdata,
@@ -72,8 +72,7 @@ export const  addLecture   = (id,formdata) => async(dispatch) => {
 export const  deleteLecture = () => async(dispatch) => {
     try{
         dispatch({type:"deleteLectureRequest"});
-        const { data } =  await axios.delete(`${server}/lecture` ,
-         config );
+        const { data } =  await axios.delete(`${server}/lecture` );
 
         dispatch({type:"deleteLectureSuccess",payload : data.message })
 
