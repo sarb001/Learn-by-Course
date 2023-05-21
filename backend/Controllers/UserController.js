@@ -277,7 +277,7 @@ export const removefromplaylist = catchAsyncError(async(req,res,next) => {
 export const getallusers   = catchAsyncError (async(req,res,next) => {
     const users =  await  User.find();
     console.log(' Getall users --',users);
-
+  
     if(!users){
         return next(new ErrorHandler(" No User Available ",404))
     }
