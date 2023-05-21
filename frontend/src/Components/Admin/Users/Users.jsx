@@ -79,8 +79,7 @@ const Users = () => {
                     </Thead>
 
                     <Tbody>
-                      {users &&
-                        users.map(item => (
+                      {users &&  users.map(item => (
                           <Row 
                             updateHandler = {updateHandler}
                             deleteButtonHandler={deleteButtonHandler}

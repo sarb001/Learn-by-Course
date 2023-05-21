@@ -275,35 +275,35 @@ export const removefromplaylist = catchAsyncError(async(req,res,next) => {
 
 
 export const getallusers   = catchAsyncError (async(req,res,next) => {
-    const getusers =  await  User.find();
-    console.log(' Getall users --',getusers);
+    const users =  await  User.find();
+    console.log(' Getall users --',users);
 
-    if(!getusers){
+    if(!users){
         return next(new ErrorHandler(" No User Available ",404))
     }
 
     res.status(200).json({
         success: true,
         message : " All users available are --",
-        getusers
+        users
     })
 })
 
 
 export const updateUserRole  = catchAsyncError(async(req,res,next) => {
 
-    const updateuser =  await User.findById(req.params.id);
+    const user =  await User.findById(req.params.id);
 
-    if(!updateuser){
+    if(!user){
         return next(new ErrorHandler(" User Not Found ",200));
     }
 
-    if(updateuser.role === "user"){
-        updateuser.role = "admin"
+    if(user.role === "user"){
+        user.role = "admin"
     }else{
-        updateuser.role = "user";
+         user.role = "user";
     }
-    await updateuser.save();
+    await user.save();
 
     res.status(200).json({
          success: true,
@@ -315,13 +315,13 @@ export const updateUserRole  = catchAsyncError(async(req,res,next) => {
 export const DeleteUser     = catchAsyncError (async(req,res,next) => {
 
     const { id } = req.params;
-    const getuser = await User.findById(id);
+    const user = await User.findById(id);
 
-    if(!getuser){
+    if(!user){
         return next(new ErrorHandler(" User Not Present ",200));
     }
 
-    getuser.deleteOne();
+    user.deleteOne();
     res.status(200).json({
         success: true,
         message : " User Deleted By Admin "
