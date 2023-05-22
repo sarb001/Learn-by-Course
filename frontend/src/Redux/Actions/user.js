@@ -66,11 +66,12 @@ export const logout = () =>  async(dispatch) => {
         dispatch({ type: 'logoutUserRequest' });
         const { data } = await axios.get(`${server}/logout`,
          {
-            withCredentials : false,
+            withCredentials : true,
          }
         );
-        console.log('data get Profile-- ',{data});
+        console.log(' Logout Data -- ',{data});
         dispatch({ type: 'logoutUserSuccess' , payload : data.message });
+        window.location.reload(true);
     }catch(error){
         dispatch({ type: 'logoutUserFail' , payload : error.response.data.message});
     }
