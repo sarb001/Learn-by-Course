@@ -4,12 +4,15 @@ import  axios from 'axios';
 export const login = (email,password) => async(dispatch) => {
     try{
         dispatch({ type: "loginRequest" });
-        const {data} = await axios.post(`${server}/login` , {email,password} , {
+
+        const config = {
             headers : {
                 'Content-type' : "application/json",
-            },
+            },  
             withCredentials : true,
-        })
+        }
+
+        const {data} = await axios.post(`${server}/login` , {email,password} , config )
         console.log('login data --',data);
         dispatch({type: 'loginSuccess' , payload : data})
 

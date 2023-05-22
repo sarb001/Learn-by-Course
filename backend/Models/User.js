@@ -56,9 +56,8 @@ schema.pre("save" , async function(next){
 });
 
 schema.methods.getresetToken = async function(){
-
      const resetoken  =         crypto.randomBytes(32).toString("hex");
-     this.resetPasswordToken = crypto.createHash("sha256")
+     this.resetPasswordToken =  crypto.createHash("sha256")
     .update(resetoken)
     .digest("hex");
 
