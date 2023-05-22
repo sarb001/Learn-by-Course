@@ -84,7 +84,8 @@ const Users = () => {
                             updateHandler = {updateHandler}
                             deleteButtonHandler={deleteButtonHandler}
                             key={item._id}
-                            item={item}
+                            item={item} 
+                            loading = {loading}
                           />
                         ))}
                     </Tbody>
@@ -101,7 +102,7 @@ const Users = () => {
 export default Users
 
 
-const Row = ({item  , updateHandler , deleteButtonHandler }) => 
+const Row = ({item  , updateHandler , deleteButtonHandler  ,loading  }) => 
 {
    return (
     <Tr>
@@ -115,10 +116,14 @@ const Row = ({item  , updateHandler , deleteButtonHandler }) =>
 
      <Td isNumeric>
       <HStack justifyContent = {'flex-end'}>
-           <Button onClick = {() =>  updateHandler(item._id)}  variant={'outline'} color = 'purple.500'>
+           <Button onClick = {() =>  updateHandler(item._id)}  
+           variant={'outline'} color = 'purple.500' 
+           isLoading = {loading} >
               Change Role
            </Button>
-           <Button color = 'purple.600'>
+           <Button color = 'purple.600' 
+            onClick={() => deleteButtonHandler(item._id)} 
+            isLoading = {loading} >
               <RiDeleteBin7Fill />
            </Button>
       </HStack>
