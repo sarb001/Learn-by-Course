@@ -11,7 +11,8 @@ export const sendToken = (res,user,message,statusCode) => {
        })
 
     const options = {
-        expires : new Date(Date.now() + expirationTime),
+        // expires : new Date(Date.now() + expirationTime),
+        maxAge : 3600000,
         httpOnly :true,
         secure: true,
         sameSite: "none",
