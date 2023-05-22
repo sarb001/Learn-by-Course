@@ -52,8 +52,7 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 
 
 export const logout       =   catchAsyncError (async(req,res,next) => {
-
-    res.status(200).clearCookie("token" ,null, {
+    res.status(200).clearCookie("token" ,'', {
             expires : new Date(0).toUTCString(),
             httpOnly : true,
             secure : true,
