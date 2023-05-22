@@ -58,7 +58,7 @@ export const logout       =   catchAsyncError (async(req,res,next) => {
             httpOnly : true,
             secure : true,
             sameSite : "none",
-            maxAge : 0,
+            maxAge : -1,
         }).json({
             sucess : true,
             message : " Logged Out Perfectly "
