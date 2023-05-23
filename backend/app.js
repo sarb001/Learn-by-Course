@@ -5,10 +5,10 @@ import user from './Routes/UserRoutes.js';
 import course from './Routes/CourseRoutes.js';
 import payment from './Routes/paymentRoutes.js';
 
-import cookieparser from  'cookie-parser';
 import RazorPay from 'razorpay';
 import cors from 'cors';
 import ErrorMiddleware from './Middlewares/Error.js';
+import cookieParser from 'cookie-parser';
 const app = express();
 
 dotenv.config({
@@ -24,7 +24,7 @@ app.use(cors({
 connectdb();
 const PORT = process.env.PORT 
 
-app.use(cookieparser());
+app.use(cookieParser())
 app.use(express.json())
 
 export const instance = new RazorPay({

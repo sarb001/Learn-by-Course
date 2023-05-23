@@ -71,7 +71,7 @@ export const logout = () =>  async(dispatch) => {
         );
         console.log(' Logout Data -- ',{data});
         dispatch({ type: 'logoutUserSuccess' , payload : data.message });
-        window.location.reload(true);
+        // window.location.reload(true);    // reload Existing Page
     }catch(error){
         dispatch({ type: 'logoutUserFail' , payload : error.response.data.message});
     }
