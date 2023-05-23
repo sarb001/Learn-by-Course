@@ -25,7 +25,9 @@ connectdb();
 const PORT = process.env.PORT 
 
 app.use(cookieParser())
-app.use(express.json())
+app.use(express.json());
+app.use(express.urlencoded({extended: true,})
+  );
 
 export const instance = new RazorPay({
     key_id    : "rzp_test_NC0PR1FuzOxQdG",           // rzp
