@@ -7,8 +7,9 @@ import crypto from 'crypto';
 import {  validatePaymentVerification } from 'razorpay/dist/utils/razorpay-utils.js';
 
 export const buysubscription    = catchAsyncError(async(req,res,next) => {
-    const user = await User.findById(req.user._id);
 
+    const user = await User.findById(req.user._id);
+    
     if(user.role === "admin"){
     return next(new ErrorHandler("Admin can't buy Subscription",400));  
     }
