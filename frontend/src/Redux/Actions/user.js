@@ -71,7 +71,6 @@ export const logout = () =>  async(dispatch) => {
         );
         console.log(' Logout Data -- ',{data});
         dispatch({ type: 'logoutUserSuccess' , payload : data.message });
-        // window.location.reload(true);    // reload Existing Page
     }catch(error){
         dispatch({ type: 'logoutUserFail' , payload : error.response.data.message});
     }
@@ -83,10 +82,11 @@ export const  buySubscription = () =>  async(dispatch) => {
         console.log('sub Before Dispatch');
         dispatch({type:"buysubscriptionRequest"})
         
-        const {data}  = await axios.get(`${server}/subscribe` , {
-            withCredentials : true,
-        })
-
+        const config = { headers : {
+            'Content-Type' : "application/json" },
+        withCredentials : true,
+       }
+        const {data}  = await axios.get(`${server}/subscribe` , config)
         console.log('buy-sub-data --',{data});
 
         dispatch({type:"buysubscriptionSuccess" , payload : data.subscriptionId });
