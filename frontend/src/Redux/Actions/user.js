@@ -80,6 +80,7 @@ export const logout = () =>  async(dispatch) => {
 
 export const  buySubscription = () =>  async(dispatch) => {
     try{
+        console.log('sub Before Dispatch');
         dispatch({type:"buysubscriptionRequest"})
         
         const {data}  = await axios.get(`${server}/subscribe` , {
