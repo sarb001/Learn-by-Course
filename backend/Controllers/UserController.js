@@ -51,13 +51,17 @@ export const login    =   catchAsyncError (async(req,res,next) => {
 })
 
 
-export const logout       =   catchAsyncError (async(req,res,next) => {
-     await  res.status(200).clearCookie("token", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    })
-    .json({
+export const logout  =   catchAsyncError (async(req,res,next) => {
+
+     const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+     }
+
+    const datalogout =   await  res.status(200).clearCookie("token", options);
+    
+    datalogout.json({
       success: true,
       message: "Logged Out Successfully Bro",
     });
