@@ -38,7 +38,7 @@ export const  changePassword = (oldPassword,newPassword) => async(dispatch) =>
             },
             withCredentials : true,
         });
-        console.log('changepasss -',data);
+        // console.log('changepasss -',data);
         dispatch({ type: "changepasswordSuccess"  , payload : data.message });
         
     }catch(error){

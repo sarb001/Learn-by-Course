@@ -8,15 +8,11 @@ import ErrorHandler from "../Utils/errorhandler.js";
 export const  createcourse  =  catchAsyncError (async(req,res,next) => {
     const { title,description,category ,createdBy } = req.body;
 
-        if(!title ||!description || !category ||!createdBy){
-             return next(new ErrorHandler(" Please Fill All Fields  ",400));
-            }
+        if(!title ||!description || !category ||!createdBy)
+                return next(new ErrorHandler(" Please Fill All Fields  ",400));
 
         const user = await Course.create({
-            title,
-            description,
-            category,
-            createdBy
+            title,description,category,createdBy
         })
 
         res.status(201).json({
@@ -30,9 +26,7 @@ export const  deletecourse  =  catchAsyncError(async(req,res,next) => {
 
     const delcourse = await Course.findById(id);
 
-    if(!delcourse){
-        return res.json({message : " Course Not Found "})
-    }
+    if(!delcourse)return res.json({message : " Course Not Found "})
 
     await delcourse.deleteOne();
     res.status(200).json({
@@ -62,7 +56,6 @@ export const getallcourses =   catchAsyncError(async(req,res,next) => {
 })
 
 export const addlecture    =   catchAsyncError(async(req,res,next) => {
-    
     const { id } = req.params;
     const {title,description} = req.body;
 
@@ -88,16 +81,12 @@ export const deletelecture     =  catchAsyncError (async(req,res,next) => {
                 const { courseId , lectureId  } = req.query;
 
                 const findcourse = await Course.findById(courseId);
-                if(!findcourse){
-                    return next(new ErrorHandler(" Course Not Found " , 404));
-                }
+                if(!findcourse) return next(new ErrorHandler(" Course Not Found " , 404));
                 
                 const findspecificlecture = findcourse.lectures.find((item) => {
                     if(item._id.toString() === lectureId.toString())
                     return item;
-                });  
-                
-                console.log('find lecture -- ',findspecificlecture);                        // got the  lecture 
+                });       
                 
                 findcourse.lectures = findcourse.lectures.filter((item) => {          // here Removed it Permanently 
                     if(item._id.toString() !== lectureId.toString())
@@ -118,9 +107,7 @@ export const getcourselectures =  catchAsyncError(async(req,res,next) => {
         const { id }  = req.params;
         const findcourse = await Course.findById(id);
 
-        if(!findcourse){
-            return next( new ErrorHandler(" Course Not Found " , 404));
-            }
+        if(!findcourse) return next( new ErrorHandler(" Course Not Found " , 404));
 
         findcourse.views +=1;
         await findcourse.save();

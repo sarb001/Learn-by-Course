@@ -47,7 +47,7 @@ const Profile = ({user}) => {
     }
  
     const removeFromPlaylistHandler = async id => {
-         console.log('removed id is given here -- ',id);
+        //  console.log('removed id is given here -- ',id);
          await dispatch(removedfromplaylist(id))
          dispatch(loaduser());
     }

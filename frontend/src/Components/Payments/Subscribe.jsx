@@ -26,7 +26,7 @@ const Subscribe = ({user}) => {
       const { data : {key} } = await axios.get(`${server}/razorpaykey`);
 
       setkey(key);
-      console.log('key is -',key);
+      // console.log('key is -',key);
       dispatch(buySubscription());
   }
 
@@ -56,8 +56,6 @@ const Subscribe = ({user}) => {
             color: '#FFC800',
           },
         };
-         console.log('options are -',options);
-         console.log('options in sub id -',options.subscription_id);
          const razor = new window.Razorpay(options);
          razor.open();
       };
@@ -82,7 +80,7 @@ const Subscribe = ({user}) => {
 
           <Box p="4">
                 <VStack textAlign={'center'} px="8" mt={'4'} spacing="8">
-                  <Text children={`Join pro pack and get access to all content.`} />
+                  <Text children={`Join pro pack sw get access to all content.`} />
                   <Heading size="md" children={'₹299 Only'} />
                 </VStack> 
 

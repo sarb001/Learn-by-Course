@@ -10,10 +10,8 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 
     const user = await User.findById(req.user._id);
     
-    if(user.role === "admin"){
-    return next(new ErrorHandler("Admin can't buy Subscription",400));  
-    }
-
+    if(user.role === "admin") return next(new ErrorHandler("Admin can't buy Subscription",400));  
+    
     const plan_id =  "plan_LpZavJyyGA6ubu"; 
 
     const subscription = await instance.subscriptions.create({
@@ -100,10 +98,8 @@ export const cancelsubscription  = catchAsyncError(async(req,res,next) => {
   
     const refundTime = process.env.REFUND_DAYS * 24 * 60 * 60 * 1000;
   
-    if (refundTime > gap) {
-      await instance.payments.refund(payment.razorpay_payment_id);
+    if (refundTime > gap) await instance.payments.refund(payment.razorpay_payment_id);
       refund = true;
-    }
   
     await payment.remove();
     user.subscription.id = undefined;
@@ -119,8 +115,8 @@ export const cancelsubscription  = catchAsyncError(async(req,res,next) => {
 })
 
 export const getRazorpaykey      = catchAsyncError(async(req,res,next) => {
-    res.status(200).json({
-        success: true,
+     res.status(200).json({
+       success: true,
         key: "rzp_test_NC0PR1FuzOxQdG",
       });
 })

@@ -10,15 +10,13 @@ export const isAuthenticated   =  catchAsyncError(async( req,res,next) => {
     if(!token) return next(new ErrorHandler(" Not Logged In NNNo ",401));
 
     const decoded = jwt.verify(token,'ekekkkeke');
-    console.log('decoded data is --',decoded);
-
     req.user = await User.findById(decoded._id);
     next();
 })
 
 export const authorizeAdmin = async(req,res,next) => {
-    if(req.user.role !== "admin"){
+    if(req.user.role !== "admin")
         return res.json({message : ` ${req.user.role} is not allowed to Access this Resource `})
-    };
+    ;
     next();
 }

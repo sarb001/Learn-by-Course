@@ -85,7 +85,6 @@ const Courses = () => {
   ];
 
   const addToPlaylistHandler = (id) => {
-    console.log('playerer');
     dispatch(addToPlaylist(id))
   }
 

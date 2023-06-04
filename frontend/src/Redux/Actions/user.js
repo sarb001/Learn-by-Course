@@ -13,11 +13,11 @@ export const login = (email,password) => async(dispatch) => {
         }
 
         const {data} = await axios.post(`${server}/login` , {email,password} , config )
-        console.log('login data --',data);
+        // console.log('login data --',data);
         dispatch({type: 'loginSuccess' , payload : data})
 
     }catch(error){
-        console.log('Login Error is -',error);
+        // console.log('Login Error is -',error);
         dispatch({ type:"loginFail" , payload : error.response.data.message });
     }
 }
@@ -31,10 +31,10 @@ export const loaduser = () => async(dispatch) => {
             withCredentials : true,
         })
         
-        console.log(' Load data --',data);
+        // console.log(' Load data --',data);
         dispatch({type: 'loadUserSuccess' , payload : data.user })
     }catch(error){
-        console.log(' Load  Error is -',error);
+        // console.log(' Load  Error is -',error);
         dispatch({ type:"loadUserFail" , payload : error.response.data.message });
     }
 }
@@ -43,7 +43,7 @@ export const loaduser = () => async(dispatch) => {
 export const register = formdata => async dispatch => {
     try{
         dispatch({ type: "registerRequest" });
-        console.log('form data iss ---', formdata);
+        // console.log('form data iss ---', formdata);
 
         const config = { headers : {
                 'Content-Type' : "application/json" },
@@ -52,10 +52,10 @@ export const register = formdata => async dispatch => {
 
         const { data } = await axios.post(`${server}/register` , formdata , config);
 
-        console.log(' Register  data --',data);
+        // console.log(' Register  data --',data);
         dispatch({type: 'registerSuccess' , payload : data})
     }catch(error){
-        console.log(' Register Error is -',error);
+        // console.log(' Register Error is -',error);
         dispatch({ type:"registerFail" , payload : error.response.data.message });
     }
 }
@@ -69,7 +69,7 @@ export const logout = () =>  async(dispatch) => {
             withCredentials : true,
          }
         );
-        console.log(' Logout Data -- ',{data});
+        // console.log(' Logout Data -- ',{data});
         dispatch({ type: 'logoutUserSuccess' , payload : data.message });
     }catch(error){
         dispatch({ type: 'logoutUserFail' , payload : error.response.data.message});
@@ -79,7 +79,7 @@ export const logout = () =>  async(dispatch) => {
 
 export const  buySubscription = () =>  async(dispatch) => {
     try{
-        console.log('sub Before Dispatch');
+        // console.log('sub Before Dispatch');
         dispatch({type:"buysubscriptionRequest"})
         
         const config = { headers : {
@@ -87,7 +87,6 @@ export const  buySubscription = () =>  async(dispatch) => {
         withCredentials : true,
        }
         const {data}  = await axios.get(`${server}/subscribe` , config)
-        console.log('buy-sub-data --',{data});
 
         dispatch({type:"buysubscriptionSuccess" , payload : data.subscriptionId });
 
