@@ -22,6 +22,8 @@ import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../Redux/actions/user';
 
+import { useLocation } from 'react-router-dom';
+
 const LinkButton = ({url = "/" , title = 'Home' , onClose }) => (
       <Link onClick    = {onClose} to = {url}>
         <Button variant={'ghost'}> {title}  </Button>
@@ -32,11 +34,12 @@ const Header = ({user, isAuthenticated }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch();
+   const location = useLocation();
 
   const logoutHandler = () => {
       dispatch(logout());
       onClose();
-      location.reload(true);
+    window.location.reload(true);
   }
 
   return (

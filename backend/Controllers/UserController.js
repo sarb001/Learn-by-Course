@@ -96,8 +96,8 @@ export const updateprofile   = catchAsyncError(async(req,res,next) => {
 
         const user = await User.findById(req.user._id);
 
-        name ? user.name = name :  <> </> ;
-        email ? user.email = email :  <> </> ;
+        name ? user.name = name :   
+        email ? user.email = email :  
 
         await user.save();
          res.status(200).json({
