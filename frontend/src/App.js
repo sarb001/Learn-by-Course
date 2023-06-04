@@ -107,20 +107,19 @@ function App() {
                       </Route>
 
 
-     <Route exact path = "/forgetpassword"        
-          element = {  
-          <ProtectedRoute isAuthenticated = {!isAuthenticated}  redirect = "/profile" > 
-           <ForgetPassword  />   
-           </ProtectedRoute> }>  
-      </Route>
+                  <Route exact path = "/forgetpassword"        
+                        element = {  
+                        <ProtectedRoute isAuthenticated = {!isAuthenticated}  redirect = "/profile" > 
+                        <ForgetPassword  />   
+                        </ProtectedRoute> }>  
+                    </Route>
 
-     <Route exact path = "/resetpassword/:token"        
-          element = {  
-           <ProtectedRoute isAuthenticated = {!isAuthenticated}   redirect = "/profile">  
-             <ResetPassword />  
-           </ProtectedRoute> }>  
-      </Route>
-
+                  <Route exact path = "/resetpassword/:token"        
+                        element = {  
+                        <ProtectedRoute isAuthenticated = {!isAuthenticated}   redirect = "/profile">  
+                          <ResetPassword />  
+                        </ProtectedRoute> }>  
+                    </Route>
 
 
                       <Route exact path = "/subscribe"  element = {

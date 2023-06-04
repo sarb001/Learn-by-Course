@@ -31,8 +31,8 @@ app.use(express.urlencoded({extended: true,})
 app.use(cookieParser())
 
 export const instance = new RazorPay({
-    key_id    : "rzp_test_NC0PR1FuzOxQdG",           // rzp
-    key_secret: "qdkmGMLXwEb6tzKXxrlvN3SY",          // qd
+    key_id    : process.env.RAZORPAY_API_KEY,           
+    key_secret: process.env.RAZORPAY_API_SECRET,       
 })
 
 app.use('/api/v1',user);
@@ -42,11 +42,11 @@ app.use('/api/v1',payment);
 export default app;
 
 app.listen(PORT,() => {
-    console.log(` Server is Running ${PORT} Brooo.. `);
+    console.log(` Server is Running  on ${PORT}  `);
 })
 
 app.get('/' , (req,res)  => {
-     res.send(`<h2> Server is Working Brother   
+     res.send(`<h2> Server is Running  
      <a href = ${process.env.FRONTEND_URL}>  CLick herer  </a>
      </h2>`)
 })

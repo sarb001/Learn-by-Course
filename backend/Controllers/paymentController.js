@@ -12,7 +12,7 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
     
     if(user.role === "admin") return next(new ErrorHandler("Admin can't buy Subscription",400));  
     
-    const plan_id =  "plan_LpZavJyyGA6ubu"; 
+    const plan_id = process.env.PLAIN_ID;
 
     const subscription = await instance.subscriptions.create({
         plan_id,
@@ -22,8 +22,6 @@ export const buysubscription    = catchAsyncError(async(req,res,next) => {
 
     user.subscription.id     = subscription.id;
     user.subscription.status = subscription.status;
-
-    console.log('subs id or subsId -',user.subscription.id);
 
     await user.save();
 
@@ -42,7 +40,7 @@ export const paymentverification  = catchAsyncError(async(req,res,next) => {
     .update(subscription_id+"|"+razorpay_payment_id)
     .digest('hex');
     
-     const secret = "qdkmGMLXwEb6tzKXxrlvN3SY" ;
+     const secret = process.env.RAZORPAY_API_SECRET;
 
     // const isAuthentic = validatePaymentVerification({'payment_id' : razorpay_payment_id,
     // "subscription_id" : subscription_id },
@@ -117,7 +115,7 @@ export const cancelsubscription  = catchAsyncError(async(req,res,next) => {
 export const getRazorpaykey      = catchAsyncError(async(req,res,next) => {
      res.status(200).json({
        success: true,
-        key: "rzp_test_NC0PR1FuzOxQdG",
+        key:  process.env.RAZORPAY_API_KEY,
       });
 })
 
