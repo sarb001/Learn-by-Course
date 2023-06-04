@@ -39,7 +39,10 @@ const Header = ({user, isAuthenticated }) => {
   const logoutHandler = () => {
       dispatch(logout());
       onClose();
-    window.location.reload(true);
+      const tokenexist = localStorage.getItem("token");
+      if(tokenexist){
+        window.location.reload(true);
+      }
   }
 
   return (
